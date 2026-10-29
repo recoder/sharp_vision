@@ -1,0 +1,28 @@
+<Project>
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <LangVersion>latest</LangVersion>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>disable</ImplicitUsings>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <EnforceCodeStyleInBuild>true</EnforceCodeStyleInBuild>
+    <AnalysisLevel>latest-recommended</AnalysisLevel>
+    <Deterministic>true</Deterministic>
+
+    <Authors>ReCoder</Authors>
+    <Product>SharpVision</Product>
+    <Description>A C# port of Borland Turbo Vision, based on magiblot/tvision.</Description>
+    <RepositoryType>git</RepositoryType>
+  </PropertyGroup>
+
+  <!-- Upstream C++ reference this port tracks. Bump together with scripts/fetch-upstream.sh. -->
+  <PropertyGroup>
+    <UpstreamTVisionCommit>b5fc1e50dcc2da062d72f43eb3662894d25aaf30</UpstreamTVisionCommit>
+  </PropertyGroup>
+
+  <PropertyGroup Label="Test package versions">
+    <XunitVersion>2.9.2</XunitVersion>
+    <XunitRunnerVersion>2.8.2</XunitRunnerVersion>
+    <TestSdkVersion>17.11.1</TestSdkVersion>
+  </PropertyGroup>
+</Project>
