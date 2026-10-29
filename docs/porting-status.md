@@ -19,7 +19,7 @@ change that ports a type. Status values: `todo`, `wip`, `done` (ported with test
 | Views | `views.h` | `TFrame`, `TWindow` | todo | |
 | Views | `views.h` | `TScrollBar`, `TScroller`, `TListViewer` | todo | |
 | Platform | `hardware.h`, `source/platform/*` | headless screen/input | todo | Needed for view tests |
-| Platform | `source/platform/*` | Unix ANSI/termios backend | todo | |
+| Platform | `ansiwrit.cpp`, `termio.cpp`, `far2l.cpp` | Unix ANSI/termios backend | todo | No curses (see AGENTS.md) |
 | Platform | `source/platform/win32con.cpp` | Win32 console backend | todo | |
 | App | `app.h` | `TProgram`, `TApplication`, `TDesktop`, `TBackground` | todo | |
 | Menus | `menus.h` | `TMenuItem`, `TMenu`, `TMenuView`, `TMenuBar`, `TMenuBox`, `TMenuPopup` | todo | |

@@ -70,7 +70,7 @@ another look.
 | `objects.h`, `ttypes.h`, `util.h` | `SharpVision.Objects` | `TPoint`, `TRect`, helpers. Collections become `List<T>` |
 | `scrncell.h`, `colors.h`, `drawbuf.h`, `ttext.h`, `tspan.h` | `SharpVision.Drawing` | `TScreenCell`, `TColorAttr`, `TDrawBuffer`, `TText` (cell width), palettes |
 | `system.h`, `tkeys.h` | `SharpVision.Events` | `TEvent`, `TEventQueue`, `TMouse`, `TKey`, `kbXxx`/`evXxx` |
-| `hardware.h`, `source/platform/*` | `SharpVision.Platform` | Screen/input backends (ANSI+termios on Unix, Win32 console on Windows) |
+| `hardware.h`, `source/platform/*` | `SharpVision.Platform` | Screen/input backends (ANSI+termios on Unix, Win32 console on Windows; no curses, see below) |
 | `views.h` | `SharpVision.Views` | `TView`, `TGroup`, `TFrame`, `TScrollBar`, `TScroller`, `TListViewer`, `TWindow` |
 | `app.h` | `SharpVision.App` | `TProgram`, `TApplication`, `TDesktop`, `TBackground` |
 | `menus.h` | `SharpVision.Menus` | `TMenuBar`, `TMenuBox`, `TMenuPopup`, `TStatusLine` |
@@ -96,6 +96,28 @@ Do not create a `SharpVision.System` namespace, because it shadows `System`.
   application palette (`GetColor`/`MapColor`).
 - **Platform layer**: everything above `SharpVision.Platform` is platform-independent. Tests
   must be able to swap in a headless in-memory screen and a scripted event source.
+
+### Platform Layer (Terminal I/O)
+Decision: **no curses dependency.** Port upstream's curses-free path to managed code instead.
+- **Unix (Linux, macOS)**: output goes through an ANSI/VT writer ported from
+  `source/platform/ansiwrit.cpp`. Input uses raw mode set with `tcgetattr`/`tcsetattr`
+  (a handful of `[LibraryImport("libc")]` calls) plus an escape-sequence parser for keys,
+  mouse (SGR 1006) and the far2l/kitty extensions, ported from `termio.cpp` and `far2l.cpp`.
+  Terminal size comes from `ioctl(TIOCGWINSZ)`, with `SIGWINCH` handled through
+  `PosixSignalRegistration`.
+- **Windows**: call the Win32 console API directly via `[LibraryImport("kernel32")]`,
+  porting `source/platform/win32con.cpp` (`ReadConsoleInputW`, `WriteConsoleOutputW`, or VT
+  output where it is supported).
+- **Rejected: `dotnet-curses` (MV10/dotnet-curses) and other ncurses wrappers.** They bind
+  only the narrow-character API (no `add_wch`/`get_wch`), so they can't render Unicode cell
+  widths correctly. On Windows they need ncurses DLLs installed separately, and they add
+  third-party runtime dependencies. Do not reintroduce them.
+- If terminfo or ncurses features are ever needed (e.g. key definitions for unusual
+  terminals), write a small set of targeted `LibraryImport` bindings against `libncursesw`,
+  loaded optionally through `NativeLibrary.TryLoad`. Do not take on a wrapper package.
+- Use `LibraryImport` (source-generated) rather than `DllImport`. Keep every P/Invoke
+  declaration in `SharpVision.Platform.Interop` and do not call it from outside
+  `SharpVision.Platform`.
 
 ## Porting Rules
 
