@@ -18,6 +18,16 @@ dotnet build
 dotnet test
 ```
 
+## Running the example
+
+The `Hello` example needs a Unix terminal (Linux or macOS; Windows is not supported yet):
+
+```bash
+dotnet run --project examples/Hello
+```
+
+Press F10 or click the menu bar to open the menu, and Alt-X to quit.
+
 ## Contributing
 
 Read [AGENTS.md](AGENTS.md) for the porting rules, code conventions and workflow. It applies

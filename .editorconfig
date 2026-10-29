@@ -63,6 +63,10 @@ dotnet_diagnostic.CA2211.severity = none
 # so call sites and overrides keep upstream's shape (e.g. TGroup.DrawSubViews).
 dotnet_diagnostic.CA1822.severity = none
 
+# Upstream member names are kept even when they are keywords in other .NET languages
+# (e.g. TProgram.Resume is a Visual Basic keyword).
+dotnet_diagnostic.CA1716.severity = none
+
 [test/**.cs]
 # Test names use Should_X_When_Y.
 dotnet_diagnostic.CA1707.severity = none

@@ -22,16 +22,18 @@ change that ports a type. Status values: `todo`, `wip`, `done` (ported with test
 | Events | `system.h`, `tevent.cpp`, `tmouse.cpp` | `TEventQueue`, `TMouse`, `TEvent.GetMouseEvent`/`GetKeyEvent` | done | Static classes; `Initialize`/`Done` replace constructor/destructor |
 | Events | `system.h`, `ttimerqu.cpp` | `TTimerQueue` | done | |
 | Events | `views.h`, `tcmdset.cpp` | `TCommandSet` | done | |
-| Views | `views.h`, `tview.cpp`, `tvwrite.cpp`, `tvexposd.cpp`, `tvcursor.cpp`, `mapcolor.cpp`, `misc.cpp` | `TView` | wip | Not yet: `GetEvent(ev, timeoutMs)` and `TextEvent` (need `TProgram`), DOS `ushort` cell overloads of `WriteBuf`/`WriteLine` (skip) |
+| Views | `views.h`, `tview.cpp`, `tvwrite.cpp`, `tvexposd.cpp`, `tvcursor.cpp`, `mapcolor.cpp`, `misc.cpp` | `TView` | done | DOS `ushort` cell overloads of `WriteBuf`/`WriteLine` not ported |
 | Views | `views.h`, `tgroup.cpp`, `grp.cpp`, `tgrmv.cpp` | `TGroup` | done | |
 | Views | `views.h` | `TFrame`, `TWindow` | todo | |
 | Views | `views.h` | `TScrollBar`, `TScroller`, `TListViewer` | todo | |
 | Platform | `platform.h`, `platform.cpp`, `events.cpp`, `dispbuff.cpp`, `sigwinch.cpp` | `Platform`, `EventWaiter`, `WakeUpEventSource`, `SigwinchSource`, `DisplayBuffer`, `DisplayAdapter` (internal) | done | Suspend signals (SIGTSTP/SIGCONT) not handled: raw mode disables them |
 | Platform | `ansiwrit.cpp`, `termio.cpp`, `ncursinp.cpp`, `ncurdisp.cpp`, `unixcon.cpp`, `conctl.cpp` | `AnsiDisplay`, `TermIO`, `TerminalInput`, `UnixConsole`, `ConsoleCtl` (internal) | done | No curses: colors guessed from `TERM`/`COLORTERM`; far2l, win32-input-mode, OSC 52 clipboard and the Linux console/GPM backends not ported |
 | Platform | `source/platform/win32con.cpp` | Win32 console backend | todo | |
-| App | `app.h` | `TProgram`, `TApplication`, `TDesktop`, `TBackground` | todo | |
-| Menus | `menus.h` | `TMenuItem`, `TMenu`, `TMenuView`, `TMenuBar`, `TMenuBox`, `TMenuPopup` | todo | |
-| Menus | `menus.h` | `TStatusLine`, `TStatusDef`, `TStatusItem` | todo | |
+| App | `app.h`, `tprogram.cpp`, `tapplica.cpp`, `tdesktop.cpp`, `tbkgrnd.cpp` | `TProgram`, `TApplication`, `TDeskTop`, `TBackground`, `AppPalettes` | wip | `TProgInit`/`TDeskInit` become constructor delegates. Not yet: `ExecuteDialog`, `InsertWindow` (need `TDialog`/`TWindow`), history (`initHistory`) |
+| Menus | `menus.h`, `menu.cpp`, `tmnuview.cpp`, `tmenubar.cpp`, `tmenubox.cpp` | `TMenuItem`, `TSubMenu`, `TMenu`, `TMenuView`, `TMenuBar`, `TMenuBox` | done | |
+| Menus | `menus.h`, `tmenupop.cpp` | `TMenuPopup` | todo | |
+| Menus | `menus.h`, `tstatusl.cpp` | `TStatusLine`, `TStatusDef`, `TStatusItem` | done | |
+| Objects | `util.h`, `drivers2.cpp`, `tvtext2.cpp` | `Util` (`Cstrlen`, `HotKeyStr`, `GetAltChar`, `GetAltCode`, ...) | done | |
 | Dialogs | `dialogs.h` | `TDialog`, `TButton`, `TStaticText`, `TLabel`, `TParamText` | todo | |
 | Dialogs | `dialogs.h` | `TInputLine`, `THistory` | todo | |
 | Dialogs | `dialogs.h` | `TCluster`, `TCheckBoxes`, `TRadioButtons`, `TMultiCheckBoxes` | todo | |
@@ -45,5 +47,5 @@ change that ports a type. Status values: `todo`, `wip`, `done` (ported with test
 | Optional | `colorsel.h` | `TColorDialog` | todo | |
 | Optional | `help.h`, `helpbase.h` | `THelpWindow`, `THelpFile` | todo | |
 | Streams | `tobjstrm.h`, `resource.h` | `TStreamable`, `TResourceFile` | skip | Deferred until something needs it |
-| Examples | `examples/hello` | `examples/Hello` | todo | |
+| Examples | `hello.cpp` | `examples/Hello` | wip | Menu bar and status line work; the greeting dialog needs `TDialog`, `TButton`, `TStaticText` |
 | Examples | `examples/tvdemo`, `examples/tvedit` | | todo | |

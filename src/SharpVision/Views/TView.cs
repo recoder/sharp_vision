@@ -3,6 +3,7 @@
 
 using System;
 
+using SharpVision.App;
 using SharpVision.Drawing;
 using SharpVision.Events;
 using SharpVision.Objects;
@@ -517,6 +518,55 @@ public partial class TView : TObject
     /// <summary>Gets the next event, from the owner by default.</summary>
     public virtual void GetEvent(ref TEvent ev) => Owner?.GetEvent(ref ev);
 
+    /// <summary>Gets the next event, waiting at most <paramref name="timeoutMs"/> (see <c>TProgram.EventTimeoutMs</c>).</summary>
+    public void GetEvent(ref TEvent ev, int timeoutMs)
+    {
+        var saveTimeout = TProgram.EventTimeoutMs;
+        TProgram.EventTimeoutMs = timeoutMs;
+        GetEvent(ref ev);
+        TProgram.EventTimeoutMs = saveTimeout;
+    }
+
+    private static bool GetEventText(in TEvent ev, Span<char> dest, ref int length)
+    {
+        if (ev.What == evKeyDown)
+        {
+            ReadOnlySpan<char> text = !ev.KeyDown.GetText().IsEmpty ? ev.KeyDown.GetText()
+                : ev.KeyDown.KeyCode == kbEnter ? "\n"
+                : ev.KeyDown.KeyCode == kbTab ? "\t"
+                : [];
+            var dst = dest[length..];
+            if (!text.IsEmpty && text.Length <= dst.Length)
+            {
+                text.CopyTo(dst);
+                length += text.Length;
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /// <summary>
+    /// Fills <paramref name="dest"/> with the text of <paramref name="ev"/> (if it is a key
+    /// press) and of the key presses immediately following it, e.g. to process pasted text at
+    /// once. Returns whether any text was written; on return, <paramref name="ev"/> is
+    /// <c>evNothing</c>.
+    /// </summary>
+    public bool TextEvent(ref TEvent ev, Span<char> dest, out int length)
+    {
+        length = 0;
+        GetEventText(ev, dest, ref length);
+        do
+        {
+            GetEvent(ref ev, 0);
+        } while (GetEventText(ev, dest, ref length));
+
+        if (ev.What != evNothing)
+            PutEvent(ref ev);
+        ClearEvent(ref ev);
+        return length != 0;
+    }
+
     /// <summary>The view's bounds in its own coordinates.</summary>
     public TRect GetExtent() => new(0, 0, Size.X, Size.Y);
 
@@ -676,7 +726,7 @@ public partial class TView : TObject
     /// <summary>The previous subview of the owner (one step forward in z-order), or null if this is the first one.</summary>
     public TView? PrevView() => this == Owner!.First() ? null : Prev();
 
-    /// <summary>Puts <paramref name="ev"/> back so it is returned by the next <see cref="GetEvent"/>, through the owner by default.</summary>
+    /// <summary>Puts <paramref name="ev"/> back so it is returned by the next <see cref="GetEvent(ref TEvent)"/>, through the owner by default.</summary>
     public virtual void PutEvent(ref TEvent ev) => Owner?.PutEvent(ref ev);
 
     /// <summary>
