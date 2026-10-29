@@ -15,8 +15,9 @@ change that ports a type. Status values: `todo`, `wip`, `done` (ported with test
 | Platform | `source/platform/platfchr.cpp` | `CharOps` (internal) | done | Managed `wcwidth` approximation; Windows and Linux console width variants todo |
 | Platform | `system.h` | `TScreen` | wip | Only `ScreenWidth`/`ScreenHeight` so far |
 | Drawing | `views.h` (`TPalette`) | `TPalette` | todo | |
-| Events | `system.h`, `tkeys.h` | `TEvent`, `TKey`, `TEventQueue`, `TMouse` | todo | |
-| Events | `views.h` (`TCommandSet`) | `TCommandSet` | todo | |
+| Events | `system.h`, `tkeys.h`, `tkey.cpp` | `TEvent`, `MouseEventType`, `KeyDownEvent`, `CharScanType`, `MessageEvent`, `TKey`, `EventCodes`, `KeyCodes` | done | `TEvent` parts don't overlap; `MessageEvent.InfoPtr` is separate from the integers |
+| Events | `system.h`, `tevent.cpp` | `TEventQueue`, `TMouse`, `TEvent.GetMouseEvent`/`GetKeyEvent` | todo | Needs the platform layer |
+| Events | `views.h`, `tcmdset.cpp` | `TCommandSet` | done | |
 | Views | `views.h` | `TView` | todo | |
 | Views | `views.h`, `tvwrite.cpp`, `tvexposd.cpp` | `TGroup` | todo | |
 | Views | `views.h` | `TFrame`, `TWindow` | todo | |
