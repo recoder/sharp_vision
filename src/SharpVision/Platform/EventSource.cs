@@ -17,11 +17,14 @@ using static SharpVision.Views.Commands;
 
 namespace SharpVision.Platform;
 
-/// <summary>Something that produces events and has a descriptor that becomes readable when it does.</summary>
-internal abstract class EventSource(int handle)
+/// <summary>
+/// Something that produces events and has a descriptor that becomes readable (Unix) or a
+/// handle that becomes signaled (Windows) when it does.
+/// </summary>
+internal abstract class EventSource(nint handle)
 {
-    /// <summary>The descriptor to poll.</summary>
-    public int Handle { get; } = handle;
+    /// <summary>The descriptor or handle to wait on.</summary>
+    public nint Handle { get; } = handle;
 
     /// <summary>Whether events can be read without waiting on <see cref="Handle"/>.</summary>
     public virtual bool HasPendingEvents() => false;
@@ -31,26 +34,32 @@ internal abstract class EventSource(int handle)
 }
 
 /// <summary>
-/// An event source that is signaled from other threads (or signal handlers) through a pipe,
-/// optionally producing an event through a callback.
+/// An event source that is signaled from other threads (or signal handlers) through a pipe
+/// (a manual-reset event on Windows, as upstream's SysManualEvent), optionally producing an
+/// event through a callback.
 /// </summary>
 internal class WakeUpEventSource : EventSource, IDisposable
 {
-    private readonly AnonymousPipeServerStream _readEnd;
-    private readonly AnonymousPipeClientStream _writeEnd;
+    private readonly AnonymousPipeServerStream? _readEnd;
+    private readonly AnonymousPipeClientStream? _writeEnd;
+    private readonly EventWaitHandle? _event;
     private readonly Func<TEvent?>? _callback;
     private int _signaled;
 
     public WakeUpEventSource(Func<TEvent?>? callback)
-        : this(new AnonymousPipeServerStream(PipeDirection.In, System.IO.HandleInheritability.None), callback)
+        : this(OperatingSystem.IsWindows()
+            ? new EventWaitHandle(false, EventResetMode.ManualReset)
+            : new AnonymousPipeServerStream(PipeDirection.In, System.IO.HandleInheritability.None), callback)
     {
     }
 
-    private WakeUpEventSource(AnonymousPipeServerStream readEnd, Func<TEvent?>? callback)
-        : base((int)readEnd.SafePipeHandle.DangerousGetHandle())
+    private WakeUpEventSource(IDisposable handle, Func<TEvent?>? callback)
+        : base(handle is EventWaitHandle e ? e.SafeWaitHandle.DangerousGetHandle() : ((AnonymousPipeServerStream)handle).SafePipeHandle.DangerousGetHandle())
     {
-        _readEnd = readEnd;
-        _writeEnd = new AnonymousPipeClientStream(PipeDirection.Out, readEnd.ClientSafePipeHandle);
+        _event = handle as EventWaitHandle;
+        _readEnd = handle as AnonymousPipeServerStream;
+        if (_readEnd is not null)
+            _writeEnd = new AnonymousPipeClientStream(PipeDirection.Out, _readEnd.ClientSafePipeHandle);
         _callback = callback;
     }
 
@@ -59,7 +68,12 @@ internal class WakeUpEventSource : EventSource, IDisposable
     {
         if (Interlocked.Exchange(ref _signaled, 1) == 0)
         {
-            _writeEnd.WriteByte(1);
+            if (_event is not null)
+            {
+                _event.Set();
+                return;
+            }
+            _writeEnd!.WriteByte(1);
             _writeEnd.Flush();
         }
     }
@@ -68,8 +82,13 @@ internal class WakeUpEventSource : EventSource, IDisposable
     {
         if (Interlocked.Exchange(ref _signaled, 0) == 1)
         {
-            Span<byte> b = stackalloc byte[64];
-            LibC.read(Handle, ref MemoryMarshal.GetReference(b), (nuint)b.Length);
+            if (_event is not null)
+                _event.Reset();
+            else
+            {
+                Span<byte> b = stackalloc byte[64];
+                LibC.read((int)Handle, ref MemoryMarshal.GetReference(b), (nuint)b.Length);
+            }
             if (_callback?.Invoke() is { } e)
             {
                 ev = e;
@@ -81,8 +100,9 @@ internal class WakeUpEventSource : EventSource, IDisposable
 
     public void Dispose()
     {
-        _writeEnd.Dispose();
-        _readEnd.Dispose();
+        _event?.Dispose();
+        _writeEnd?.Dispose();
+        _readEnd?.Dispose();
     }
 }
 
@@ -116,7 +136,7 @@ internal sealed class SigwinchSource : WakeUpEventSource
     }
 }
 
-/// <summary>Waits on several event sources at once with <c>poll</c>.</summary>
+/// <summary>Waits on several event sources at once with <c>poll</c> (<c>WaitForMultipleObjects</c> on Windows).</summary>
 [SuppressMessage("Design", "CA1001", Justification = "Owned by the Platform singleton, which lives as long as the process, as upstream.")]
 internal sealed class EventWaiter
 {
@@ -151,13 +171,40 @@ internal sealed class EventWaiter
         if (hasEvents)
             return;
 
+        if (OperatingSystem.IsWindows())
+        {
+            PollHandlesWin32(timeoutMs);
+            return;
+        }
+
         Span<LibC.PollFd> fds = stackalloc LibC.PollFd[_sources.Count];
         for (var i = 0; i < _sources.Count; ++i)
-            fds[i] = new LibC.PollFd { Fd = _sources[i].Handle, Events = LibC.POLLIN };
+            fds[i] = new LibC.PollFd { Fd = (int)_sources[i].Handle, Events = LibC.POLLIN };
         if (LibC.poll(ref MemoryMarshal.GetReference(fds), (nuint)fds.Length, timeoutMs) > 0)
         {
             for (var i = 0; i < fds.Length; ++i)
                 _ready[i] = (fds[i].REvents & (LibC.POLLIN | LibC.POLLHUP | LibC.POLLERR)) != 0;
+        }
+    }
+
+    private void PollHandlesWin32(int ms)
+    {
+        var timeout = ms < 0 ? Kernel32.INFINITE : (uint)ms;
+        Span<nint> handles = stackalloc nint[_sources.Count];
+        for (var i = 0; i < handles.Length; ++i)
+            handles[i] = _sources[i].Handle;
+        // WaitForMultipleObjects reports only the first signaled handle; ask again, without
+        // waiting, about the ones after it.
+        var res = Kernel32.WaitForMultipleObjects((uint)handles.Length, ref MemoryMarshal.GetReference(handles), 0, timeout);
+        var j = 0;
+        while (res - Kernel32.WAIT_OBJECT_0 < (uint)(handles.Length - j))
+        {
+            j += (int)(res - Kernel32.WAIT_OBJECT_0);
+            _ready[j] = true;
+            if (++j < handles.Length)
+                res = Kernel32.WaitForMultipleObjects((uint)(handles.Length - j), ref handles[j], 0, 0);
+            else
+                break;
         }
     }
 

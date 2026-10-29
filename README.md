@@ -20,7 +20,7 @@ dotnet test
 
 ## Running the example
 
-The `Hello` example needs a Unix terminal (Linux or macOS; Windows is not supported yet):
+The `Hello` example runs in a terminal on Linux, macOS or Windows:
 
 ```bash
 dotnet run --project examples/Hello

@@ -11,40 +11,34 @@ namespace SharpVision.Platform;
 /// A Unix terminal set up for Turbo Vision: raw input, alternate screen, extended keyboard
 /// and mouse reporting. Disposing it restores the terminal.
 /// </summary>
-internal sealed class UnixConsole : IDisposable
+internal sealed class UnixConsole : ConsoleAdapter
 {
     private readonly ConsoleCtl _con;
     private readonly LibC.Termios _savedTermios;
     private readonly bool _hasSavedTermios;
     private bool _disposed;
 
-    private UnixConsole(ConsoleCtl con)
+    private UnixConsole(ConsoleCtl con, TerminalInput input, SigwinchSource sigwinch)
+        : base(new AnsiDisplay(con), [input, sigwinch])
     {
         _con = con;
-        State = new InputState();
-        Display = new AnsiDisplay(con);
-        Input = new TerminalInput(con, State);
-        Sigwinch = new SigwinchSource();
+        Sigwinch = sigwinch;
 
         // Capture all keyboard input, without echo or CR/LF translation (ncurses' raw,
         // noecho and nonl).
-        if (LibC.tcgetattr(con.In, out _savedTermios) == 0)
+        if (LibC.tcgetattr((int)con.In, out _savedTermios) == 0)
         {
             _hasSavedTermios = true;
             var raw = _savedTermios;
             LibC.cfmakeraw(ref raw);
-            LibC.tcsetattr(con.In, LibC.TCSANOW, raw);
+            LibC.tcsetattr((int)con.In, LibC.TCSANOW, raw);
         }
         con.Write("\x1B[?1049h"); // Switch to the alternate screen, like ncurses' smcup.
         TermIO.KeyModsOn(con);
         con.Write(TermIO.MouseOnSeq);
+        // Don't miss a resize that happened before the handler was installed.
+        sigwinch.Signal();
     }
-
-    public InputState State { get; }
-
-    public AnsiDisplay Display { get; }
-
-    public TerminalInput Input { get; }
 
     public SigwinchSource Sigwinch { get; }
 
@@ -52,15 +46,15 @@ internal sealed class UnixConsole : IDisposable
     public static UnixConsole? Create()
     {
         var con = new ConsoleCtl();
-        if (LibC.isatty(con.In) == 0)
+        if (LibC.isatty((int)con.In) == 0)
         {
             con.Dispose();
             return null;
         }
-        return new UnixConsole(con);
+        return new UnixConsole(con, new TerminalInput(con, new InputState()), new SigwinchSource());
     }
 
-    public void Dispose()
+    public override void Dispose()
     {
         if (_disposed)
             return;
@@ -73,7 +67,7 @@ internal sealed class UnixConsole : IDisposable
             "\x1B[?25h" +    // Show the cursor.
             "\x1B[?1049l");  // Leave the alternate screen, like ncurses' rmcup.
         if (_hasSavedTermios)
-            LibC.tcsetattr(_con.In, LibC.TCSANOW, _savedTermios);
+            LibC.tcsetattr((int)_con.In, LibC.TCSANOW, _savedTermios);
         Sigwinch.Dispose();
         _con.Dispose();
     }

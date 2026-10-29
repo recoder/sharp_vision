@@ -66,10 +66,10 @@ internal sealed class TerminalInput : EventSource, IInputGetter
             return _ungotten.Pop();
         if (_readPos < _readLen)
             return _readBuf[_readPos++];
-        var pfd = new LibC.PollFd { Fd = Handle, Events = LibC.POLLIN };
+        var pfd = new LibC.PollFd { Fd = (int)Handle, Events = LibC.POLLIN };
         if (LibC.poll(ref pfd, 1, timeoutMs) <= 0 || (pfd.REvents & LibC.POLLIN) == 0)
             return -1;
-        var n = LibC.read(Handle, ref MemoryMarshal.GetReference(_readBuf.AsSpan()), (nuint)_readBuf.Length);
+        var n = LibC.read((int)Handle, ref MemoryMarshal.GetReference(_readBuf.AsSpan()), (nuint)_readBuf.Length);
         if (n <= 0)
             return -1;
         _readPos = 0;

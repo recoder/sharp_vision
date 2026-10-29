@@ -28,7 +28,7 @@ change that ports a type. Status values: `todo`, `wip`, `done` (ported with test
 | Views | `views.h` | `TScrollBar`, `TScroller`, `TListViewer` | todo | |
 | Platform | `platform.h`, `platform.cpp`, `events.cpp`, `dispbuff.cpp`, `sigwinch.cpp` | `Platform`, `EventWaiter`, `WakeUpEventSource`, `SigwinchSource`, `DisplayBuffer`, `DisplayAdapter` (internal) | done | Suspend signals (SIGTSTP/SIGCONT) not handled: raw mode disables them |
 | Platform | `ansiwrit.cpp`, `termio.cpp`, `ncursinp.cpp`, `ncurdisp.cpp`, `unixcon.cpp`, `conctl.cpp` | `AnsiDisplay`, `TermIO`, `TerminalInput`, `UnixConsole`, `ConsoleCtl` (internal) | done | No curses: colors guessed from `TERM`/`COLORTERM`; far2l, win32-input-mode, OSC 52 clipboard and the Linux console/GPM backends not ported |
-| Platform | `source/platform/win32con.cpp` | Win32 console backend | todo | |
+| Platform | `win32con.cpp`, `conctl.cpp` (Windows), `events.cpp` (Windows), `hardwrvr.cpp` (key tables) | `Win32Console`, `Win32Input`, `Win32Display`, `ConsoleAdapter` (internal) | done | Not ported: `WinWidth` (console-measured character widths), bitmap font switching in the legacy console, clipboard. Untested on a real Windows console |
 | App | `app.h`, `tprogram.cpp`, `tapplica.cpp`, `tdesktop.cpp`, `tbkgrnd.cpp` | `TProgram`, `TApplication`, `TDeskTop`, `TBackground`, `AppPalettes` | wip | `TProgInit`/`TDeskInit` become constructor delegates. `ExecuteDialog` data is an `object?[]` of slots. Not yet: history (`initHistory`) |
 | Menus | `menus.h`, `menu.cpp`, `tmnuview.cpp`, `tmenubar.cpp`, `tmenubox.cpp` | `TMenuItem`, `TSubMenu`, `TMenu`, `TMenuView`, `TMenuBar`, `TMenuBox` | done | |
 | Menus | `menus.h`, `tmenupop.cpp` | `TMenuPopup` | todo | |
