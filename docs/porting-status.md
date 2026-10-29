@@ -8,7 +8,8 @@ change that ports a type. Status values: `todo`, `wip`, `done` (ported with test
 |---|---|---|---|---|
 | Objects | `objects.h` | `TPoint`, `TRect` | done | |
 | Objects | `objects.h` (`TCollection`, `TSortedCollection`) | `List<T>` / wrappers | todo | Port only when a consumer needs collection-specific semantics |
-| Drawing | `scrncell.h`, `colors.h` | `TScreenCell`, `TColorAttr`, `TColorDesired` | todo | |
+| Drawing | `colors.h`, `source/platform/colors.cpp` | `TColorRGB`, `TColorBIOS`, `TColorXTerm`, `TColorConversion`, `TColor`, `TColorAttr`, `TAttrPair`, `StyleFlags` | done | |
+| Drawing | `scrncell.h` | `TScreenCharacter`, `TScreenCell` | todo | |
 | Drawing | `drawbuf.h`, `source/tvision/drivers.cpp` | `TDrawBuffer` | todo | |
 | Drawing | `ttext.h`, `source/platform/ttext.cpp` | `TText` | todo | Unicode cell width |
 | Drawing | `views.h` (`TPalette`) | `TPalette` | todo | |

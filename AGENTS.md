@@ -146,6 +146,7 @@ Decision: **no curses dependency.** Port upstream's curses-free path to managed 
 | `camelCase` methods (`handleEvent`, `getPalette`) | `PascalCase` (`HandleEvent`, `GetPalette`) |
 | public data members (`origin`, `size`, `state`) | public members in `PascalCase`. Use **fields** when they are mutable structs mutated in place (`Origin.X += 1`), properties otherwise |
 | small value classes (`TPoint`, `TRect`, `TEvent`) | mutable `struct` with public fields, matching C++ copy semantics |
+| `getX()` / `setX()` accessor pairs | property `X` (e.g. `TColorAttr.Foreground`) |
 | `virtual` / overrides | `public virtual` / `override`. Do not seal types that upstream subclasses |
 | `cmXxx`, `evXxx`, `kbXxx`, `sfXxx`, `ofXxx`, `gfXxx`, `hcXxx` | `const ushort` with the **original names**, grouped in static classes (`Commands`, `EventCodes`, `KeyCodes`, `StateFlags`, ...). Use them via `using static` |
 | `Boolean`, `uchar`, `ushort`, `short` | `bool`, `byte`, `ushort`, `short`. Keep the width where it matters (bit masks, key codes) |
