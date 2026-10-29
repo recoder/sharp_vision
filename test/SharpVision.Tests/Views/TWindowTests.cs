@@ -11,7 +11,7 @@ using static SharpVision.Views.ViewFlags;
 
 namespace SharpVision.Tests.Views;
 
-public sealed class TWindowTests
+public sealed class TWindowTests : CommandStateTest
 {
     // Maps every window palette entry straight to a BIOS attribute, so GetColor works
     // without an application palette.
