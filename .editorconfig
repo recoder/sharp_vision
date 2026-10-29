@@ -55,6 +55,14 @@ dotnet_diagnostic.CA1051.severity = none
 # Upstream member names are kept even when they end in 'Ex' (TText.DrawStrEx, ...).
 dotnet_diagnostic.CA1711.severity = none
 
+# Upstream's static data members (TView.CurCommandSet, TView.ShadowSize, ...) stay public
+# static fields: several are structs mutated in place, which properties would break.
+dotnet_diagnostic.CA2211.severity = none
+
+# Upstream member functions stay instance members even when they use no instance data,
+# so call sites and overrides keep upstream's shape (e.g. TGroup.DrawSubViews).
+dotnet_diagnostic.CA1822.severity = none
+
 [test/**.cs]
 # Test names use Should_X_When_Y.
 dotnet_diagnostic.CA1707.severity = none

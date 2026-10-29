@@ -86,6 +86,9 @@ public struct TColorAttr : IEquatable<TColorAttr>
     /// <summary>Converts a BIOS attribute byte.</summary>
     public static implicit operator TColorAttr(int bios) => new(bios);
 
+    /// <summary>Takes the low attribute of a pair.</summary>
+    public static implicit operator TColorAttr(TAttrPair attrs) => attrs[0];
+
     /// <summary>
     /// Returns the BIOS attribute byte if both colors are BIOS and there is no style;
     /// otherwise 0x5F.

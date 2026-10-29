@@ -13,15 +13,16 @@ change that ports a type. Status values: `todo`, `wip`, `done` (ported with test
 | Drawing | `drawbuf.h`, `source/tvision/drivers.cpp` | `TDrawBuffer` | done | |
 | Drawing | `ttext.h`, `source/platform/ttext.cpp`, `codepage.cpp` | `TText`, `TTextMetrics`, `CpTranslator` | done | UTF-16 instead of UTF-8; UTF-32 overloads not ported |
 | Platform | `source/platform/platfchr.cpp` | `CharOps` (internal) | done | Managed `wcwidth` approximation; Windows and Linux console width variants todo |
-| Platform | `system.h` | `TScreen` | wip | Only `ScreenWidth`/`ScreenHeight` so far |
+| Platform | `system.h` | `TScreen` | wip | Only `ScreenWidth`, `ScreenHeight`, `ScreenBuffer`, `CursorLines` so far |
+| Platform | `hardware.h`, `hardware.cpp` | `THardwareInfo`, `IDisplayOutput` (internal) | wip | Only caret and `ScreenWrite`, forwarding to a pluggable backend |
 | Views | `views.h`, `palette.cpp` | `TPalette` | done | Built from bytes or `TColorAttr`s |
 | Views | `views.h` | `Commands`, `ViewFlags` | done | |
 | Objects | `tvobjs.h`, `tobject.cpp` | `TObject` | done | `Destroy` only calls `ShutDown` |
 | Events | `system.h`, `tkeys.h`, `tkey.cpp` | `TEvent`, `MouseEventType`, `KeyDownEvent`, `CharScanType`, `MessageEvent`, `TKey`, `EventCodes`, `KeyCodes` | done | `TEvent` parts don't overlap; `MessageEvent.InfoPtr` is separate from the integers |
 | Events | `system.h`, `tevent.cpp` | `TEventQueue`, `TMouse`, `TEvent.GetMouseEvent`/`GetKeyEvent` | todo | Needs the platform layer |
 | Events | `views.h`, `tcmdset.cpp` | `TCommandSet` | done | |
-| Views | `views.h` | `TView` | todo | |
-| Views | `views.h`, `tvwrite.cpp`, `tvexposd.cpp` | `TGroup` | todo | |
+| Views | `views.h`, `tview.cpp`, `tvwrite.cpp`, `tvexposd.cpp`, `tvcursor.cpp`, `mapcolor.cpp`, `misc.cpp` | `TView` | wip | Not yet: `GetEvent(ev, timeoutMs)` and `TextEvent` (need `TProgram`), DOS `ushort` cell overloads of `WriteBuf`/`WriteLine` (skip) |
+| Views | `views.h`, `tgroup.cpp`, `grp.cpp`, `tgrmv.cpp` | `TGroup` | done | |
 | Views | `views.h` | `TFrame`, `TWindow` | todo | |
 | Views | `views.h` | `TScrollBar`, `TScroller`, `TListViewer` | todo | |
 | Platform | `hardware.h`, `source/platform/*` | headless screen/input | todo | Needed for view tests |

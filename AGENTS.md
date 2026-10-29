@@ -159,6 +159,11 @@ Decision: **no curses dependency.** Port upstream's curses-free path to managed 
 | `new` / `delete` / `destroy()` / `shutDown()` | GC. Keep `ShutDown()` as a virtual teardown hook and port `TObject.Destroy(obj)` as a static helper that calls it |
 | `messageBox(...)`, `message(...)` free functions | static methods on a static class (`MsgBox.MessageBox`, `TView.Message`) |
 | out-parameters by reference (`TRect&`) | `ref`/`out` parameters, or return the value when upstream only fills it |
+| `TEvent&` parameters | `ref TEvent` (`in TEvent` when only read, e.g. `ContainsMouse`) |
+| `getData(void*)` / `setData(void*)` / `dataSize()` raw records | `GetData(Span<object?>)` / `SetData(ReadOnlySpan<object?>)` / `DataSize()` counting **slots**: each data-bearing view uses `DataSize()` consecutive slots (usually 1) holding a boxed value (`string`, `ushort`, ...) |
+| `forEach(func, void* args)` / `firstThat(func, void* args)` | `ForEach(Action<TView>)` / `FirstThat(Func<TView, bool>)` with closures |
+| `TTimerId` (`void*`) | `object?` |
+| `message(receiver, what, command, infoPtr)` | `TView.Message(...)` |
 | `#define Uses_TFoo` | Not needed. Use ordinary `using` directives |
 
 ## Code Style and Conventions
