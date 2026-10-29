@@ -14,7 +14,9 @@ change that ports a type. Status values: `todo`, `wip`, `done` (ported with test
 | Drawing | `ttext.h`, `source/platform/ttext.cpp`, `codepage.cpp` | `TText`, `TTextMetrics`, `CpTranslator` | done | UTF-16 instead of UTF-8; UTF-32 overloads not ported |
 | Platform | `source/platform/platfchr.cpp` | `CharOps` (internal) | done | Managed `wcwidth` approximation; Windows and Linux console width variants todo |
 | Platform | `system.h` | `TScreen` | wip | Only `ScreenWidth`/`ScreenHeight` so far |
-| Drawing | `views.h` (`TPalette`) | `TPalette` | todo | |
+| Views | `views.h`, `palette.cpp` | `TPalette` | done | Built from bytes or `TColorAttr`s |
+| Views | `views.h` | `Commands`, `ViewFlags` | done | |
+| Objects | `tvobjs.h`, `tobject.cpp` | `TObject` | done | `Destroy` only calls `ShutDown` |
 | Events | `system.h`, `tkeys.h`, `tkey.cpp` | `TEvent`, `MouseEventType`, `KeyDownEvent`, `CharScanType`, `MessageEvent`, `TKey`, `EventCodes`, `KeyCodes` | done | `TEvent` parts don't overlap; `MessageEvent.InfoPtr` is separate from the integers |
 | Events | `system.h`, `tevent.cpp` | `TEventQueue`, `TMouse`, `TEvent.GetMouseEvent`/`GetKeyEvent` | todo | Needs the platform layer |
 | Events | `views.h`, `tcmdset.cpp` | `TCommandSet` | done | |

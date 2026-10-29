@@ -148,7 +148,8 @@ Decision: **no curses dependency.** Port upstream's curses-free path to managed 
 | small value classes (`TPoint`, `TRect`, `TEvent`) | mutable `struct` with public fields, matching C++ copy semantics |
 | `getX()` / `setX()` accessor pairs | property `X` (e.g. `TColorAttr.Foreground`) |
 | `virtual` / overrides | `public virtual` / `override`. Do not seal types that upstream subclasses |
-| `cmXxx`, `evXxx`, `kbXxx`, `sfXxx`, `ofXxx`, `gfXxx`, `hcXxx` | `const ushort` with the **original names**, grouped in static classes (`Commands`, `EventCodes`, `KeyCodes`, `StateFlags`, ...). Use them via `using static` |
+| `cmXxx`, `evXxx`, `kbXxx`, `sfXxx`, `ofXxx`, `gfXxx`, `hcXxx` | `const` with the **original names**, grouped in one static class per upstream header section: `Commands` and `ViewFlags` (views.h), `EventCodes` and `KeyCodes` (system.h, tkeys.h), `StyleFlags` (colors.h). Use them via `using static` |
+| palette strings (`cpFrame "\x01\x01\x02..."`) | byte collection expressions (`[0x01, 0x01, 0x02, ...]`) passed to `TPalette`. C#'s `\x` escape takes up to 4 hex digits, so never copy palette strings |
 | `Boolean`, `uchar`, `ushort`, `short` | `bool`, `byte`, `ushort`, `short`. Keep the width where it matters (bit masks, key codes) |
 | `char*`, `TStringView` | `string` / `ReadOnlySpan<char>`. Indexes and lengths are UTF-16 code units, and a character is a `Rune`. Measure display width in **columns** with `TText.Width`, never with `.Length` |
 | CP437 byte literals (`'\xB3'`, `"\xC4\xC4"`, `'\x10'`) | the Unicode glyph (`'│'`, `"──"`, `'►'`). `TText.FromCodePage` gives the mapping. Never use `'\xNN'` for N ≥ 0x80: in C# that is Latin-1, not CP437 |
