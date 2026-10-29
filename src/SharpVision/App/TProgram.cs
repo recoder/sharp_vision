@@ -284,6 +284,24 @@ public class TProgram : TGroup
     /// <summary>Starts a timer (see <see cref="TView.SetTimer"/>).</summary>
     public override object? SetTimer(uint timeoutMs, int periodMs = -1) => TimerQueue.SetTimer(timeoutMs, periodMs);
 
+    /// <summary>
+    /// Inserts <paramref name="pWin"/> into the desktop if it is valid and the focus can move;
+    /// otherwise destroys it and returns null.
+    /// </summary>
+    public TWindow? InsertWindow(TWindow? pWin)
+    {
+        if (ValidView(pWin) is not null)
+        {
+            if (CanMoveFocus())
+            {
+                DeskTop!.Insert(pWin);
+                return pWin;
+            }
+            Destroy(pWin);
+        }
+        return null;
+    }
+
     /// <summary>Returns <paramref name="p"/> if it is valid, otherwise destroys it and returns null.</summary>
     public TView? ValidView(TView? p)
     {
