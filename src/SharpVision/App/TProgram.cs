@@ -3,6 +3,7 @@
 
 using System;
 
+using SharpVision.Dialogs;
 using SharpVision.Events;
 using SharpVision.Menus;
 using SharpVision.Objects;
@@ -283,6 +284,27 @@ public class TProgram : TGroup
 
     /// <summary>Starts a timer (see <see cref="TView.SetTimer"/>).</summary>
     public override object? SetTimer(uint timeoutMs, int periodMs = -1) => TimerQueue.SetTimer(timeoutMs, periodMs);
+
+    /// <summary>
+    /// Runs <paramref name="pD"/> modally on the desktop and destroys it. If <paramref name="data"/>
+    /// is given, it fills the dialog first and receives its data unless the dialog was cancelled.
+    /// </summary>
+    public ushort ExecuteDialog(TDialog? pD, object?[]? data = null)
+    {
+        var c = cmCancel;
+
+        if (ValidView(pD) is not null)
+        {
+            if (data is not null)
+                pD!.SetData(data);
+            c = DeskTop!.ExecView(pD);
+            if (c != cmCancel && data is not null)
+                pD!.GetData(data);
+            Destroy(pD);
+        }
+
+        return c;
+    }
 
     /// <summary>
     /// Inserts <paramref name="pWin"/> into the desktop if it is valid and the focus can move;

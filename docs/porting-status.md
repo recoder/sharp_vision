@@ -29,12 +29,13 @@ change that ports a type. Status values: `todo`, `wip`, `done` (ported with test
 | Platform | `platform.h`, `platform.cpp`, `events.cpp`, `dispbuff.cpp`, `sigwinch.cpp` | `Platform`, `EventWaiter`, `WakeUpEventSource`, `SigwinchSource`, `DisplayBuffer`, `DisplayAdapter` (internal) | done | Suspend signals (SIGTSTP/SIGCONT) not handled: raw mode disables them |
 | Platform | `ansiwrit.cpp`, `termio.cpp`, `ncursinp.cpp`, `ncurdisp.cpp`, `unixcon.cpp`, `conctl.cpp` | `AnsiDisplay`, `TermIO`, `TerminalInput`, `UnixConsole`, `ConsoleCtl` (internal) | done | No curses: colors guessed from `TERM`/`COLORTERM`; far2l, win32-input-mode, OSC 52 clipboard and the Linux console/GPM backends not ported |
 | Platform | `source/platform/win32con.cpp` | Win32 console backend | todo | |
-| App | `app.h`, `tprogram.cpp`, `tapplica.cpp`, `tdesktop.cpp`, `tbkgrnd.cpp` | `TProgram`, `TApplication`, `TDeskTop`, `TBackground`, `AppPalettes` | wip | `TProgInit`/`TDeskInit` become constructor delegates. Not yet: `ExecuteDialog` (needs `TDialog`), history (`initHistory`) |
+| App | `app.h`, `tprogram.cpp`, `tapplica.cpp`, `tdesktop.cpp`, `tbkgrnd.cpp` | `TProgram`, `TApplication`, `TDeskTop`, `TBackground`, `AppPalettes` | wip | `TProgInit`/`TDeskInit` become constructor delegates. `ExecuteDialog` data is an `object?[]` of slots. Not yet: history (`initHistory`) |
 | Menus | `menus.h`, `menu.cpp`, `tmnuview.cpp`, `tmenubar.cpp`, `tmenubox.cpp` | `TMenuItem`, `TSubMenu`, `TMenu`, `TMenuView`, `TMenuBar`, `TMenuBox` | done | |
 | Menus | `menus.h`, `tmenupop.cpp` | `TMenuPopup` | todo | |
 | Menus | `menus.h`, `tstatusl.cpp` | `TStatusLine`, `TStatusDef`, `TStatusItem` | done | |
 | Objects | `util.h`, `drivers2.cpp`, `tvtext2.cpp` | `Util` (`Cstrlen`, `HotKeyStr`, `GetAltChar`, `GetAltCode`, ...) | done | |
-| Dialogs | `dialogs.h` | `TDialog`, `TButton`, `TStaticText`, `TLabel`, `TParamText` | todo | |
+| Dialogs | `dialogs.h`, `tdialog.cpp`, `tbutton.cpp`, `tstatict.cpp` | `TDialog`, `TButton`, `TStaticText`, `DialogFlags` | done | `TStaticText.GetText` returns a string |
+| Dialogs | `dialogs.h` | `TLabel`, `TParamText` | todo | |
 | Dialogs | `dialogs.h` | `TInputLine`, `THistory` | todo | |
 | Dialogs | `dialogs.h` | `TCluster`, `TCheckBoxes`, `TRadioButtons`, `TMultiCheckBoxes` | todo | |
 | Dialogs | `dialogs.h` | `TListBox`, `TSortedListBox` | todo | |
@@ -47,5 +48,5 @@ change that ports a type. Status values: `todo`, `wip`, `done` (ported with test
 | Optional | `colorsel.h` | `TColorDialog` | todo | |
 | Optional | `help.h`, `helpbase.h` | `THelpWindow`, `THelpFile` | todo | |
 | Streams | `tobjstrm.h`, `resource.h` | `TStreamable`, `TResourceFile` | skip | Deferred until something needs it |
-| Examples | `hello.cpp` | `examples/Hello` | wip | Menu bar and status line work; the greeting dialog needs `TDialog`, `TButton`, `TStaticText` |
+| Examples | `hello.cpp` | `examples/Hello` | done | |
 | Examples | `examples/tvdemo`, `examples/tvedit` | | todo | |

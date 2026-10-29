@@ -1,6 +1,7 @@
 // Ported from include/tvision/util.h, source/tvision/drivers2.cpp (cstrlen, strwidth),
 // source/tvision/tinputli.cpp (hotKey, hotKeyStr) and source/tvision/tvtext2.cpp
-// (getAltChar, getAltCode, getCtrlChar, getCtrlCode).
+// (getAltChar, getAltCode, getCtrlChar, getCtrlCode), include/tvision/ttypes.h and
+// source/tvision/tvtext1.cpp (specialChars).
 
 using System;
 
@@ -18,6 +19,12 @@ public static class Util
     private const string AltCodes2 = "1234567890-=";
     private const char AltSpaceChar = '≡'; // '\xF0' in CP437.
     private const string CtrlCodes = "\0ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+
+    /// <summary>
+    /// Selection markers drawn around the selected (0, 1), default (2, 3) and other (4, 5)
+    /// control when <c>TView.ShowMarkers</c> is set. CP437 175, 174, 26, 27.
+    /// </summary>
+    public const string SpecialChars = "»«→←  ";
 
     /// <summary>The display width of <paramref name="text"/>, ignoring <c>'~'</c> characters.</summary>
     public static int Cstrlen(ReadOnlySpan<char> text)
