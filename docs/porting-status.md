@@ -24,12 +24,12 @@ change that ports a type. Status values: `todo`, `wip`, `done` (ported with test
 | Events | `views.h`, `tcmdset.cpp` | `TCommandSet` | done | |
 | Views | `views.h`, `tview.cpp`, `tvwrite.cpp`, `tvexposd.cpp`, `tvcursor.cpp`, `mapcolor.cpp`, `misc.cpp` | `TView` | done | DOS `ushort` cell overloads of `WriteBuf`/`WriteLine` not ported |
 | Views | `views.h`, `tgroup.cpp`, `grp.cpp`, `tgrmv.cpp` | `TGroup` | done | |
-| Views | `views.h` | `TFrame`, `TWindow` | todo | |
+| Views | `views.h`, `tframe.cpp`, `framelin.cpp`, `twindow.cpp` | `TFrame`, `TWindow` | done | `TWindowInit` becomes a constructor delegate. `StandardScrollBar` waits for `TScrollBar` |
 | Views | `views.h` | `TScrollBar`, `TScroller`, `TListViewer` | todo | |
 | Platform | `platform.h`, `platform.cpp`, `events.cpp`, `dispbuff.cpp`, `sigwinch.cpp` | `Platform`, `EventWaiter`, `WakeUpEventSource`, `SigwinchSource`, `DisplayBuffer`, `DisplayAdapter` (internal) | done | Suspend signals (SIGTSTP/SIGCONT) not handled: raw mode disables them |
 | Platform | `ansiwrit.cpp`, `termio.cpp`, `ncursinp.cpp`, `ncurdisp.cpp`, `unixcon.cpp`, `conctl.cpp` | `AnsiDisplay`, `TermIO`, `TerminalInput`, `UnixConsole`, `ConsoleCtl` (internal) | done | No curses: colors guessed from `TERM`/`COLORTERM`; far2l, win32-input-mode, OSC 52 clipboard and the Linux console/GPM backends not ported |
 | Platform | `source/platform/win32con.cpp` | Win32 console backend | todo | |
-| App | `app.h`, `tprogram.cpp`, `tapplica.cpp`, `tdesktop.cpp`, `tbkgrnd.cpp` | `TProgram`, `TApplication`, `TDeskTop`, `TBackground`, `AppPalettes` | wip | `TProgInit`/`TDeskInit` become constructor delegates. Not yet: `ExecuteDialog`, `InsertWindow` (need `TDialog`/`TWindow`), history (`initHistory`) |
+| App | `app.h`, `tprogram.cpp`, `tapplica.cpp`, `tdesktop.cpp`, `tbkgrnd.cpp` | `TProgram`, `TApplication`, `TDeskTop`, `TBackground`, `AppPalettes` | wip | `TProgInit`/`TDeskInit` become constructor delegates. Not yet: `ExecuteDialog` (needs `TDialog`), history (`initHistory`) |
 | Menus | `menus.h`, `menu.cpp`, `tmnuview.cpp`, `tmenubar.cpp`, `tmenubox.cpp` | `TMenuItem`, `TSubMenu`, `TMenu`, `TMenuView`, `TMenuBar`, `TMenuBox` | done | |
 | Menus | `menus.h`, `tmenupop.cpp` | `TMenuPopup` | todo | |
 | Menus | `menus.h`, `tstatusl.cpp` | `TStatusLine`, `TStatusDef`, `TStatusItem` | done | |
