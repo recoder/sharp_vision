@@ -24,4 +24,10 @@ public struct TEvent
 
     /// <summary>Data of a message event.</summary>
     public MessageEvent Message;
+
+    /// <summary>Reads the next mouse event into this event.</summary>
+    public void GetMouseEvent() => TEventQueue.GetMouseEvent(ref this);
+
+    /// <summary>Reads the next key event into this event.</summary>
+    public void GetKeyEvent() => TEventQueue.GetKeyEvent(ref this);
 }
