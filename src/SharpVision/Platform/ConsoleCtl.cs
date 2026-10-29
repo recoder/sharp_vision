@@ -1,4 +1,5 @@
-// Ported from include/tvision/internal/conctl.h and source/platform/conctl.cpp (Unix part).
+// Ported from include/tvision/internal/conctl.h and source/platform/conctl.cpp (Unix part;
+// the Windows part is in ConsoleCtl.Win32.cs).
 
 using System;
 using System.IO;
@@ -11,15 +12,21 @@ using SharpVision.Platform.Interop;
 namespace SharpVision.Platform;
 
 /// <summary>
-/// The terminal's file descriptors: <c>/dev/tty</c> when available (so the application
-/// works with redirected stdin/stdout), otherwise stdin and stdout.
+/// The console's input and output handles. On Unix, file descriptors: <c>/dev/tty</c> when
+/// available (so the application works with redirected stdin/stdout), otherwise stdin and
+/// stdout. On Windows, see <c>ConsoleCtl.Win32.cs</c>.
 /// </summary>
-internal sealed class ConsoleCtl : IDisposable
+internal sealed partial class ConsoleCtl : IDisposable
 {
     private readonly SafeFileHandle? _tty;
 
     public ConsoleCtl()
     {
+        if (OperatingSystem.IsWindows())
+        {
+            (In, Out) = InitWin32();
+            return;
+        }
         if (string.IsNullOrEmpty(Environment.GetEnvironmentVariable("TVISION_USE_STDIO")))
         {
             try
@@ -34,7 +41,7 @@ internal sealed class ConsoleCtl : IDisposable
         }
         if (_tty is not null)
         {
-            In = Out = (int)_tty.DangerousGetHandle();
+            In = Out = _tty.DangerousGetHandle();
         }
         else
         {
@@ -43,18 +50,23 @@ internal sealed class ConsoleCtl : IDisposable
         }
     }
 
-    /// <summary>The descriptor to read input from.</summary>
-    public int In { get; }
+    /// <summary>The descriptor or handle to read input from.</summary>
+    public nint In { get; }
 
-    /// <summary>The descriptor to write output to.</summary>
-    public int Out { get; }
+    /// <summary>The descriptor or handle to write output to.</summary>
+    public nint Out { get; }
 
     /// <summary>Writes all of <paramref name="data"/>, retrying on partial writes.</summary>
     public void Write(ReadOnlySpan<byte> data)
     {
+        if (OperatingSystem.IsWindows())
+        {
+            WriteWin32(data);
+            return;
+        }
         while (!data.IsEmpty)
         {
-            var r = LibC.write(Out, ref MemoryMarshal.GetReference(data), (nuint)data.Length);
+            var r = LibC.write((int)Out, ref MemoryMarshal.GetReference(data), (nuint)data.Length);
             if (r < 0)
             {
                 if (Marshal.GetLastPInvokeError() == 4) // EINTR
@@ -77,12 +89,14 @@ internal sealed class ConsoleCtl : IDisposable
     /// <summary>The terminal size in columns and rows, limited by <c>COLUMNS</c>/<c>LINES</c> if set.</summary>
     public TPoint GetSize()
     {
+        if (OperatingSystem.IsWindows())
+            return GetSizeWin32();
         int cols = 0, rows = 0;
         if (OperatingSystem.IsLinux())
         {
             foreach (var fd in new[] { In, Out })
             {
-                if (LibC.ioctl(fd, LibC.TIOCGWINSZ_Linux, out var ws) != -1)
+                if (LibC.ioctl((int)fd, LibC.TIOCGWINSZ_Linux, out var ws) != -1)
                 {
                     cols = ws.Col;
                     rows = ws.Row;
@@ -108,7 +122,15 @@ internal sealed class ConsoleCtl : IDisposable
         return new TPoint(Math.Min(Math.Max(cols, 0), Math.Max(envCol, 0)), Math.Min(Math.Max(rows, 0), Math.Max(envRow, 0)));
     }
 
-    public void Dispose() => _tty?.Dispose();
+    /// <summary>The font size in pixels, or 0 if unknown (only known on Windows).</summary>
+    public TPoint GetFontSize() => OperatingSystem.IsWindows() ? GetFontSizeWin32() : default;
+
+    public void Dispose()
+    {
+        if (OperatingSystem.IsWindows())
+            DisposeWin32();
+        _tty?.Dispose();
+    }
 
     internal static int EnvInt(string name, int fallback) =>
         int.TryParse(Environment.GetEnvironmentVariable(name), out var v) ? v : fallback;

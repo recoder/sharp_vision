@@ -12,7 +12,6 @@ namespace SharpVision.Platform;
 /// The connection to the actual console: event sources, the display buffer and the
 /// terminal backend. A singleton created on first use.
 /// </summary>
-/// <remarks>TBD: only the Unix terminal backend exists; Windows is not supported yet.</remarks>
 internal sealed class Platform : IDisplayOutput
 {
     private static readonly Lazy<Platform> _instance = new(() => new Platform());
@@ -21,7 +20,7 @@ internal sealed class Platform : IDisplayOutput
     private readonly EventWaiter _waiter = new();
     private readonly DisplayBuffer _displayBuf = new(ConsoleCtl.EnvInt("TVISION_MAX_FPS", -1));
     private readonly DisplayAdapter _dummyDisplay = new();
-    private UnixConsole? _console;
+    private ConsoleAdapter? _console;
 
     private Platform()
     {
@@ -38,15 +37,13 @@ internal sealed class Platform : IDisplayOutput
     {
         lock (_lock)
         {
-            if (_console is null && !OperatingSystem.IsWindows())
+            if (_console is null)
             {
-                _console = UnixConsole.Create();
+                _console = OperatingSystem.IsWindows() ? Win32Console.Create() : UnixConsole.Create();
                 if (_console is not null)
                 {
-                    _waiter.AddSource(_console.Input);
-                    _waiter.AddSource(_console.Sigwinch);
-                    // Don't miss a resize that happened before the handler was installed.
-                    _console.Sigwinch.Signal();
+                    foreach (var source in _console.Sources)
+                        _waiter.AddSource(source);
                 }
             }
         }
@@ -59,8 +56,8 @@ internal sealed class Platform : IDisplayOutput
             if (_console is not null)
             {
                 _displayBuf.FlushScreen(_console.Display);
-                _waiter.RemoveSource(_console.Input);
-                _waiter.RemoveSource(_console.Sigwinch);
+                foreach (var source in _console.Sources)
+                    _waiter.RemoveSource(source);
                 _console.Dispose();
                 _console = null;
             }

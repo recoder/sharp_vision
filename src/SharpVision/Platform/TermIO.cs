@@ -19,6 +19,9 @@ internal sealed class InputState
     public byte Buttons;
     public bool BracketedPaste;
     public bool GotDsrResponse;
+
+    // A UTF-16 high surrogate waiting for its low half (Windows console input).
+    public char Surrogate;
 }
 
 /// <summary>A source of input bytes (-1 when none is available in time) that supports pushing bytes back.</summary>

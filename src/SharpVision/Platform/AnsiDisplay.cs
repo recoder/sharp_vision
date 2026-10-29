@@ -104,10 +104,12 @@ internal sealed class AnsiDisplay : DisplayAdapter
     private TPoint _caretPos = new(-1, -1);
     private TermAttr _lastAttr;
 
-    public AnsiDisplay(ConsoleCtl con)
+    /// <param name="con">The console to write to.</param>
+    /// <param name="colorCount">The number of colors, or null to guess it from the environment.</param>
+    public AnsiDisplay(ConsoleCtl con, int? colorCount = null)
     {
         _con = con;
-        _colorCount = TermCap.GuessColorCount();
+        _colorCount = colorCount ?? TermCap.GuessColorCount();
         _termcap = TermCap.Detect(_colorCount);
     }
 
