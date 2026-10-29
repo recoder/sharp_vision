@@ -52,6 +52,9 @@ dotnet_naming_symbols.private_consts.required_modifiers = const
 # so code like `r.A.X += 1` keeps working; properties of struct type cannot be mutated in place.
 dotnet_diagnostic.CA1051.severity = none
 
+# Upstream member names are kept even when they end in 'Ex' (TText.DrawStrEx, ...).
+dotnet_diagnostic.CA1711.severity = none
+
 [test/**.cs]
 # Test names use Should_X_When_Y.
 dotnet_diagnostic.CA1707.severity = none

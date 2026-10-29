@@ -9,9 +9,11 @@ change that ports a type. Status values: `todo`, `wip`, `done` (ported with test
 | Objects | `objects.h` | `TPoint`, `TRect` | done | |
 | Objects | `objects.h` (`TCollection`, `TSortedCollection`) | `List<T>` / wrappers | todo | Port only when a consumer needs collection-specific semantics |
 | Drawing | `colors.h`, `source/platform/colors.cpp` | `TColorRGB`, `TColorBIOS`, `TColorXTerm`, `TColorConversion`, `TColor`, `TColorAttr`, `TAttrPair`, `StyleFlags` | done | |
-| Drawing | `scrncell.h` | `TScreenCharacter`, `TScreenCell` | todo | |
-| Drawing | `drawbuf.h`, `source/tvision/drivers.cpp` | `TDrawBuffer` | todo | |
-| Drawing | `ttext.h`, `source/platform/ttext.cpp` | `TText` | todo | Unicode cell width |
+| Drawing | `scrncell.h` | `TScreenCharacter`, `TScreenCell` | done | Text is UTF-16, max 15 code units per cell |
+| Drawing | `drawbuf.h`, `source/tvision/drivers.cpp` | `TDrawBuffer` | done | |
+| Drawing | `ttext.h`, `source/platform/ttext.cpp`, `codepage.cpp` | `TText`, `TTextMetrics`, `CpTranslator` | done | UTF-16 instead of UTF-8; UTF-32 overloads not ported |
+| Platform | `source/platform/platfchr.cpp` | `CharOps` (internal) | done | Managed `wcwidth` approximation; Windows and Linux console width variants todo |
+| Platform | `system.h` | `TScreen` | wip | Only `ScreenWidth`/`ScreenHeight` so far |
 | Drawing | `views.h` (`TPalette`) | `TPalette` | todo | |
 | Events | `system.h`, `tkeys.h` | `TEvent`, `TKey`, `TEventQueue`, `TMouse` | todo | |
 | Events | `views.h` (`TCommandSet`) | `TCommandSet` | todo | |

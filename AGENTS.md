@@ -150,7 +150,10 @@ Decision: **no curses dependency.** Port upstream's curses-free path to managed 
 | `virtual` / overrides | `public virtual` / `override`. Do not seal types that upstream subclasses |
 | `cmXxx`, `evXxx`, `kbXxx`, `sfXxx`, `ofXxx`, `gfXxx`, `hcXxx` | `const ushort` with the **original names**, grouped in static classes (`Commands`, `EventCodes`, `KeyCodes`, `StateFlags`, ...). Use them via `using static` |
 | `Boolean`, `uchar`, `ushort`, `short` | `bool`, `byte`, `ushort`, `short`. Keep the width where it matters (bit masks, key codes) |
-| `char*`, `TStringView` | `string` / `ReadOnlySpan<char>`. Measure display width in **cells**, never with `.Length` |
+| `char*`, `TStringView` | `string` / `ReadOnlySpan<char>`. Indexes and lengths are UTF-16 code units, and a character is a `Rune`. Measure display width in **columns** with `TText.Width`, never with `.Length` |
+| CP437 byte literals (`'\xB3'`, `"\xC4\xC4"`, `'\x10'`) | the Unicode glyph (`'│'`, `"──"`, `'►'`). `TText.FromCodePage` gives the mapping. Never use `'\xNN'` for N ≥ 0x80: in C# that is Latin-1, not CP437 |
+| `TSpan<T>` | `Span<T>` / `ReadOnlySpan<T>` |
+| `ushort` position/count parameters | `int` parameters narrowed with `(ushort)` on entry, so out-of-range values behave as in C++ (see `TDrawBuffer`) |
 | `TNSCollection`, `TCollection`, `TSortedCollection` | `List<T>` or a thin wrapper when sorted, duplicate or search semantics matter |
 | `new` / `delete` / `destroy()` / `shutDown()` | GC. Keep `ShutDown()` as a virtual teardown hook and port `TObject.Destroy(obj)` as a static helper that calls it |
 | `messageBox(...)`, `message(...)` free functions | static methods on a static class (`MsgBox.MessageBox`, `TView.Message`) |
