@@ -60,13 +60,7 @@ internal sealed class MouseLabApp : TApplication
     {
         var n = ++_windowCount;
         var r = new TRect(2 + n % 10 * 3, 1 + n % 10, 42 + n % 10 * 3, 11 + n % 10);
-        var w = new TWindow(r, $"Window {n}", n);
-        var text = new TStaticText(new TRect(2, 1, 37, 8),
-            "Drag the title bar to move. Drag the bottom-right corner to resize. " +
-            "Click [■] to close, [↑] or double-click the title to zoom.");
-        text.GrowMode = gfGrowHiX | gfGrowHiY;
-        w.Insert(text);
-        InsertWindow(w);
+        InsertWindow(new LabWindow(r, n));
     }
 
     public static new TMenuBar? InitMenuBar(TRect r)
@@ -148,4 +142,40 @@ internal sealed class LabDialog : TDialog
             ClearEvent(ref ev);
         }
     }
+}
+
+internal sealed class LabWindow : TWindow
+{
+    private readonly TScrollBar _h;
+    private readonly TScrollBar _v;
+    private readonly TParamText _values;
+
+    public LabWindow(TRect r, int n)
+        : base(r, $"Window {n}", n)
+    {
+        var text = new TStaticText(new TRect(2, 1, 37, 6),
+            "Drag the title bar to move. Drag the bottom-right corner to resize. " +
+            "Click [■] to close, [↑] or double-click the title to zoom.");
+        text.GrowMode = gfGrowHiX | gfGrowHiY;
+        Insert(text);
+
+        _values = new TParamText(new TRect(2, 7, 37, 8));
+        _values.GrowMode = gfGrowLoY | gfGrowHiY | gfGrowHiX;
+        Insert(_values);
+
+        _h = StandardScrollBar(sbHorizontal | sbHandleKeyboard);
+        _h.SetParams(0, 0, 50, 10, 1);
+        _v = StandardScrollBar(sbVertical | sbHandleKeyboard);
+        _v.SetParams(0, 0, 20, 5, 1);
+        ShowValues();
+    }
+
+    public override void HandleEvent(ref TEvent ev)
+    {
+        base.HandleEvent(ref ev);
+        if (ev.What == evBroadcast && ev.Message.Command == cmScrollBarChanged)
+            ShowValues();
+    }
+
+    private void ShowValues() => _values.SetText($"Horizontal {_h.Value}/50, vertical {_v.Value}/20");
 }

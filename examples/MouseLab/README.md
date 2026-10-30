@@ -8,7 +8,10 @@ Not an upstream example: a manual checklist for mouse handling. Run it with
 - **Windows** (`Lab > Window`, open several):
   - drag the title bar to move; drag the bottom-right corner to resize;
   - click `[■]` to close; click `[↑]` or double-click the title bar to zoom and unzoom;
-  - click a window behind another to bring it to the front.
+  - click a window behind another to bring it to the front;
+  - scroll bars: click the arrows (hold to repeat), click the page area (the thumb jumps
+    there), drag the thumb, and use the wheel over each bar (the horizontal one needs a tilt wheel or sideways touchpad scroll;
+    Shift+wheel works only if the terminal reports it as horizontal). The values line updates.
 - **Dialog** (`Lab > Dialog`):
   - drag the title bar to move it;
   - click a label (`Name`, `Long text`) to focus its input line;
