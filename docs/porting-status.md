@@ -38,7 +38,8 @@ change that ports a type. Status values: `todo`, `wip`, `done` (ported with test
 | Dialogs | `dialogs.h`, `tlabel.cpp`, `tparamte.cpp` | `TLabel`, `TParamText` | done | `TParamText.SetText` takes a formatted string instead of `printf` arguments |
 | Dialogs | `dialogs.h` | `TInputLine` | done | Limits count UTF-16 code units, not UTF-8 bytes. Cut/copy/paste wait for `TClipboard` |
 | Dialogs | `dialogs.h` | `THistory` | todo | Needs `TListViewer` |
-| Dialogs | `dialogs.h` | `TCluster`, `TCheckBoxes`, `TRadioButtons`, `TMultiCheckBoxes` | todo | |
+| Dialogs | `dialogs.h` | `TSItem`, `TCluster`, `TCheckBoxes`, `TRadioButtons` | done | |
+| Dialogs | `dialogs.h` | `TMultiCheckBoxes` | todo | |
 | Dialogs | `dialogs.h` | `TListBox`, `TSortedListBox` | todo | |
 | Dialogs | `msgbox.h` | `MessageBox`, `InputBox` | todo | |
 | Validators | `validate.h` | `TValidator` | done | Base class only |
