@@ -4,6 +4,7 @@ using SharpVision.Objects;
 using SharpVision.Views;
 using Xunit;
 
+using static SharpVision.Dialogs.DialogFlags;
 using static SharpVision.Events.EventCodes;
 using static SharpVision.Events.KeyCodes;
 
@@ -116,5 +117,25 @@ public sealed class TClusterTests : CommandStateTest
         c.HandleEvent(ref down);
         Assert.Equal(0b010u, c.Val);
         Assert.Equal(1, c.Selected);
+    }
+
+    [Fact]
+    public void Should_CycleMultiCheckBoxStates_And_TransferBitFields()
+    {
+        var (screen, c) = Setup((r, s) => new TMultiCheckBoxes(r, s, 3, cfTwoBits, " +-"));
+
+        Key(c, ' ');
+        Assert.Equal(" [+] One", screen.Row(2)[2..10]);
+        Key(c, ' ');
+        Assert.Equal(" [-] One", screen.Row(2)[2..10]);
+        Key(c, ' ');
+        Assert.Equal(" [ ] One", screen.Row(2)[2..10]);
+
+        // Two bits per item: item 1 in state 2 is 0b10 << 2.
+        c.SetData(new object?[] { 0b1000u });
+        Assert.Equal(" [-] Two", screen.Row(3)[2..10]);
+        var rec = new object?[1];
+        c.GetData(rec);
+        Assert.Equal(0b1000u, rec[0]);
     }
 }

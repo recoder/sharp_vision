@@ -1,8 +1,12 @@
-// Ported from include/tvision/dialogs.h (button flags, cmRecordHistory, dialog palettes).
+// Ported from include/tvision/dialogs.h (button flags, cmRecordHistory, dialog palettes,
+// TMultiCheckBoxes flags).
 
 namespace SharpVision.Dialogs;
 
-/// <summary>Constants from <c>dialogs.h</c>: <see cref="TButton"/> flags and <see cref="TDialog"/> palettes.</summary>
+/// <summary>
+/// Constants from <c>dialogs.h</c>: <see cref="TButton"/> flags, <see cref="TDialog"/> palettes and
+/// <see cref="TMultiCheckBoxes"/> flags.
+/// </summary>
 public static class DialogFlags
 {
     // TButton flags
@@ -35,4 +39,18 @@ public static class DialogFlags
 
     /// <summary>Dialog palette.</summary>
     public const ushort dpGrayDialog = 2;
+
+    // TMultiCheckBoxes flags: the high byte is the bits per item, the low byte the item mask.
+
+    /// <summary>Multi-check-box flag: one bit per item.</summary>
+    public const ushort cfOneBit = 0x0101;
+
+    /// <summary>Multi-check-box flag: two bits per item.</summary>
+    public const ushort cfTwoBits = 0x0203;
+
+    /// <summary>Multi-check-box flag: four bits per item.</summary>
+    public const ushort cfFourBits = 0x040F;
+
+    /// <summary>Multi-check-box flag: eight bits per item.</summary>
+    public const ushort cfEightBits = 0x08FF;
 }
