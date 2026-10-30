@@ -36,11 +36,13 @@ change that ports a type. Status values: `todo`, `wip`, `done` (ported with test
 | Objects | `util.h`, `drivers2.cpp`, `tvtext2.cpp` | `Util` (`Cstrlen`, `HotKeyStr`, `GetAltChar`, `GetAltCode`, ...) | done | |
 | Dialogs | `dialogs.h`, `tdialog.cpp`, `tbutton.cpp`, `tstatict.cpp` | `TDialog`, `TButton`, `TStaticText`, `DialogFlags` | done | `TStaticText.GetText` returns a string |
 | Dialogs | `dialogs.h`, `tlabel.cpp`, `tparamte.cpp` | `TLabel`, `TParamText` | done | `TParamText.SetText` takes a formatted string instead of `printf` arguments |
-| Dialogs | `dialogs.h` | `TInputLine`, `THistory` | todo | |
+| Dialogs | `dialogs.h` | `TInputLine` | done | Limits count UTF-16 code units, not UTF-8 bytes. Cut/copy/paste wait for `TClipboard` |
+| Dialogs | `dialogs.h` | `THistory` | todo | Needs `TListViewer` |
 | Dialogs | `dialogs.h` | `TCluster`, `TCheckBoxes`, `TRadioButtons`, `TMultiCheckBoxes` | todo | |
 | Dialogs | `dialogs.h` | `TListBox`, `TSortedListBox` | todo | |
 | Dialogs | `msgbox.h` | `MessageBox`, `InputBox` | todo | |
-| Validators | `validate.h` | `TValidator`, `TPXPictureValidator`, `TFilterValidator`, `TRangeValidator`, `TLookupValidator`, `TStringLookupValidator` | todo | |
+| Validators | `validate.h` | `TValidator` | done | Base class only |
+| Validators | `validate.h` | `TPXPictureValidator`, `TFilterValidator`, `TRangeValidator`, `TLookupValidator`, `TStringLookupValidator` | todo | |
 | StdDlg | `stddlg.h` | `TFileDialog`, `TChDirDialog`, `TDirListBox` | todo | |
 | Editors | `editors.h` | `TEditor`, `TMemo`, `TFileEditor`, `TEditWindow`, `TIndicator` | todo | |
 | Editors | `textview.h` | `TTextDevice`, `TTerminal` | todo | |
