@@ -3,6 +3,7 @@
 
 using SharpVision.App;
 using SharpVision.Dialogs;
+using SharpVision.Drawing;
 using SharpVision.Events;
 using SharpVision.Menus;
 using SharpVision.Objects;
@@ -155,36 +156,47 @@ internal sealed class LabDialog : TDialog
 
 internal sealed class LabWindow : TWindow
 {
-    private readonly TScrollBar _h;
-    private readonly TScrollBar _v;
-    private readonly TParamText _values;
-
     public LabWindow(TRect r, int n)
         : base(r, $"Window {n}", n)
     {
-        var text = new TStaticText(new TRect(2, 1, 37, 6),
-            "Drag the title bar to move. Drag the bottom-right corner to resize. " +
-            "Click [■] to close, [↑] or double-click the title to zoom.");
-        text.GrowMode = gfGrowHiX | gfGrowHiY;
-        Insert(text);
-
-        _values = new TParamText(new TRect(2, 7, 37, 8));
-        _values.GrowMode = gfGrowLoY | gfGrowHiY | gfGrowHiX;
-        Insert(_values);
-
-        _h = StandardScrollBar(sbHorizontal | sbHandleKeyboard);
-        _h.SetParams(0, 0, 50, 10, 1);
-        _v = StandardScrollBar(sbVertical | sbHandleKeyboard);
-        _v.SetParams(0, 0, 20, 5, 1);
-        ShowValues();
+        var h = StandardScrollBar(sbHorizontal | sbHandleKeyboard);
+        var v = StandardScrollBar(sbVertical | sbHandleKeyboard);
+        var bounds = GetExtent();
+        bounds.Grow(-1, -1);
+        var grid = new LabGrid(bounds, h, v);
+        grid.GrowMode = gfGrowHiX | gfGrowHiY;
+        Insert(grid);
+        grid.SetLimit(LabGrid.Width, LabGrid.Height);
     }
+}
 
-    public override void HandleEvent(ref TEvent ev)
+// A TScroller whose contents are bigger than the window: help text, then a grid of coordinates.
+internal sealed class LabGrid(TRect bounds, TScrollBar h, TScrollBar v) : TScroller(bounds, h, v)
+{
+    public const int Width = 80;
+    public const int Height = 30;
+
+    private static readonly string[] _help =
+    [
+        "Drag the title bar to move, the bottom-right corner to resize.",
+        "Click [■] to close, [↑] or double-click the title to zoom.",
+        "Scroll with the bars, the wheel over them, or the arrow keys.",
+    ];
+
+    public override void Draw()
     {
-        base.HandleEvent(ref ev);
-        if (ev.What == evBroadcast && ev.Message.Command == cmScrollBarChanged)
-            ShowValues();
+        var b = new TDrawBuffer();
+        var color = GetColor(1);
+        for (var y = 0; y < Size.Y; y++)
+        {
+            var row = y + Delta.Y;
+            var line = row < _help.Length ? _help[row] : "";
+            if (row > _help.Length && row < Height)
+                for (var col = 0; col < Width; col += 10)
+                    line += $"({col},{row})".PadRight(10);
+            b.MoveChar(0, ' ', color, Size.X);
+            b.MoveStr(0, line, color, Size.X, Delta.X);
+            WriteLine(0, y, Size.X, 1, b);
+        }
     }
-
-    private void ShowValues() => _values.SetText($"Horizontal {_h.Value}/50, vertical {_v.Value}/20");
 }
