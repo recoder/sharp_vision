@@ -35,7 +35,7 @@ change that ports a type. Status values: `todo`, `wip`, `done` (ported with test
 | Menus | `menus.h`, `tstatusl.cpp` | `TStatusLine`, `TStatusDef`, `TStatusItem` | done | |
 | Objects | `util.h`, `drivers2.cpp`, `tvtext2.cpp` | `Util` (`Cstrlen`, `HotKeyStr`, `GetAltChar`, `GetAltCode`, ...) | done | |
 | Dialogs | `dialogs.h`, `tdialog.cpp`, `tbutton.cpp`, `tstatict.cpp` | `TDialog`, `TButton`, `TStaticText`, `DialogFlags` | done | `TStaticText.GetText` returns a string |
-| Dialogs | `dialogs.h` | `TLabel`, `TParamText` | todo | |
+| Dialogs | `dialogs.h`, `tlabel.cpp`, `tparamte.cpp` | `TLabel`, `TParamText` | done | `TParamText.SetText` takes a formatted string instead of `printf` arguments |
 | Dialogs | `dialogs.h` | `TInputLine`, `THistory` | todo | |
 | Dialogs | `dialogs.h` | `TCluster`, `TCheckBoxes`, `TRadioButtons`, `TMultiCheckBoxes` | todo | |
 | Dialogs | `dialogs.h` | `TListBox`, `TSortedListBox` | todo | |
