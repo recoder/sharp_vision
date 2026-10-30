@@ -12,7 +12,9 @@ Not an upstream example: a manual checklist for mouse handling. Run it with
   - scroll bars: click the arrows (hold to repeat), click the page area (the thumb jumps
     there), drag the thumb, and use the wheel over each bar (the horizontal one needs a tilt wheel or sideways touchpad scroll;
     Shift+wheel works only if the terminal reports it as horizontal). The text and the
-    `(column,row)` grid scroll with the bars; resizing the window changes the page size.
+    `(column,row)` grid scroll with the bars; resizing the window changes the page size;
+  - right-click inside a window: a context menu opens below the pointer (above it near the
+    bottom of the screen); click `Zoom`, `Next window` or `Close`, or click outside to dismiss it.
 - **Dialog** (`Lab > Dialog`):
   - drag the title bar to move it;
   - click a label (`Name`, `Long text`) to focus its input line;

@@ -19,36 +19,6 @@ namespace SharpVision.Tests.Dialogs;
 
 public sealed class MsgBoxTests : CommandStateTest, IDisposable
 {
-    /// <summary>A program on an in-memory 80x25 screen whose events come from <see cref="Events"/>.</summary>
-    private sealed class ScriptedProgram : TProgram
-    {
-        public ScriptedProgram()
-            : base(null, null, InitDeskTop)
-        {
-        }
-
-        public Queue<TEvent> Events { get; } = new();
-
-        public List<string> Snapshot { get; } = [];
-
-        public override void GetEvent(ref TEvent ev)
-        {
-            if (Snapshot.Count == 0)
-            {
-                for (var y = 0; y < Size.Y; y++)
-                    Snapshot.Add(string.Concat(Buffer!.Skip(y * Size.X).Take(Size.X).Select(c => c.Character.GetText())));
-            }
-            if (Pending.What != evNothing)
-            {
-                ev = Pending;
-                Pending.What = evNothing;
-                return;
-            }
-            // Cancel once the script runs out, so a broken test fails instead of hanging.
-            ev = Events.Count > 0 ? Events.Dequeue() : new TEvent { What = evCommand, Message = new MessageEvent { Command = cmCancel } };
-        }
-    }
-
     private readonly ushort _width = TScreen.ScreenWidth, _height = TScreen.ScreenHeight;
     private readonly TScreenCell[]? _buffer = TScreen.ScreenBuffer;
     private readonly ScriptedProgram _app;

@@ -187,7 +187,22 @@ internal sealed class LabGrid(TRect bounds, TScrollBar h, TScrollBar v) : TScrol
         "Drag the title bar to move, the bottom-right corner to resize.",
         "Click [■] to close, [↑] or double-click the title to zoom.",
         "Scroll with the bars, the wheel over them, or the arrow keys.",
+        "Right-click for a context menu (a TMenuPopup).",
     ];
+
+    public override void HandleEvent(ref TEvent ev)
+    {
+        base.HandleEvent(ref ev);
+        if (ev.What == evMouseDown && (ev.Mouse.Buttons & mbRightButton) != 0)
+        {
+            var items = new TMenuItem("~Z~oom", cmZoom, kbNoKey) +
+                new TMenuItem("~N~ext window", cmNext, kbNoKey) +
+                TMenuItem.NewLine() +
+                new TMenuItem("~C~lose", cmClose, kbNoKey);
+            TMenuPopup.PopupMenu(ev.Mouse.Where, items, Owner);
+            ClearEvent(ref ev);
+        }
+    }
 
     public override void Draw()
     {

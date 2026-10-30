@@ -33,7 +33,7 @@ change that ports a type. Status values: `todo`, `wip`, `done` (ported with test
 | Platform | `win32con.cpp`, `conctl.cpp` (Windows), `events.cpp` (Windows), `hardwrvr.cpp` (key tables) | `Win32Console`, `Win32Input`, `Win32Display`, `ConsoleAdapter` (internal) | done | Not ported: `WinWidth` (console-measured character widths), bitmap font switching in the legacy console, clipboard. Untested on a real Windows console |
 | App | `app.h`, `tprogram.cpp`, `tapplica.cpp`, `tdesktop.cpp`, `tbkgrnd.cpp` | `TProgram`, `TApplication`, `TDeskTop`, `TBackground`, `AppPalettes` | wip | `TProgInit`/`TDeskInit` become constructor delegates. `ExecuteDialog` data is an `object?[]` of slots. Not yet: history (`initHistory`) |
 | Menus | `menus.h`, `menu.cpp`, `tmnuview.cpp`, `tmenubar.cpp`, `tmenubox.cpp` | `TMenuItem`, `TSubMenu`, `TMenu`, `TMenuView`, `TMenuBar`, `TMenuBox` | done | |
-| Menus | `menus.h`, `tmenupop.cpp` | `TMenuPopup` | todo | |
+| Menus | `menus.h`, `tmenupop.cpp`, `popupmnu.cpp` | `TMenuPopup`, `popupMenu` | done | `popupMenu` is `TMenuPopup.PopupMenu` |
 | Menus | `menus.h`, `tstatusl.cpp` | `TStatusLine`, `TStatusDef`, `TStatusItem` | done | |
 | Objects | `util.h`, `drivers2.cpp`, `tvtext2.cpp` | `Util` (`Cstrlen`, `HotKeyStr`, `GetAltChar`, `GetAltCode`, ...) | done | |
 | Dialogs | `dialogs.h`, `tdialog.cpp`, `tbutton.cpp`, `tstatict.cpp` | `TDialog`, `TButton`, `TStaticText`, `DialogFlags` | done | `TStaticText.GetText` returns a string |
