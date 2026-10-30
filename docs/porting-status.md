@@ -46,7 +46,8 @@ change that ports a type. Status values: `todo`, `wip`, `done` (ported with test
 | Dialogs | `stddlg.h` | `TSortedListBox` | todo | Needs a sorted collection and incremental search |
 | Dialogs | `msgbox.h` | `MessageBox`, `InputBox` (`MsgBox`, `MsgBoxText`) | done | No `printf`-style overloads: format the message first |
 | Validators | `validate.h` | `TValidator` | done | Base class only |
-| Validators | `validate.h` | `TPXPictureValidator`, `TFilterValidator`, `TRangeValidator`, `TLookupValidator`, `TStringLookupValidator` | todo | |
+| Validators | `validate.h` | `TFilterValidator`, `TRangeValidator` | done | With `voTransfer`, the range validator's data slot is an `int` (upstream `long`) |
+| Validators | `validate.h` | `TPXPictureValidator`, `TLookupValidator`, `TStringLookupValidator` | todo | |
 | StdDlg | `stddlg.h` | `TFileDialog`, `TChDirDialog`, `TDirListBox` | todo | |
 | Editors | `editors.h` | `TEditor`, `TMemo`, `TFileEditor`, `TEditWindow`, `TIndicator` | todo | |
 | Editors | `textview.h` | `TTextDevice`, `TTerminal` | todo | |
