@@ -14,5 +14,7 @@ Not an upstream example: a manual checklist for mouse handling. Run it with
   - click a label (`Name`, `Long text`) to focus its input line;
   - in an input line, click to place the cursor, drag to select, double-click to select all;
   - in `Long text`, hold the button on the `◄`/`►` arrows (or drag past the edges) to scroll;
+  - click a check box to toggle it; click a radio button to choose it; press on one item and
+    release on another: nothing changes; click `Options` / `Mode` to focus the group;
   - click `Alpha` / `Beta`: the `Last click` line updates; press and release outside a button: nothing happens;
-  - type something, click `OK`, reopen the dialog: the text is kept. `Cancel` discards changes.
+  - type something, click `OK`, reopen the dialog: the text and choices are kept. `Cancel` discards changes.
