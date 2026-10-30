@@ -24,7 +24,7 @@ internal sealed class MouseLabApp : TApplication
     private const ushort WindowCmd = 101;
 
     // Kept between runs so reopening the dialog shows what OK stored.
-    private readonly object?[] _data = ["", "A long line that does not fit, so it scrolls with the mouse"];
+    private readonly object?[] _data = ["", "A long line that does not fit, so it scrolls with the mouse", (ushort)0, (ushort)0];
     private int _windowCount;
 
     public MouseLabApp()
@@ -99,7 +99,7 @@ internal sealed class LabDialog : TDialog
     private readonly TParamText _status;
 
     public LabDialog()
-        : base(new TRect(0, 0, 50, 15), "Mouse Lab")
+        : base(new TRect(0, 0, 50, 19), "Mouse Lab")
     {
         Options |= ofCentered;
 
@@ -115,10 +115,20 @@ internal sealed class LabDialog : TDialog
         _status.SetText("Last click: none");
         Insert(_status);
 
-        Insert(new TButton(new TRect(2, 8, 14, 10), "~A~lpha", AlphaCmd, bfNormal));
-        Insert(new TButton(new TRect(15, 8, 27, 10), "~B~eta", BetaCmd, bfNormal));
-        Insert(new TButton(new TRect(24, 12, 34, 14), "O~K~", cmOK, bfDefault));
-        Insert(new TButton(new TRect(36, 12, 48, 14), "Cancel", cmCancel, bfNormal));
+        var options = new TCheckBoxes(new TRect(2, 9, 24, 12),
+            new TSItem("Bold", new TSItem("Italic", new TSItem("Underline", null))));
+        Insert(options);
+        Insert(new TLabel(new TRect(2, 8, 13, 9), "~O~ptions", options));
+
+        var mode = new TRadioButtons(new TRect(26, 9, 48, 12),
+            new TSItem("Insert", new TSItem("Overwrite", new TSItem("Read only", null))));
+        Insert(mode);
+        Insert(new TLabel(new TRect(26, 8, 37, 9), "~M~ode", mode));
+
+        Insert(new TButton(new TRect(2, 13, 14, 15), "~A~lpha", AlphaCmd, bfNormal));
+        Insert(new TButton(new TRect(15, 13, 27, 15), "~B~eta", BetaCmd, bfNormal));
+        Insert(new TButton(new TRect(24, 16, 34, 18), "O~K~", cmOK, bfDefault));
+        Insert(new TButton(new TRect(36, 16, 48, 18), "Cancel", cmCancel, bfNormal));
 
         SelectNext(false);
     }
