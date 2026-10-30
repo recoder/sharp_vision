@@ -22,6 +22,7 @@ internal sealed class MouseLabApp : TApplication
 {
     private const ushort DialogCmd = 100;
     private const ushort WindowCmd = 101;
+    private const ushort MessageCmd = 102;
 
     // Kept between runs so reopening the dialog shows what OK stored.
     private readonly object?[] _data = ["", "A long line that does not fit, so it scrolls with the mouse", (ushort)0, (ushort)0];
@@ -44,6 +45,10 @@ internal sealed class MouseLabApp : TApplication
                 break;
             case WindowCmd:
                 NewWindow();
+                break;
+            case MessageCmd:
+                var answer = MsgBox.MessageBox("Click one of the buttons below.", MsgBox.mfConfirmation | MsgBox.mfYesNoCancel);
+                MsgBox.MessageBox($"You chose command {answer}.", MsgBox.mfInformation | MsgBox.mfOKButton);
                 break;
             default:
                 return;
@@ -71,6 +76,7 @@ internal sealed class MouseLabApp : TApplication
             new TSubMenu("~L~ab", kbAltL) +
                 new TMenuItem("~D~ialog...", DialogCmd, kbAltD, hcNoContext, "Alt-D") +
                 new TMenuItem("~W~indow", WindowCmd, kbAltW, hcNoContext, "Alt-W") +
+                new TMenuItem("~M~essage box...", MessageCmd, kbAltM, hcNoContext, "Alt-M") +
                 TMenuItem.NewLine() +
                 new TMenuItem("E~x~it", cmQuit, kbAltX, hcNoContext, "Alt-X") +
             new TSubMenu("~W~indows", kbNoKey) +

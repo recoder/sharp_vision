@@ -41,7 +41,7 @@ change that ports a type. Status values: `todo`, `wip`, `done` (ported with test
 | Dialogs | `dialogs.h` | `TSItem`, `TCluster`, `TCheckBoxes`, `TRadioButtons` | done | |
 | Dialogs | `dialogs.h` | `TMultiCheckBoxes` | todo | |
 | Dialogs | `dialogs.h` | `TListBox`, `TSortedListBox` | todo | |
-| Dialogs | `msgbox.h` | `MessageBox`, `InputBox` | todo | |
+| Dialogs | `msgbox.h` | `MessageBox`, `InputBox` (`MsgBox`, `MsgBoxText`) | done | No `printf`-style overloads: format the message first |
 | Validators | `validate.h` | `TValidator` | done | Base class only |
 | Validators | `validate.h` | `TPXPictureValidator`, `TFilterValidator`, `TRangeValidator`, `TLookupValidator`, `TStringLookupValidator` | todo | |
 | StdDlg | `stddlg.h` | `TFileDialog`, `TChDirDialog`, `TDirListBox` | todo | |
