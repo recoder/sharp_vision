@@ -192,7 +192,24 @@ public class TWindow : TGroup
         }
     }
 
-    // TBD: StandardScrollBar(ushort aOptions) once TScrollBar is ported.
+    /// <summary>
+    /// Inserts a scroll bar along the right (<c>sbVertical</c>) or bottom edge of the frame;
+    /// <c>sbHandleKeyboard</c> lets it handle keys in the post-process phase.
+    /// </summary>
+    public TScrollBar StandardScrollBar(ushort aOptions)
+    {
+        var r = GetExtent();
+        if ((aOptions & sbVertical) != 0)
+            r = new TRect(r.B.X - 1, r.A.Y + 1, r.B.X, r.B.Y - 1);
+        else
+            r = new TRect(r.A.X + 2, r.B.Y - 1, r.B.X - 2, r.B.Y);
+
+        TScrollBar s;
+        Insert(s = new TScrollBar(r));
+        if ((aOptions & sbHandleKeyboard) != 0)
+            s.Options |= ofPostProcess;
+        return s;
+    }
 
     /// <summary>Limits the window to at least 16x6.</summary>
     public override void SizeLimits(out TPoint min, out TPoint max)
