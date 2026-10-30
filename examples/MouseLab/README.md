@@ -1,0 +1,18 @@
+# MouseLab
+
+Not an upstream example: a manual checklist for mouse handling. Run it with
+`dotnet run --project examples/MouseLab` and check each item with the mouse only.
+
+- **Menu bar**: click `Lab` and `Windows` to open them; click an item to run it; click outside to close.
+- **Status line**: click `Alt-D Dialog` and `Alt-W Window`; press and drag across items (the highlight follows).
+- **Windows** (`Lab > Window`, open several):
+  - drag the title bar to move; drag the bottom-right corner to resize;
+  - click `[■]` to close; click `[↑]` or double-click the title bar to zoom and unzoom;
+  - click a window behind another to bring it to the front.
+- **Dialog** (`Lab > Dialog`):
+  - drag the title bar to move it;
+  - click a label (`Name`, `Long text`) to focus its input line;
+  - in an input line, click to place the cursor, drag to select, double-click to select all;
+  - in `Long text`, hold the button on the `◄`/`►` arrows (or drag past the edges) to scroll;
+  - click `Alpha` / `Beta`: the `Last click` line updates; press and release outside a button: nothing happens;
+  - type something, click `OK`, reopen the dialog: the text is kept. `Cancel` discards changes.
