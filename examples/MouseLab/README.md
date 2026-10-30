@@ -18,3 +18,5 @@ Not an upstream example: a manual checklist for mouse handling. Run it with
     release on another: nothing changes; click `Options` / `Mode` to focus the group;
   - click `Alpha` / `Beta`: the `Last click` line updates; press and release outside a button: nothing happens;
   - type something, click `OK`, reopen the dialog: the text and choices are kept. `Cancel` discards changes.
+- **Message box** (`Lab > Message box...`): click `Yes`, `No` or `Cancel`; the next box reports
+  the command (12 = Yes, 13 = No, 11 = Cancel). Clicking `[■]` also cancels.
