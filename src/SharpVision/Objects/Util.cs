@@ -1,4 +1,4 @@
-// Ported from include/tvision/util.h, source/tvision/drivers2.cpp (cstrlen, strwidth),
+// Ported from include/tvision/util.h, source/tvision/drivers2.cpp (ctrlToArrow, cstrlen, strwidth),
 // source/tvision/tinputli.cpp (hotKey, hotKeyStr) and source/tvision/tvtext2.cpp
 // (getAltChar, getAltCode, getCtrlChar, getCtrlCode), include/tvision/ttypes.h and
 // source/tvision/tvtext1.cpp (specialChars).
@@ -135,4 +135,19 @@ public static class Util
     /// <summary>The Ctrl+key code for character <paramref name="ch"/>.</summary>
     public static ushort GetCtrlCode(char ch) =>
         (ushort)(GetAltCode(ch) | ((ch is >= 'a' and <= 'z' ? ch & ~0x20 : ch) - 'A' + 1));
+
+    private static readonly ushort[] _wordStarCodes =
+        [kbCtrlS, kbCtrlD, kbCtrlE, kbCtrlX, kbCtrlA, kbCtrlF, kbCtrlG, kbCtrlV, kbCtrlR, kbCtrlC, kbCtrlH];
+
+    private static readonly ushort[] _arrowCodes =
+        [kbLeft, kbRight, kbUp, kbDown, kbHome, kbEnd, kbDel, kbIns, kbPgUp, kbPgDn, kbBack];
+
+    /// <summary>Maps a WordStar control key (Ctrl+S, Ctrl+D, ...) to its arrow key, or returns <paramref name="keyCode"/>.</summary>
+    public static ushort CtrlToArrow(ushort keyCode)
+    {
+        for (var i = 0; i < _wordStarCodes.Length; i++)
+            if ((keyCode & 0x00FF) == _wordStarCodes[i])
+                return _arrowCodes[i];
+        return keyCode;
+    }
 }
