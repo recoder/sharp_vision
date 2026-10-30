@@ -27,7 +27,7 @@ internal sealed class MouseLabApp : TApplication
 
     // Kept between runs so reopening the dialog shows what OK stored.
     private readonly object?[] _data = ["", "A long line that does not fit, so it scrolls with the mouse", (ushort)0, (ushort)0,
-        new TListBoxRec { Items = ["Apple", "Banana", "Cherry", "Date", "Elderberry", "Fig", "Grape", "Honeydew", "Kiwi", "Lemon", "Mango", "Nectarine"] }];
+        new TListBoxRec { Items = ["Apple", "Banana", "Cherry", "Date", "Elderberry", "Fig", "Grape", "Honeydew", "Kiwi", "Lemon", "Mango", "Nectarine"] }, 0u];
     private int _windowCount;
 
     public MouseLabApp()
@@ -137,6 +137,12 @@ internal sealed class LabDialog : TDialog
         var fruits = new TListBox(new TRect(51, 2, 66, 15), 1, fruitBar);
         Insert(fruits);
         Insert(new TLabel(new TRect(50, 1, 60, 2), "~F~ruits", fruits));
+
+        // Three states per item, two bits each: off, on, strict.
+        var checks = new TMultiCheckBoxes(new TRect(30, 13, 48, 15),
+            new TSItem("Spelling", new TSItem("Grammar", null)), 3, cfTwoBits, " +!");
+        Insert(checks);
+        Insert(new TLabel(new TRect(30, 12, 40, 13), "~C~hecks", checks));
 
         SelectNext(false);
     }

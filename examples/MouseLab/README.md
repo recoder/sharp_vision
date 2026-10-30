@@ -20,6 +20,7 @@ Not an upstream example: a manual checklist for mouse handling. Run it with
   - in `Long text`, hold the button on the `◄`/`►` arrows (or drag past the edges) to scroll;
   - click a check box to toggle it; click a radio button to choose it; press on one item and
     release on another: nothing changes; click `Options` / `Mode` to focus the group;
+  - in `Checks` (multi-state boxes), each click cycles an item through ` `, `+` and `!`;
   - in `Fruits`, click an item to focus it, drag up/down (hold below or above the list to keep
     scrolling), use the scroll bar (or the wheel over the bar); double-click an item (or press Space):
     the status line shows `Picked: ...`;
