@@ -1,5 +1,3 @@
-// Ported from source/tvision/tinputli.cpp, include/tvision/dialogs.h (class TInputLine).
-
 using System;
 
 using SharpVision.Drawing;
@@ -19,6 +17,7 @@ namespace SharpVision.Dialogs;
 
 /// <summary>A single-line text editor with horizontal scrolling, selection and an optional validator.</summary>
 /// <remarks>Palette layout: 1 = passive, 2 = active, 3 = selected, 4 = arrows.</remarks>
+/// Ported from source/tvision/tinputli.cpp, include/tvision/dialogs.h (class TInputLine).
 public class TInputLine : TView
 {
     /// <summary>The limit counts code units (upstream: bytes, including the terminating null).</summary>

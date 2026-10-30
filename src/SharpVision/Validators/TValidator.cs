@@ -1,8 +1,7 @@
-// Ported from source/tvision/tvalidat.cpp, include/tvision/validate.h (class TValidator).
-
 namespace SharpVision.Validators;
 
 /// <summary>Base class of input line validators. Accepts any input.</summary>
+/// Ported from source/tvision/tvalidat.cpp, include/tvision/validate.h (class TValidator).
 public class TValidator
 {
     /// <summary>The validator status (<c>vsXxx</c>).</summary>

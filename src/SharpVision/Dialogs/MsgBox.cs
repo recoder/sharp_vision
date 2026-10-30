@@ -1,5 +1,3 @@
-// Ported from source/tvision/msgbox.cpp, include/tvision/msgbox.h (messageBox, inputBox, mfXxx).
-
 using SharpVision.App;
 using SharpVision.Objects;
 using SharpVision.Views;
@@ -12,6 +10,7 @@ namespace SharpVision.Dialogs;
 
 /// <summary>Modal message and input boxes, run on <see cref="TProgram.Application"/>.</summary>
 /// <remarks>Upstream's <c>printf</c>-style overloads are omitted: format the message before passing it.</remarks>
+/// Ported from source/tvision/msgbox.cpp, include/tvision/msgbox.h (messageBox, inputBox, mfXxx).
 public static class MsgBox
 {
     /// <summary>A Warning box.</summary>

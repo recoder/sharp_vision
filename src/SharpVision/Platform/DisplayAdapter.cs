@@ -1,5 +1,3 @@
-// Ported from include/tvision/internal/platform.h (class DisplayAdapter).
-
 using System;
 
 using SharpVision.Drawing;
@@ -8,6 +6,7 @@ using SharpVision.Objects;
 namespace SharpVision.Platform;
 
 /// <summary>Writes cells to an actual display. The base implementation does nothing.</summary>
+// Ported from include/tvision/internal/platform.h (class DisplayAdapter).
 internal class DisplayAdapter
 {
     /// <summary>Re-reads the display size.</summary>

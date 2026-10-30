@@ -1,6 +1,3 @@
-// Ported from include/tvision/views.h (class TView), source/tvision/tview.cpp,
-// source/tvision/mapcolor.cpp and source/tvision/misc.cpp (message).
-
 using System;
 
 using SharpVision.App;
@@ -19,6 +16,8 @@ namespace SharpVision.Views;
 /// The base of every visible element: a rectangle on the screen that draws itself and
 /// handles events. Views are owned by a <see cref="TGroup"/>.
 /// </summary>
+/// Ported from include/tvision/views.h (class TView), source/tvision/tview.cpp,
+/// source/tvision/mapcolor.cpp and source/tvision/misc.cpp (message).
 public partial class TView : TObject
 {
     /// <summary>The event routing phase of a group (see <see cref="TGroup.Phase"/>).</summary>
@@ -601,7 +600,9 @@ public partial class TView : TObject
             (State & (sfSelected | sfDisabled)) == 0 &&
             (Options & ofSelectable) != 0 &&
             (!Focus() || (Options & ofFirstClick) == 0))
+        {
             ClearEvent(ref ev);
+        }
     }
 
     /// <summary>Hides the view.</summary>

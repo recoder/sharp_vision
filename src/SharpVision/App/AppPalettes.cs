@@ -1,7 +1,3 @@
-// Ported from include/tvision/app.h (cpAppColor, cpAppBlackWhite, cpAppMonochrome).
-
-using SharpVision.Views;
-
 namespace SharpVision.App;
 
 /// <summary>
@@ -10,6 +6,7 @@ namespace SharpVision.App;
 /// 16-23 = TWindow (cyan), 24-31 = TWindow (gray), 32-63 = TDialog (gray),
 /// 64-95 = TDialog (blue), 96-127 = TDialog (cyan), 128-135 = THelpWindow.
 /// </summary>
+/// Ported from include/tvision/app.h (cpAppColor, cpAppBlackWhite, cpAppMonochrome).
 public static class AppPalettes
 {
     /// <summary>Index of the color palette (<see cref="TProgram.AppPalette"/>).</summary>

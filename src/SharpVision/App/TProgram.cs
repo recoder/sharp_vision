@@ -1,6 +1,3 @@
-// Ported from include/tvision/app.h (TProgInit, TProgram), source/tvision/tprogram.cpp and
-// source/tvision/tvtext2.cpp (exitText).
-
 using System;
 
 using SharpVision.Dialogs;
@@ -27,6 +24,8 @@ namespace SharpVision.App;
 /// Upstream's <c>TProgInit</c> virtual base, which receives the factory functions for the
 /// status line, menu bar and desktop, becomes the constructor's delegate parameters.
 /// </remarks>
+/// Ported from include/tvision/app.h (TProgInit, TProgram), source/tvision/tprogram.cpp and
+/// source/tvision/tvtext2.cpp (exitText).
 public class TProgram : TGroup
 {
     /// <summary>The text of the default status line's exit item.</summary>
@@ -182,7 +181,8 @@ public class TProgram : TGroup
         }
 
         base.HandleEvent(ref ev);
-        if (ev.What == evCommand && ev.Message.Command == cmQuit)
+
+        if (ev is { What: evCommand, Message.Command: cmQuit })
         {
             EndModal(cmQuit);
             ClearEvent(ref ev);

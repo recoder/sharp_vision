@@ -1,6 +1,3 @@
-// Ported from source/platform/win32con.cpp (Win32Input, getWin32Key, getWin32Mouse) and
-// source/tvision/hardwrvr.cpp (THardwareInfo::NormalCvt, ShiftCvt, CtrlCvt, AltCvt).
-
 using SharpVision.Drawing;
 using SharpVision.Events;
 
@@ -12,6 +9,8 @@ using static SharpVision.Views.Commands;
 namespace SharpVision.Platform;
 
 /// <summary>Reads keyboard, mouse and resize events from the Windows console.</summary>
+/// Ported from source/platform/win32con.cpp (Win32Input, getWin32Key, getWin32Mouse) and
+/// source/tvision/hardwrvr.cpp (THardwareInfo::NormalCvt, ShiftCvt, CtrlCvt, AltCvt).
 internal sealed class Win32Input(ConsoleCtl con) : EventSource(con.In)
 {
     private const ushort ControlKeyMask =

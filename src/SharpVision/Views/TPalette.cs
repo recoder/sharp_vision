@@ -1,5 +1,3 @@
-// Ported from include/tvision/views.h and source/tvision/palette.cpp (class TPalette).
-
 using System;
 
 using SharpVision.Drawing;
@@ -14,6 +12,7 @@ namespace SharpVision.Views;
 /// (<see cref="TColorAttr"/> only stores a number). For the application, they are actual
 /// color attributes.
 /// </remarks>
+/// Ported from include/tvision/views.h and source/tvision/palette.cpp (class TPalette).
 public sealed class TPalette
 {
     /// <summary>The entries, including the length in entry 0.</summary>

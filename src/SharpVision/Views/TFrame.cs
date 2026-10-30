@@ -1,6 +1,3 @@
-// Ported from source/tvision/tframe.cpp, source/tvision/framelin.cpp,
-// source/tvision/tvtext1.cpp (frame characters and icons), include/tvision/views.h (class TFrame).
-
 using System;
 
 using SharpVision.Drawing;
@@ -18,6 +15,8 @@ namespace SharpVision.Views;
 /// Palette layout: 1 = passive frame, 2 = passive title, 3 = active frame, 4 = active title,
 /// 5 = icons. The owner must be a <see cref="TWindow"/>.
 /// </remarks>
+/// Ported from source/tvision/tframe.cpp, source/tvision/framelin.cpp,
+/// source/tvision/tvtext1.cpp (frame characters and icons), include/tvision/views.h (class TFrame).
 public class TFrame : TView
 {
     private static readonly TPalette _palette = new([0x01, 0x01, 0x02, 0x02, 0x03]);
@@ -42,8 +41,7 @@ public class TFrame : TView
     private const string DragLeftIcon = "~└─~";
 
     /// <summary>Creates a frame that grows with its window.</summary>
-    public TFrame(TRect bounds)
-        : base(bounds)
+    public TFrame(TRect bounds) : base(bounds)
     {
         GrowMode = (byte)(gfGrowHiX | gfGrowHiY);
         EventMask |= evBroadcast | evMouseUp;

@@ -1,5 +1,3 @@
-// Ported from source/tvision/tdialog.cpp, include/tvision/dialogs.h (class TDialog).
-
 using System;
 
 using SharpVision.Events;
@@ -24,6 +22,7 @@ namespace SharpVision.Dialogs;
 /// 24-25 = history window scroll bar, 26-29 = list viewer, 30 = info pane,
 /// 31 = cluster disabled, 32 = reserved.
 /// </remarks>
+/// Ported from source/tvision/tdialog.cpp, include/tvision/dialogs.h (class TDialog).
 public class TDialog : TWindow
 {
     private static readonly TPalette _paletteGray = new(

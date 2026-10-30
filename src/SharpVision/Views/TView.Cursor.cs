@@ -1,10 +1,10 @@
-// Ported from source/tvision/tvcursor.cpp (TView::resetCursor).
-
 using SharpVision.Platform;
 
 using static SharpVision.Views.ViewFlags;
 
 namespace SharpVision.Views;
+
+// Ported from source/tvision/tvcursor.cpp (TView::resetCursor).
 
 public partial class TView
 {
@@ -36,7 +36,9 @@ public partial class TView
             if ((u.State & sfVisible) != 0 &&
                 u.Origin.Y <= y && y < u.Origin.Y + u.Size.Y &&
                 u.Origin.X <= x && x < u.Origin.X + u.Size.X)
+            {
                 return true;
+            }
         }
         return false;
     }

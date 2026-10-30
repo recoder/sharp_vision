@@ -1,10 +1,7 @@
-// Ported from source/tvision/tlabel.cpp, include/tvision/dialogs.h (class TLabel).
-
 using SharpVision.Drawing;
 using SharpVision.Events;
 using SharpVision.Objects;
 using SharpVision.Views;
-
 using static SharpVision.Events.EventCodes;
 using static SharpVision.Objects.Util;
 using static SharpVision.Views.Commands;
@@ -17,6 +14,7 @@ namespace SharpVision.Dialogs;
 /// control, and it is highlighted while that control has the focus.
 /// </summary>
 /// <remarks>Palette layout: 1 = normal text, 2 = selected text, 3 = normal shortcut, 4 = selected shortcut.</remarks>
+/// Ported from source/tvision/tlabel.cpp, include/tvision/dialogs.h (class TLabel).
 public class TLabel : TStaticText
 {
     private static readonly TPalette _palette = new([0x07, 0x08, 0x09, 0x09]);
@@ -83,22 +81,26 @@ public class TLabel : TStaticText
     public override void HandleEvent(ref TEvent ev)
     {
         base.HandleEvent(ref ev);
-        if (ev.What == evMouseDown)
-            FocusLink(ref ev);
-        else if (ev.What == evKeyDown)
+        switch (ev.What)
         {
-            var c = HotKey(Text);
-            if (ev.KeyDown.KeyCode != 0 &&
-                (GetAltCode(c) == ev.KeyDown.KeyCode ||
-                 (c != 0 && Owner!.Phase == PhaseType.phPostProcess &&
-                  c == char.ToUpperInvariant((char)ev.KeyDown.CharScan.CharCode))))
+            case evMouseDown:
                 FocusLink(ref ev);
-        }
-        else if (ev.What == evBroadcast && Link is not null &&
-                 (ev.Message.Command == cmReceivedFocus || ev.Message.Command == cmReleasedFocus))
-        {
-            Light = (Link.State & sfFocused) != 0;
-            DrawView();
+                break;
+            case evKeyDown:
+                {
+                    var c = HotKey(Text);
+                    if (ev.KeyDown.KeyCode != 0 &&
+                        (GetAltCode(c) == ev.KeyDown.KeyCode ||
+                         (c != 0 && Owner!.Phase == PhaseType.phPostProcess &&
+                          c == char.ToUpperInvariant((char)ev.KeyDown.CharScan.CharCode))))
+                        FocusLink(ref ev);
+                    break;
+                }
+            case evBroadcast when Link is not null &&
+                                  ev.Message.Command is cmReceivedFocus or cmReleasedFocus:
+                Light = (Link.State & sfFocused) != 0;
+                DrawView();
+                break;
         }
     }
 }

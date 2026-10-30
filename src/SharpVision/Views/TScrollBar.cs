@@ -1,6 +1,3 @@
-// Ported from source/tvision/tscrlbar.cpp, source/tvision/tvtext1.cpp (vChars, hChars),
-// include/tvision/views.h (class TScrollBar).
-
 using System;
 
 using SharpVision.Drawing;
@@ -20,6 +17,8 @@ namespace SharpVision.Views;
 /// learn about changes through <c>cmScrollBarChanged</c> and <c>cmScrollBarClicked</c> broadcasts.
 /// </summary>
 /// <remarks>Palette layout: 1 = page areas, 2 = arrows, 3 = indicator.</remarks>
+/// Ported from source/tvision/tscrlbar.cpp, source/tvision/tvtext1.cpp (vChars, hChars),
+/// include/tvision/views.h (class TScrollBar).
 public class TScrollBar : TView
 {
     private static readonly TPalette _palette = new([0x04, 0x05, 0x05]);
@@ -50,8 +49,7 @@ public class TScrollBar : TView
     public int ArStep;
 
     /// <summary>Creates a scroll bar; vertical when <paramref name="bounds"/> is one column wide.</summary>
-    public TScrollBar(TRect bounds)
-        : base(bounds)
+    public TScrollBar(TRect bounds) : base(bounds)
     {
         PgStep = 1;
         ArStep = 1;

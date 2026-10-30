@@ -1,5 +1,3 @@
-// Ported from source/tvision/tlistbox.cpp, include/tvision/dialogs.h (class TListBox).
-
 using System;
 using System.Collections.Generic;
 
@@ -10,14 +8,14 @@ namespace SharpVision.Dialogs;
 
 /// <summary>A list viewer over a list of strings, transferring a <see cref="TListBoxRec"/>.</summary>
 /// <remarks>Palette layout: 1 = active, 2 = inactive, 3 = focused, 4 = selected, 5 = divider.</remarks>
+/// Ported from source/tvision/tlistbox.cpp, include/tvision/dialogs.h (class TListBox).
 public class TListBox : TListViewer
 {
     /// <summary>The items, or null.</summary>
     protected List<string>? Items;
 
     /// <summary>Creates an empty list box with <paramref name="aNumCols"/> columns and an optional vertical scroll bar.</summary>
-    public TListBox(TRect bounds, ushort aNumCols, TScrollBar? aScrollBar)
-        : base(bounds, aNumCols, null, aScrollBar)
+    public TListBox(TRect bounds, ushort aNumCols, TScrollBar? aScrollBar) : base(bounds, aNumCols, null, aScrollBar)
     {
         SetRange(0);
     }

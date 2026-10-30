@@ -1,6 +1,3 @@
-// Ported from source/tvision/tlstview.cpp, source/tvision/tvtext2.cpp (emptyText),
-// include/tvision/views.h (class TListViewer).
-
 using SharpVision.Drawing;
 using SharpVision.Events;
 using SharpVision.Objects;
@@ -21,6 +18,8 @@ namespace SharpVision.Views;
 /// Palette layout: 1 = active, 2 = inactive, 3 = focused, 4 = selected, 5 = divider.
 /// Item indexes are <see cref="int"/> where upstream uses <c>short</c>.
 /// </remarks>
+/// Ported from source/tvision/tlstview.cpp, source/tvision/tvtext2.cpp (emptyText),
+/// include/tvision/views.h (class TListViewer).
 public class TListViewer : TView
 {
     private static readonly TPalette _palette = new([0x1A, 0x1A, 0x1B, 0x1C, 0x1D]);
@@ -47,8 +46,7 @@ public class TListViewer : TView
     public int Range;
 
     /// <summary>Creates a list viewer with <paramref name="aNumCols"/> columns and optional scroll bars.</summary>
-    public TListViewer(TRect bounds, ushort aNumCols, TScrollBar? aHScrollBar, TScrollBar? aVScrollBar)
-        : base(bounds)
+    public TListViewer(TRect bounds, ushort aNumCols, TScrollBar? aHScrollBar, TScrollBar? aVScrollBar) : base(bounds)
     {
         int arStep, pgStep;
 

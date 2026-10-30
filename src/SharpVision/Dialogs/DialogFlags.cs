@@ -1,12 +1,11 @@
-// Ported from include/tvision/dialogs.h (button flags, cmRecordHistory, dialog palettes,
-// TMultiCheckBoxes flags).
-
 namespace SharpVision.Dialogs;
 
 /// <summary>
 /// Constants from <c>dialogs.h</c>: <see cref="TButton"/> flags, <see cref="TDialog"/> palettes and
 /// <see cref="TMultiCheckBoxes"/> flags.
 /// </summary>
+/// Ported from include/tvision/dialogs.h (button flags, cmRecordHistory, dialog palettes,
+/// TMultiCheckBoxes flags).
 public static class DialogFlags
 {
     // TButton flags

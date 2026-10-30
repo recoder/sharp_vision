@@ -1,5 +1,3 @@
-// Ported from include/tvision/system.h (struct KeyDownEvent).
-
 using System;
 using System.Runtime.InteropServices;
 
@@ -11,6 +9,7 @@ namespace SharpVision.Events;
 /// writing <c>CharScan.CharCode</c> changes the low byte of <see cref="KeyCode"/>
 /// (assuming a little-endian platform, like every platform .NET supports).
 /// </remarks>
+/// Ported from include/tvision/system.h (struct KeyDownEvent).
 [StructLayout(LayoutKind.Explicit)]
 public struct KeyDownEvent
 {

@@ -1,5 +1,3 @@
-// Ported from include/tvision/system.h and source/tvision/tevent.cpp (class TEventQueue).
-
 using System;
 
 using SharpVision.Drawing;
@@ -17,6 +15,7 @@ namespace SharpVision.Events;
 /// paste detection.
 /// </summary>
 /// <remarks>Upstream's constructor and destructor are <see cref="Initialize"/> and <see cref="Done"/>.</remarks>
+// Ported from include/tvision/system.h and source/tvision/tevent.cpp (class TEventQueue).
 public static class TEventQueue
 {
     private const int MinPasteEventCount = 3;

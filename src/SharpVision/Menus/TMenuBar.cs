@@ -1,5 +1,3 @@
-// Ported from include/tvision/menus.h (class TMenuBar) and source/tvision/tmenubar.cpp.
-
 using SharpVision.Drawing;
 using SharpVision.Objects;
 
@@ -9,11 +7,11 @@ using static SharpVision.Views.ViewFlags;
 namespace SharpVision.Menus;
 
 /// <summary>The horizontal menu bar at the top of the application.</summary>
+/// Ported from include/tvision/menus.h (class TMenuBar) and source/tvision/tmenubar.cpp.
 public class TMenuBar : TMenuView
 {
     /// <summary>Creates a menu bar for <paramref name="menu"/>.</summary>
-    public TMenuBar(TRect bounds, TMenu? menu)
-        : base(bounds)
+    public TMenuBar(TRect bounds, TMenu? menu) : base(bounds)
     {
         Menu = menu;
         GrowMode = (byte)gfGrowHiX;
@@ -21,10 +19,8 @@ public class TMenuBar : TMenuView
     }
 
     /// <summary>Creates a menu bar whose entries are the submenus chained to <paramref name="menu"/>.</summary>
-    public TMenuBar(TRect bounds, TSubMenu menu)
-        : this(bounds, new TMenu(menu))
-    {
-    }
+    public TMenuBar(TRect bounds, TSubMenu menu) : this(bounds, new TMenu(menu))
+    { }
 
     /// <summary>Draws the entries, highlighting the current one.</summary>
     public override void Draw()

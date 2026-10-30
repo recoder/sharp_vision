@@ -1,5 +1,3 @@
-// Ported from include/tvision/hardware.h and source/platform/hardware.cpp (class THardwareInfo).
-
 using System;
 using System.Diagnostics;
 
@@ -18,6 +16,7 @@ namespace SharpVision.Platform;
 /// Display operations go to <see cref="Display"/>, which is the platform backend once
 /// <see cref="SetUpConsole"/> has run, and can be replaced by a test double.
 /// </remarks>
+/// Ported from include/tvision/hardware.h and source/platform/hardware.cpp (class THardwareInfo).
 public static class THardwareInfo
 {
     private const int EventQSize = 24;

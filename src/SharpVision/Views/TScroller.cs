@@ -1,6 +1,3 @@
-// Ported from source/tvision/tscrolle.cpp, include/tvision/views.h (class TScroller).
-
-using SharpVision.Drawing;
 using SharpVision.Events;
 using SharpVision.Objects;
 
@@ -15,6 +12,7 @@ namespace SharpVision.Views;
 /// kept in step with optional scroll bars. Subclasses draw the contents shifted by it.
 /// </summary>
 /// <remarks>Palette layout: 1 = normal text, 2 = selected text.</remarks>
+/// Ported from source/tvision/tscrolle.cpp, include/tvision/views.h (class TScroller).
 public class TScroller : TView
 {
     private static readonly TPalette _palette = new([0x06, 0x07]);

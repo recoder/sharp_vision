@@ -1,23 +1,17 @@
-// Ported from source/tvision/tparamte.cpp, include/tvision/dialogs.h (class TParamText).
-
 using SharpVision.Objects;
 
 namespace SharpVision.Dialogs;
 
 /// <summary>Static text whose contents are replaced at run time with <see cref="SetText"/>.</summary>
 /// <remarks>Palette layout: 1 = text.</remarks>
-public class TParamText : TStaticText
+/// Ported from source/tvision/tparamte.cpp, include/tvision/dialogs.h (class TParamText).
+/// <remarks>Creates an empty parameterized text view.</remarks>
+public class TParamText(TRect bounds) : TStaticText(bounds, aText: null)
 {
     private const int MaxLength = 255;
 
     /// <summary>The current text.</summary>
     protected string Str = "";
-
-    /// <summary>Creates an empty parameterized text view.</summary>
-    public TParamText(TRect bounds)
-        : base(bounds, null)
-    {
-    }
 
     /// <inheritdoc />
     public override string GetText() => Str;

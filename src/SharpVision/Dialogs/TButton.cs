@@ -1,8 +1,3 @@
-// Ported from source/tvision/tbutton.cpp, source/tvision/tvtext1.cpp (shadows, markers),
-// include/tvision/dialogs.h (class TButton).
-
-using System;
-
 using SharpVision.Drawing;
 using SharpVision.Events;
 using SharpVision.Objects;
@@ -21,6 +16,8 @@ namespace SharpVision.Dialogs;
 /// Palette layout: 1 = normal text, 2 = default text, 3 = selected text, 4 = disabled text,
 /// 5-7 = shortcut, 8 = shadow.
 /// </remarks>
+/// Ported from source/tvision/tbutton.cpp, source/tvision/tvtext1.cpp (shadows, markers),
+/// include/tvision/dialogs.h (class TButton).
 public class TButton : TView
 {
     private const ushort cmGrabDefault = 61;

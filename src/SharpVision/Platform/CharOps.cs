@@ -1,5 +1,3 @@
-// Ported from source/platform/platfchr.cpp (Platform::CharOps).
-
 using System;
 using System.Globalization;
 using System.Text;
@@ -10,6 +8,7 @@ namespace SharpVision.Platform;
 /// Character operations used by <c>TText</c>: display width and lowercase conversion.
 /// Backends may replace them (e.g. the Linux console, which has no zero-width characters).
 /// </summary>
+/// Ported from source/platform/platfchr.cpp (Platform::CharOps).
 internal static class CharOps
 {
     /// <summary>

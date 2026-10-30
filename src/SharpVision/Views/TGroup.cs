@@ -1,6 +1,3 @@
-// Ported from include/tvision/views.h (class TGroup), source/tvision/tgroup.cpp,
-// source/tvision/grp.cpp and source/tvision/tgrmv.cpp.
-
 using System;
 
 using SharpVision.Drawing;
@@ -20,6 +17,8 @@ namespace SharpVision.Views;
 /// Subviews form a circular list in z-order: <see cref="Last"/> is the backmost view and
 /// <c>Last.Next</c> (<see cref="First"/>) the frontmost one.
 /// </remarks>
+/// Ported from include/tvision/views.h (class TGroup), source/tvision/tgroup.cpp,
+/// source/tvision/grp.cpp and source/tvision/tgrmv.cpp.
 public class TGroup : TView
 {
     /// <summary>The selected subview, or null.</summary>
@@ -44,8 +43,7 @@ public class TGroup : TView
     public ushort EndState;
 
     /// <summary>Creates an empty group covering <paramref name="bounds"/>.</summary>
-    public TGroup(TRect bounds)
-        : base(bounds)
+    public TGroup(TRect bounds) : base(bounds)
     {
         Options |= ofSelectable | ofBuffered;
         Clip = GetExtent();

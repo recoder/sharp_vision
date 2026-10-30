@@ -1,11 +1,10 @@
-// Ported from include/tvision/system.h and source/tvision/tmouse.cpp (THWMouse, TMouse).
-
 using SharpVision.Platform;
 
 namespace SharpVision.Events;
 
 /// <summary>The mouse: presence, visibility and state.</summary>
 /// <remarks>Upstream's <c>THWMouse</c> base is merged in.</remarks>
+// Ported from include/tvision/system.h and source/tvision/tmouse.cpp (THWMouse, TMouse).
 public static class TMouse
 {
     private static int _buttonCount;

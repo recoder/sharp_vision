@@ -1,11 +1,10 @@
-// Ported from include/tvision/views.h (cmXxx command codes).
-
 namespace SharpVision.Views;
 
 /// <summary>
 /// Standard command codes. Commands 0-255 can be disabled through <c>TCommandSet</c>;
 /// applications should define their own commands outside the ranges used here.
 /// </summary>
+/// Ported from include/tvision/views.h (cmXxx command codes).
 public static class Commands
 {
     // Standard command codes

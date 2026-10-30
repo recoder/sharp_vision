@@ -1,6 +1,3 @@
-// Ported from include/tvision/internal/conctl.h and source/platform/conctl.cpp (Unix part;
-// the Windows part is in ConsoleCtl.Win32.cs).
-
 using System;
 using System.IO;
 using System.Runtime.InteropServices;
@@ -16,6 +13,8 @@ namespace SharpVision.Platform;
 /// available (so the application works with redirected stdin/stdout), otherwise stdin and
 /// stdout. On Windows, see <c>ConsoleCtl.Win32.cs</c>.
 /// </summary>
+/// Ported from include/tvision/internal/conctl.h and source/platform/conctl.cpp (Unix part;
+/// the Windows part is in ConsoleCtl.Win32.cs).
 internal sealed partial class ConsoleCtl : IDisposable
 {
     private readonly SafeFileHandle? _tty;

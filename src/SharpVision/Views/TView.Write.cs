@@ -1,5 +1,3 @@
-// Ported from source/tvision/tvwrite.cpp and include/tvision/views.h (TView write functions).
-
 using System;
 
 using SharpVision.Drawing;
@@ -9,6 +7,8 @@ using static SharpVision.Drawing.StyleFlags;
 using static SharpVision.Views.ViewFlags;
 
 namespace SharpVision.Views;
+
+// Ported from source/tvision/tvwrite.cpp and include/tvision/views.h (TView write functions).
 
 public partial class TView
 {

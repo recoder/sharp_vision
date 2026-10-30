@@ -1,10 +1,9 @@
-// Ported from include/tvision/system.h (event codes and masks).
-
 namespace SharpVision.Events;
 
 /// <summary>
 /// Event codes (<c>TEvent.What</c>), event masks, and mouse button, wheel and event flags.
 /// </summary>
+/// Ported from include/tvision/system.h (event codes and masks).
 public static class EventCodes
 {
     // Event codes

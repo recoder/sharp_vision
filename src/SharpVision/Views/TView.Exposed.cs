@@ -1,8 +1,8 @@
-// Ported from source/tvision/tvexposd.cpp (TView::exposed).
-
 using static SharpVision.Views.ViewFlags;
 
 namespace SharpVision.Views;
+
+// Ported from source/tvision/tvexposd.cpp (TView::exposed).
 
 public partial class TView
 {

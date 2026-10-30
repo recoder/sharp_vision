@@ -1,5 +1,3 @@
-// Ported from include/tvision/menus.h (class TMenuView) and source/tvision/tmnuview.cpp.
-
 using SharpVision.Drawing;
 using SharpVision.Events;
 using SharpVision.Objects;
@@ -18,6 +16,7 @@ namespace SharpVision.Menus;
 /// Palette layout: 1 = normal text, 2 = disabled text, 3 = shortcut text, 4 = normal selection,
 /// 5 = disabled selection, 6 = shortcut selection.
 /// </remarks>
+/// Ported from include/tvision/menus.h (class TMenuView) and source/tvision/tmnuview.cpp.
 public class TMenuView : TView
 {
     private static readonly TPalette _palette = new([0x02, 0x03, 0x04, 0x05, 0x06, 0x07]);
