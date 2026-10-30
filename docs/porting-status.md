@@ -41,7 +41,7 @@ change that ports a type. Status values: `todo`, `wip`, `done` (ported with test
 | Dialogs | `dialogs.h` | `TInputLine` | done | Limits count UTF-16 code units, not UTF-8 bytes. Cut/copy/paste wait for `TClipboard` |
 | Dialogs | `dialogs.h` | `THistory` | todo | Needs `THistoryViewer`, `THistoryWindow` and the history list (`histlist.cpp`) |
 | Dialogs | `dialogs.h` | `TSItem`, `TCluster`, `TCheckBoxes`, `TRadioButtons` | done | |
-| Dialogs | `dialogs.h` | `TMultiCheckBoxes` | todo | |
+| Dialogs | `dialogs.h` | `TMultiCheckBoxes` | done | Data slot is a `uint` |
 | Dialogs | `dialogs.h`, `tlistbox.cpp` | `TListBox`, `TListBoxRec` | done | Items are a `List<string>`; the data slot holds a `TListBoxRec` |
 | Dialogs | `stddlg.h` | `TSortedListBox` | todo | Needs a sorted collection and incremental search |
 | Dialogs | `msgbox.h` | `MessageBox`, `InputBox` (`MsgBox`, `MsgBoxText`) | done | No `printf`-style overloads: format the message first |
