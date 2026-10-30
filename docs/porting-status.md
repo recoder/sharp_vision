@@ -45,10 +45,10 @@ change that ports a type. Status values: `todo`, `wip`, `done` (ported with test
 | Dialogs | `dialogs.h`, `tlistbox.cpp` | `TListBox`, `TListBoxRec` | done | Items are a `List<string>`; the data slot holds a `TListBoxRec` |
 | Dialogs | `stddlg.h` | `TSortedListBox` | todo | Needs a sorted collection and incremental search |
 | Dialogs | `msgbox.h` | `MessageBox`, `InputBox` (`MsgBox`, `MsgBoxText`) | done | No `printf`-style overloads: format the message first |
-| Validators | `validate.h` | `TValidator` | done | Base class only |
+| Validators | `validate.h` | `TValidator` | done | |
 | Validators | `validate.h` | `TFilterValidator`, `TRangeValidator` | done | With `voTransfer`, the range validator's data slot is an `int` (upstream `long`) |
 | Validators | `validate.h` | `TLookupValidator`, `TStringLookupValidator` | done | Strings are a `List<string>`; a null list accepts nothing |
-| Validators | `validate.h` | `TPXPictureValidator` | todo | |
+| Validators | `validate.h` | `TPXPictureValidator`, `TPicResult` | done | |
 | StdDlg | `stddlg.h` | `TFileDialog`, `TChDirDialog`, `TDirListBox` | todo | |
 | Editors | `editors.h` | `TEditor`, `TMemo`, `TFileEditor`, `TEditWindow`, `TIndicator` | todo | |
 | Editors | `textview.h` | `TTextDevice`, `TTerminal` | todo | |
