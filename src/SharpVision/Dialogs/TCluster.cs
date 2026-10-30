@@ -1,5 +1,3 @@
-// Ported from source/tvision/tcluster.cpp, include/tvision/dialogs.h (class TCluster).
-
 using System;
 using System.Collections.Generic;
 
@@ -24,6 +22,7 @@ namespace SharpVision.Dialogs;
 /// Palette layout: 1 = normal text, 2 = selected text, 3 = normal shortcut, 4 = selected shortcut,
 /// 5 = disabled text.
 /// </remarks>
+/// Ported from source/tvision/tcluster.cpp, include/tvision/dialogs.h (class TCluster).
 public class TCluster : TView
 {
     private static readonly TPalette _palette = new([0x10, 0x11, 0x12, 0x12, 0x1f]);
@@ -41,8 +40,7 @@ public class TCluster : TView
     protected List<string> Strings = [];
 
     /// <summary>Creates a cluster with the items in <paramref name="aStrings"/>.</summary>
-    public TCluster(TRect bounds, TSItem? aStrings)
-        : base(bounds)
+    public TCluster(TRect bounds, TSItem? aStrings) : base(bounds)
     {
         Options |= (ushort)(ofSelectable | ofFirstClick | ofPreProcess | ofPostProcess);
         for (var p = aStrings; p is not null; p = p.Next)

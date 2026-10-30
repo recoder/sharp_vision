@@ -1,5 +1,3 @@
-// Ported from include/tvision/system.h (struct TEvent).
-
 namespace SharpVision.Events;
 
 /// <summary>
@@ -11,6 +9,7 @@ namespace SharpVision.Events;
 /// C# cannot overlap object references with other fields, so they are separate here. Only
 /// the field matching <see cref="What"/> is meaningful.
 /// </remarks>
+/// Ported from include/tvision/system.h (struct TEvent).
 public struct TEvent
 {
     /// <summary>The event code (<c>evXxx</c>). <c>evNothing</c> when there is no event or it has been handled.</summary>

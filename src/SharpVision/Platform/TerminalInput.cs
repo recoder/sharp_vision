@@ -1,6 +1,3 @@
-// Ported from source/platform/ncursinp.cpp (NcursesInput), without ncurses: bytes are read
-// from the terminal directly and escape sequences are parsed by TermIO.
-
 using System;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
@@ -16,7 +13,9 @@ using static SharpVision.Events.KeyCodes;
 namespace SharpVision.Platform;
 
 /// <summary>Reads keyboard and mouse events from the terminal.</summary>
-internal sealed class TerminalInput : EventSource, IInputGetter
+/// Ported from source/platform/ncursinp.cpp (NcursesInput), without ncurses: bytes are read
+/// from the terminal directly and escape sequences are parsed by TermIO.
+internal sealed class TerminalInput(ConsoleCtl con, InputState state) : EventSource(con.In), IInputGetter
 {
     // How long to wait for the rest of a multibyte character or escape sequence.
     private const int ReadTimeoutMs = 10;
@@ -39,17 +38,10 @@ internal sealed class TerminalInput : EventSource, IInputGetter
         new() { KeyCode = '_', ControlKeyState = kbLeftCtrl, Text = "_" }, // ^_, Unit Separator
     ];
 
-    private readonly InputState _state;
     private readonly Stack<int> _ungotten = new();
     private readonly byte[] _readBuf = new byte[4096];
     private int _readPos;
     private int _readLen;
-
-    public TerminalInput(ConsoleCtl con, InputState state)
-        : base(con.In)
-    {
-        _state = state;
-    }
 
     private static KeyDownEvent Ctrl(ushort keyCode) => new() { KeyCode = keyCode, ControlKeyState = kbLeftCtrl };
 
@@ -80,7 +72,7 @@ internal sealed class TerminalInput : EventSource, IInputGetter
     public override bool GetEvent(ref TEvent ev)
     {
         var buf = new GetChBuf(this);
-        switch (TermIO.ParseEvent(buf, ref ev, _state))
+        switch (TermIO.ParseEvent(buf, ref ev, state))
         {
             case ParseResult.Rejected:
                 buf.Reject();
@@ -125,7 +117,7 @@ internal sealed class TerminalInput : EventSource, IInputGetter
             ev.KeyDown.ControlKeyState |= kbLeftAlt;
             TermIO.NormalizeKey(ref ev.KeyDown);
         }
-        if (_state.BracketedPaste)
+        if (state.BracketedPaste)
             ev.KeyDown.ControlKeyState |= kbPaste;
 
         return ev.KeyDown.KeyCode != kbNoKey || ev.KeyDown.Text is not null;

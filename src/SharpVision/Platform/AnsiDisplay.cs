@@ -1,6 +1,3 @@
-// Ported from include/tvision/internal/ansiwrit.h, source/platform/ansiwrit.cpp
-// (TermCap, AnsiScreenWriter) and source/platform/ncurdisp.cpp (NcursesDisplay).
-
 using System;
 using System.Buffers;
 using System.Text;
@@ -13,6 +10,8 @@ using static SharpVision.Drawing.StyleFlags;
 namespace SharpVision.Platform;
 
 /// <summary>Terminal color support levels.</summary>
+/// Ported from include/tvision/internal/ansiwrit.h, source/platform/ansiwrit.cpp
+/// (TermCap, AnsiScreenWriter) and source/platform/ncurdisp.cpp (NcursesDisplay).
 internal enum TermCapColors : byte
 {
     NoColor,

@@ -1,5 +1,3 @@
-// Ported from include/tvision/views.h and source/tvision/tcmdset.cpp (class TCommandSet).
-
 using System;
 using System.Runtime.CompilerServices;
 
@@ -10,6 +8,7 @@ namespace SharpVision.Events;
 /// that range are never in the set; adding or removing them has no effect.
 /// </summary>
 /// <remarks>A value type: assigning a set copies it, as in upstream.</remarks>
+/// Ported from include/tvision/views.h and source/tvision/tcmdset.cpp (class TCommandSet).
 public struct TCommandSet : IEquatable<TCommandSet>
 {
     [InlineArray(32)]
@@ -125,10 +124,10 @@ public struct TCommandSet : IEquatable<TCommandSet>
         ((ReadOnlySpan<byte>)_cmds).SequenceEqual(other._cmds);
 
     /// <inheritdoc />
-    public override readonly bool Equals(object? obj) => obj is TCommandSet other && Equals(other);
+    public readonly override bool Equals(object? obj) => obj is TCommandSet other && Equals(other);
 
     /// <inheritdoc />
-    public override readonly int GetHashCode()
+    public readonly override int GetHashCode()
     {
         var hash = new HashCode();
         hash.AddBytes(_cmds);

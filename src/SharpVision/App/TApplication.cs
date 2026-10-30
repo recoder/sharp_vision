@@ -1,5 +1,3 @@
-// Ported from include/tvision/app.h (TAppInit, TApplication) and source/tvision/tapplica.cpp.
-
 using System;
 using System.Diagnostics;
 
@@ -20,13 +18,13 @@ namespace SharpVision.App;
 /// <remarks>
 /// Call <see cref="TObject.Destroy"/> on the application when it ends, to restore the console.
 /// </remarks>
+/// Ported from include/tvision/app.h (TAppInit, TApplication) and source/tvision/tapplica.cpp.
 public class TApplication : TProgram
 {
     private static bool _subsystemsReady;
 
     /// <summary>Creates the application with the default status line, menu bar and desktop.</summary>
-    protected TApplication()
-        : this(InitStatusLine, InitMenuBar, InitDeskTop)
+    protected TApplication() : this(InitStatusLine, InitMenuBar, InitDeskTop)
     {
     }
 

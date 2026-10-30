@@ -1,6 +1,3 @@
-// Ported from include/tvision/internal/events.h and source/platform/events.cpp
-// (EventSource, WakeUpEventSource, EventWaiter) and source/platform/sigwinch.cpp.
-
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -21,6 +18,8 @@ namespace SharpVision.Platform;
 /// Something that produces events and has a descriptor that becomes readable (Unix) or a
 /// handle that becomes signaled (Windows) when it does.
 /// </summary>
+/// Ported from include/tvision/internal/events.h and source/platform/events.cpp
+/// (EventSource, WakeUpEventSource, EventWaiter) and source/platform/sigwinch.cpp.
 internal abstract class EventSource(nint handle)
 {
     /// <summary>The descriptor or handle to wait on.</summary>

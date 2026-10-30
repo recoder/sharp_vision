@@ -1,8 +1,3 @@
-// Ported from source/platform/unixcon.cpp (UnixConsoleAdapter) and the terminal setup that
-// upstream delegates to ncurses (newterm, raw, noecho, nonl, endwin).
-
-using System;
-
 using SharpVision.Platform.Interop;
 
 namespace SharpVision.Platform;
@@ -11,6 +6,8 @@ namespace SharpVision.Platform;
 /// A Unix terminal set up for Turbo Vision: raw input, alternate screen, extended keyboard
 /// and mouse reporting. Disposing it restores the terminal.
 /// </summary>
+/// Ported from source/platform/unixcon.cpp (UnixConsoleAdapter) and the terminal setup that
+/// upstream delegates to ncurses (newterm, raw, noecho, nonl, endwin).
 internal sealed class UnixConsole : ConsoleAdapter
 {
     private readonly ConsoleCtl _con;

@@ -1,8 +1,7 @@
-// Ported from include/tvision/msgbox.h, source/tvision/tvtext2.cpp (class MsgBoxText).
-
 namespace SharpVision.Dialogs;
 
 /// <summary>The button labels and titles used by <see cref="MsgBox"/>. Assign them to localize.</summary>
+/// Ported from include/tvision/msgbox.h, source/tvision/tvtext2.cpp (class MsgBoxText).
 public static class MsgBoxText
 {
     /// <summary>The Yes button.</summary>

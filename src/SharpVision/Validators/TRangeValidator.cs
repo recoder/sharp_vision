@@ -1,6 +1,3 @@
-// Ported from source/tvision/tvalidat.cpp, source/tvision/tvtext2.cpp (errorMsg, valid chars),
-// include/tvision/validate.h (class TRangeValidator).
-
 using System.Globalization;
 
 using static SharpVision.Dialogs.MsgBox;
@@ -12,24 +9,19 @@ namespace SharpVision.Validators;
 /// Accepts whole numbers between <see cref="Min"/> and <see cref="Max"/>. With <c>voTransfer</c>,
 /// the input line's data slot holds the number as an <see cref="int"/> instead of the text.
 /// </summary>
-public class TRangeValidator : TFilterValidator
+/// Ported from source/tvision/tvalidat.cpp, source/tvision/tvtext2.cpp (errorMsg, valid chars),
+/// include/tvision/validate.h (class TRangeValidator).
+/// <remarks>Creates a validator for the range <paramref name="aMin"/>..<paramref name="aMax"/>; '-' is allowed only if <paramref name="aMin"/> is negative.</remarks>
+public class TRangeValidator(int aMin, int aMax) : TFilterValidator(aMin >= 0 ? ValidUnsignedChars : ValidSignedChars)
 {
     private const string ValidUnsignedChars = "+0123456789";
     private const string ValidSignedChars = "+-0123456789";
 
     /// <summary>The smallest valid value.</summary>
-    protected int Min;
+    protected readonly int Min = aMin;
 
     /// <summary>The largest valid value.</summary>
-    protected int Max;
-
-    /// <summary>Creates a validator for the range <paramref name="aMin"/>..<paramref name="aMax"/>; '-' is allowed only if <paramref name="aMin"/> is negative.</summary>
-    public TRangeValidator(int aMin, int aMax)
-        : base(aMin >= 0 ? ValidUnsignedChars : ValidSignedChars)
-    {
-        Min = aMin;
-        Max = aMax;
-    }
+    protected readonly int Max = aMax;
 
     /// <summary>Reports the valid range in a message box.</summary>
     public override void Error() =>

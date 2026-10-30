@@ -1,5 +1,3 @@
-// Ported from source/tvision/tstatict.cpp, include/tvision/dialogs.h (class TStaticText).
-
 using System;
 
 using SharpVision.Drawing;
@@ -15,6 +13,7 @@ namespace SharpVision.Dialogs;
 /// centered, and <c>'\n'</c> starts a new line.
 /// </summary>
 /// <remarks>Palette layout: 1 = text.</remarks>
+/// Ported from source/tvision/tstatict.cpp, include/tvision/dialogs.h (class TStaticText).
 public class TStaticText : TView
 {
     private static readonly TPalette _palette = new([0x06]);
@@ -23,8 +22,7 @@ public class TStaticText : TView
     protected string? Text;
 
     /// <summary>Creates a static text view showing <paramref name="aText"/>.</summary>
-    public TStaticText(TRect bounds, string? aText)
-        : base(bounds)
+    public TStaticText(TRect bounds, string? aText) : base(bounds)
     {
         Text = aText;
         GrowMode |= (byte)gfFixed;

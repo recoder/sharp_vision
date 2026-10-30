@@ -1,5 +1,3 @@
-// Ported from include/tvision/system.h and source/tvision/tscreen.cpp (class TScreen).
-
 using SharpVision.Drawing;
 using SharpVision.Events;
 
@@ -15,6 +13,7 @@ namespace SharpVision.Platform;
 /// Upstream's constructor and destructor are <see cref="Initialize"/> and
 /// <see cref="Done"/>; the application calls them.
 /// </remarks>
+// Ported from include/tvision/system.h and source/tvision/tscreen.cpp (class TScreen).
 public static class TScreen
 {
     /// <summary>The screen mode before the application started.</summary>

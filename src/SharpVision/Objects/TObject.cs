@@ -1,9 +1,8 @@
-// Ported from include/tvision/tvobjs.h and source/tvision/tobject.cpp (class TObject).
-
 namespace SharpVision.Objects;
 
 /// <summary>
 /// The root of the Turbo Vision object hierarchy.
+/// Ported from include/tvision/tvobjs.h and source/tvision/tobject.cpp (class TObject).
 /// </summary>
 /// <remarks>
 /// Memory is garbage collected, but teardown still follows upstream: call

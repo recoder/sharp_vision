@@ -1,6 +1,3 @@
-// Ported from include/tvision/internal/win32con.h and source/platform/win32con.cpp
-// (Win32ConsoleAdapter).
-
 using System.Runtime.InteropServices;
 
 using static SharpVision.Platform.Interop.Kernel32;
@@ -11,6 +8,8 @@ namespace SharpVision.Platform;
 /// The Windows console set up for Turbo Vision: raw keyboard and mouse input, UTF-8 code
 /// pages and, when supported, VT output. Disposing it restores the console.
 /// </summary>
+/// Ported from include/tvision/internal/win32con.h and source/platform/win32con.cpp
+/// (Win32ConsoleAdapter).
 internal sealed class Win32Console : ConsoleAdapter
 {
     private readonly ConsoleCtl _con;

@@ -1,8 +1,3 @@
-// Ported from include/tvision/menus.h (TStatusItem, TStatusDef, TStatusLine),
-// source/tvision/menu.cpp (operators) and source/tvision/tstatusl.cpp.
-
-using System;
-
 using SharpVision.Drawing;
 using SharpVision.Events;
 using SharpVision.Objects;
@@ -16,58 +11,45 @@ using static SharpVision.Views.ViewFlags;
 
 namespace SharpVision.Menus;
 
+// Ported from include/tvision/menus.h (TStatusItem, TStatusDef, TStatusLine),
+// source/tvision/menu.cpp (operators) and source/tvision/tstatusl.cpp.
+
 /// <summary>
 /// An entry in the status line: text (null for a key binding that is not shown), a
 /// shortcut key and a command.
 /// </summary>
-public class TStatusItem
+/// <remarks>Creates a status item.</remarks>
+public class TStatusItem(string? text, TKey key, ushort command, TStatusItem? next = null)
 {
     /// <summary>The next item.</summary>
-    public TStatusItem? Next;
+    public TStatusItem? Next = next;
 
     /// <summary>The text, with <c>~</c> around the highlighted part; null if not shown.</summary>
-    public string? Text;
+    public string? Text = text;
 
     /// <summary>The shortcut key.</summary>
-    public TKey KeyCode;
+    public TKey KeyCode = key;
 
     /// <summary>The command.</summary>
-    public ushort Command;
-
-    /// <summary>Creates a status item.</summary>
-    public TStatusItem(string? text, TKey key, ushort command, TStatusItem? next = null)
-    {
-        Next = next;
-        Text = text;
-        KeyCode = key;
-        Command = command;
-    }
+    public ushort Command = command;
 }
 
 /// <summary>The status items shown while the help context is in [<see cref="Min"/>, <see cref="Max"/>].</summary>
 /// <remarks>Built with <c>+</c>: <c>new TStatusDef(0, 0xFFFF) + new TStatusItem(...) + ...</c>.</remarks>
-public class TStatusDef
+/// <remarks>Creates a status definition.</remarks>
+public class TStatusDef(ushort min, ushort max, TStatusItem? items = null, TStatusDef? next = null)
 {
     /// <summary>The next definition.</summary>
-    public TStatusDef? Next;
+    public TStatusDef? Next = next;
 
     /// <summary>The lowest help context this definition applies to.</summary>
-    public ushort Min;
+    public ushort Min = min;
 
     /// <summary>The highest help context this definition applies to.</summary>
-    public ushort Max;
+    public ushort Max = max;
 
     /// <summary>The items.</summary>
-    public TStatusItem? Items;
-
-    /// <summary>Creates a status definition.</summary>
-    public TStatusDef(ushort min, ushort max, TStatusItem? items = null, TStatusDef? next = null)
-    {
-        Next = next;
-        Min = min;
-        Max = max;
-        Items = items;
-    }
+    public TStatusItem? Items = items;
 
     /// <summary>Appends <paramref name="s2"/> to the items of the last definition in the list starting at <paramref name="s1"/>.</summary>
     public static TStatusDef operator +(TStatusDef s1, TStatusItem s2)
@@ -118,8 +100,7 @@ public class TStatusLine : TView
     protected TStatusDef? Defs;
 
     /// <summary>Creates a status line from a list of definitions.</summary>
-    public TStatusLine(TRect bounds, TStatusDef defs)
-        : base(bounds)
+    public TStatusLine(TRect bounds, TStatusDef defs) : base(bounds)
     {
         Defs = defs;
         Options |= ofPreProcess;
@@ -255,7 +236,7 @@ public class TStatusLine : TView
     public void Update()
     {
         var p = TopView();
-        var h = p is not null ? p.GetHelpCtx() : hcNoContext;
+        var h = p?.GetHelpCtx() ?? hcNoContext;
         if (HelpCtx != h)
         {
             HelpCtx = h;

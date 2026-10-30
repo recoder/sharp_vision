@@ -1,8 +1,3 @@
-// Ported from include/tvision/util.h, source/tvision/drivers2.cpp (ctrlToArrow, cstrlen, strwidth),
-// source/tvision/tinputli.cpp (hotKey, hotKeyStr) and source/tvision/tvtext2.cpp
-// (getAltChar, getAltCode, getCtrlChar, getCtrlCode), include/tvision/ttypes.h and
-// source/tvision/tvtext1.cpp (specialChars).
-
 using System;
 
 using SharpVision.Drawing;
@@ -13,6 +8,11 @@ using static SharpVision.Events.KeyCodes;
 namespace SharpVision.Objects;
 
 /// <summary>Helper functions for hotkey text (<c>"~F~ile"</c>) and Alt/Ctrl key codes.</summary>
+/// Ported from include/tvision/util.h, source/tvision/drivers2.cpp (ctrlToArrow, cstrlen, strwidth),
+/// source/tvision/tinputli.cpp (hotKey, hotKeyStr) and source/tvision/tvtext2.cpp
+/// (getAltChar, getAltCode, getCtrlChar, getCtrlCode), include/tvision/ttypes.h and
+/// source/tvision/tvtext1.cpp (specialChars).
+
 public static class Util
 {
     private const string AltCodes1 = "QWERTYUIOP\0\0\0\0ASDFGHJKL\0\0\0\0\0ZXCVBNM";
@@ -127,8 +127,9 @@ public static class Util
 
         // Otherwise, map control characters into the corresponding ASCII letter.
         var charCode = keyDown.CharScan.CharCode;
-        if (charCode > 0 && charCode <= 'Z' - 'A' + 1)
+        if (charCode is > 0 and <= 'Z' - 'A' + 1)
             return CtrlCodes[charCode].ToString();
+
         return "";
     }
 

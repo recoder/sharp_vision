@@ -1,8 +1,7 @@
-// Ported from include/tvision/validate.h (enum TVTransfer).
-
 namespace SharpVision.Validators;
 
 /// <summary>The operation requested from <see cref="TValidator.Transfer"/>.</summary>
+/// Ported from include/tvision/validate.h (enum TVTransfer).
 public enum TVTransfer
 {
     /// <summary>Return the number of data slots the validator transfers.</summary>

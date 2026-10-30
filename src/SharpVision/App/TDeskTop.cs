@@ -1,6 +1,3 @@
-// Ported from include/tvision/app.h (TDeskInit, TDeskTop), source/tvision/tdesktop.cpp and
-// source/tvision/tvtext2.cpp (defaultBkgrnd).
-
 using System;
 
 using SharpVision.Events;
@@ -14,6 +11,8 @@ using static SharpVision.Views.ViewFlags;
 namespace SharpVision.App;
 
 /// <summary>The area between the menu bar and the status line that holds the windows.</summary>
+/// Ported from include/tvision/app.h (TDeskInit, TDeskTop), source/tvision/tdesktop.cpp and
+/// source/tvision/tvtext2.cpp (defaultBkgrnd).
 public class TDeskTop : TGroup
 {
     /// <summary>The default background pattern.</summary>
@@ -26,8 +25,7 @@ public class TDeskTop : TGroup
     protected bool TileColumnsFirst;
 
     /// <summary>Creates a desktop with the default background.</summary>
-    public TDeskTop(TRect bounds)
-        : this(bounds, InitBackground)
+    public TDeskTop(TRect bounds) : this(bounds, InitBackground)
     {
     }
 
@@ -35,8 +33,7 @@ public class TDeskTop : TGroup
     /// Creates a desktop whose background is made by <paramref name="createBackground"/>
     /// (upstream's <c>TDeskInit</c>); null for no background.
     /// </summary>
-    public TDeskTop(TRect bounds, Func<TRect, TBackground?>? createBackground)
-        : base(bounds)
+    public TDeskTop(TRect bounds, Func<TRect, TBackground?>? createBackground) : base(bounds)
     {
         GrowMode = (byte)(gfGrowHiX | gfGrowHiY);
         if (createBackground is not null && (Background = createBackground(GetExtent())) is not null)

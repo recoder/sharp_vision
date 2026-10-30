@@ -1,5 +1,3 @@
-// Ported from include/tvision/tkeys.h and source/tvision/tkey.cpp (class TKey).
-
 using System;
 
 using static SharpVision.Events.KeyCodes;
@@ -20,6 +18,7 @@ namespace SharpVision.Events;
 /// new TKey(kbAltDel, kbCtrlShift) == new TKey(kbCtrlDel, kbAltShift)
 /// </code>
 /// </remarks>
+// Ported from include/tvision/tkeys.h and source/tvision/tkey.cpp (class TKey).
 public readonly struct TKey : IEquatable<TKey>
 {
     private readonly record struct LookupEntry(ushort NormalKeyCode, ushort ShiftState);

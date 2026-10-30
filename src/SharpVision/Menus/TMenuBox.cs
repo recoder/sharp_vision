@@ -1,6 +1,3 @@
-// Ported from include/tvision/menus.h (class TMenuBox), source/tvision/tmenubox.cpp and
-// source/tvision/tvtext1.cpp (frameChars).
-
 using System;
 
 using SharpVision.Drawing;
@@ -12,6 +9,8 @@ using static SharpVision.Views.ViewFlags;
 namespace SharpVision.Menus;
 
 /// <summary>A framed, vertical menu (a submenu or a popup menu).</summary>
+/// Ported from include/tvision/menus.h (class TMenuBox), source/tvision/tmenubox.cpp and
+/// source/tvision/tvtext1.cpp (frameChars).
 public class TMenuBox : TMenuView
 {
     // Groups of 5 characters: top line (0), bottom line (5), item line (10), separator (15).

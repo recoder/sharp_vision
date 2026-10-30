@@ -1,6 +1,3 @@
-// Ported from include/tvision/menus.h (TMenuItem, TSubMenu, TMenu), source/tvision/menu.cpp
-// and source/tvision/tmnuview.cpp (constructors).
-
 using SharpVision.Events;
 using SharpVision.Views;
 
@@ -13,6 +10,8 @@ namespace SharpVision.Menus;
 /// "Alt-X"), a submenu (<see cref="Command"/> 0), or a separator line (<see cref="Name"/> null).
 /// </summary>
 /// <remarks>Items are chained with <c>+</c>: <c>new TMenuItem(...) + new TMenuItem(...)</c>.</remarks>
+/// Ported from include/tvision/menus.h (TMenuItem, TSubMenu, TMenu), source/tvision/menu.cpp
+/// and source/tvision/tmnuview.cpp (constructors).
 public class TMenuItem
 {
     /// <summary>The next item in the menu.</summary>
@@ -81,13 +80,9 @@ public class TMenuItem
 }
 
 /// <summary>A submenu item whose items are added with <c>+</c>.</summary>
-public class TSubMenu : TMenuItem
+/// <remarks>Creates an empty submenu.</remarks>
+public class TSubMenu(string name, TKey key, ushort helpCtx = hcNoContext) : TMenuItem(name, key, new TMenu(), helpCtx)
 {
-    /// <summary>Creates an empty submenu.</summary>
-    public TSubMenu(string name, TKey key, ushort helpCtx = hcNoContext)
-        : base(name, key, new TMenu(), helpCtx)
-    {
-    }
 
     /// <summary>Appends <paramref name="i"/> to the items of the last submenu in the list starting at <paramref name="s"/>.</summary>
     public static TSubMenu operator +(TSubMenu s, TMenuItem i)

@@ -1,8 +1,7 @@
-// Ported from include/tvision/validate.h (vsXxx and voXxx constants).
-
 namespace SharpVision.Validators;
 
 /// <summary>Validator status and option flags.</summary>
+/// Ported from include/tvision/validate.h (vsXxx and voXxx constants).
 public static class ValidatorFlags
 {
     /// <summary>The validator is usable.</summary>

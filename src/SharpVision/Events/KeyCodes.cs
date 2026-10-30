@@ -1,5 +1,3 @@
-// Ported from include/tvision/tkeys.h (kbXxx constants).
-
 namespace SharpVision.Events;
 
 /// <summary>
@@ -11,6 +9,7 @@ namespace SharpVision.Events;
 /// reported, and terminals usually send Ctrl+H, Ctrl+I, Ctrl+J and Ctrl+M as Backspace,
 /// Tab and Enter. For other combinations of Shift, Ctrl and Alt, see <see cref="TKey"/>.
 /// </remarks>
+/// Ported from include/tvision/tkeys.h (kbXxx constants).
 public static class KeyCodes
 {
     // Control keys

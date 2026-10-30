@@ -1,11 +1,11 @@
-// Ported from source/tvision/tvalidat.cpp, source/tvision/tvtext2.cpp (errorMsg),
-// include/tvision/validate.h (class TFilterValidator).
-
+using System.Linq;
 using static SharpVision.Dialogs.MsgBox;
 
 namespace SharpVision.Validators;
 
 /// <summary>Accepts only text made of the characters in <see cref="ValidChars"/>.</summary>
+/// Ported from source/tvision/tvalidat.cpp, source/tvision/tvtext2.cpp (errorMsg),
+/// include/tvision/validate.h (class TFilterValidator).
 public class TFilterValidator : TValidator
 {
     private const string ErrorMsg = "Invalid character in input";
@@ -28,13 +28,5 @@ public class TFilterValidator : TValidator
     /// <inheritdoc />
     public override bool IsValid(string s) => AllValid(s);
 
-    private bool AllValid(string s)
-    {
-        foreach (var c in s)
-        {
-            if (!ValidChars.Contains(c))
-                return false;
-        }
-        return true;
-    }
+    private bool AllValid(string s) => s.All(ValidChars.Contains);
 }

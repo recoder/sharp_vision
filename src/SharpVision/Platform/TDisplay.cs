@@ -1,8 +1,7 @@
-// Ported from include/tvision/system.h and source/tvision/tscreen.cpp (class TDisplay).
-
 namespace SharpVision.Platform;
 
 /// <summary>Low-level display queries: size, mode and cursor shape.</summary>
+/// Ported from include/tvision/system.h and source/tvision/tscreen.cpp (class TDisplay).
 public static class TDisplay
 {
     // videoModes

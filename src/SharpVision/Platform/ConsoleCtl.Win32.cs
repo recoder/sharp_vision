@@ -1,5 +1,3 @@
-// Ported from source/platform/conctl.cpp (Windows part).
-
 using System;
 
 using SharpVision.Objects;
@@ -8,6 +6,7 @@ using static SharpVision.Platform.Interop.Kernel32;
 
 namespace SharpVision.Platform;
 
+// Ported from source/platform/conctl.cpp (Windows part).
 internal sealed partial class ConsoleCtl
 {
     private const int Input = 0;

@@ -1,10 +1,7 @@
-// Ported from include/tvision/internal/platform.h and source/platform/platform.cpp.
-
 using System;
 
 using SharpVision.Drawing;
 using SharpVision.Events;
-
 
 namespace SharpVision.Platform;
 
@@ -12,6 +9,7 @@ namespace SharpVision.Platform;
 /// The connection to the actual console: event sources, the display buffer and the
 /// terminal backend. A singleton created on first use.
 /// </summary>
+/// Ported from include/tvision/internal/platform.h and source/platform/platform.cpp.
 internal sealed class Platform : IDisplayOutput
 {
     private static readonly Lazy<Platform> _instance = new(() => new Platform());

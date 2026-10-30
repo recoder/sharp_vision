@@ -1,5 +1,3 @@
-// Ported from source/platform/win32con.cpp (Win32Display).
-
 using System;
 using System.Collections.Generic;
 
@@ -14,6 +12,7 @@ namespace SharpVision.Platform;
 /// Draws to the Windows console: with VT sequences through <see cref="AnsiDisplay"/> when
 /// supported, otherwise (legacy console) with the console API.
 /// </summary>
+/// Ported from source/platform/win32con.cpp (Win32Display).
 internal sealed class Win32Display : DisplayAdapter
 {
     private readonly ConsoleCtl _con;

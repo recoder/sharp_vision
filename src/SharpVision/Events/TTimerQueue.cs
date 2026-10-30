@@ -1,5 +1,3 @@
-// Ported from include/tvision/system.h and source/tvision/ttimerqu.cpp (class TTimerQueue).
-
 using System;
 
 using SharpVision.Platform;
@@ -7,6 +5,7 @@ using SharpVision.Platform;
 namespace SharpVision.Events;
 
 /// <summary>A list of one-shot and periodic timers, checked by polling.</summary>
+// Ported from include/tvision/system.h and source/tvision/ttimerqu.cpp (class TTimerQueue).
 public sealed class TTimerQueue
 {
     private sealed class TTimer
@@ -21,10 +20,8 @@ public sealed class TTimerQueue
     private TTimer? _first;
 
     /// <summary>Creates a queue using the system clock.</summary>
-    public TTimerQueue()
-        : this(THardwareInfo.GetTickCountMs)
-    {
-    }
+    public TTimerQueue() : this(THardwareInfo.GetTickCountMs)
+    { }
 
     /// <summary>Creates a queue using <paramref name="getTimeMs"/> as the clock (in milliseconds).</summary>
     public TTimerQueue(Func<ulong> getTimeMs)

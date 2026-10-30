@@ -1,10 +1,9 @@
-// Ported from include/tvision/system.h (struct MouseEventType).
-
 using SharpVision.Objects;
 
 namespace SharpVision.Events;
 
 /// <summary>The data of a mouse event.</summary>
+/// Ported from include/tvision/system.h (struct MouseEventType).
 public struct MouseEventType
 {
     /// <summary>Mouse position, in screen coordinates (made local by <c>TView.MakeLocal</c>).</summary>

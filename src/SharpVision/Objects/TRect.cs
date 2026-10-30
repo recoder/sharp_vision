@@ -1,5 +1,3 @@
-// Ported from include/tvision/objects.h (class TRect).
-
 using System;
 
 namespace SharpVision.Objects;
@@ -7,33 +5,25 @@ namespace SharpVision.Objects;
 /// <summary>
 /// A rectangle in screen coordinates. <see cref="A"/> is the top-left corner
 /// (inclusive) and <see cref="B"/> is the bottom-right corner (exclusive).
+/// Ported from include/tvision/objects.h (class TRect).
 /// </summary>
 /// <remarks>
 /// Mirrors Turbo Vision's <c>TRect</c>. It is a mutable value type and the
 /// <c>Move</c>/<c>Grow</c>/<c>Intersect</c>/<c>Union</c> methods modify it in
 /// place, as in the original.
 /// </remarks>
-public struct TRect : IEquatable<TRect>
+/// <remarks>Creates a rectangle from two corner points.</remarks>
+public struct TRect(TPoint p1, TPoint p2) : IEquatable<TRect>
 {
     /// <summary>Top-left corner (inclusive).</summary>
-    public TPoint A;
+    public TPoint A = p1;
 
     /// <summary>Bottom-right corner (exclusive).</summary>
-    public TPoint B;
+    public TPoint B = p2;
 
     /// <summary>Creates a rectangle from corner coordinates.</summary>
-    public TRect(int ax, int ay, int bx, int by)
-    {
-        A = new TPoint(ax, ay);
-        B = new TPoint(bx, by);
-    }
-
-    /// <summary>Creates a rectangle from two corner points.</summary>
-    public TRect(TPoint p1, TPoint p2)
-    {
-        A = p1;
-        B = p2;
-    }
+    public TRect(int ax, int ay, int bx, int by) : this(new TPoint(ax, ay), new TPoint(bx, by))
+    { }
 
     /// <summary>Translates the rectangle by (<paramref name="dx"/>, <paramref name="dy"/>).</summary>
     public void Move(int dx, int dy)
@@ -91,11 +81,11 @@ public struct TRect : IEquatable<TRect>
     public readonly bool Equals(TRect other) => A == other.A && B == other.B;
 
     /// <inheritdoc />
-    public override readonly bool Equals(object? obj) => obj is TRect other && Equals(other);
+    public readonly override bool Equals(object? obj) => obj is TRect other && Equals(other);
 
     /// <inheritdoc />
-    public override readonly int GetHashCode() => HashCode.Combine(A, B);
+    public readonly override int GetHashCode() => HashCode.Combine(A, B);
 
     /// <inheritdoc />
-    public override readonly string ToString() => $"[{A} - {B}]";
+    public readonly override string ToString() => $"[{A} - {B}]";
 }

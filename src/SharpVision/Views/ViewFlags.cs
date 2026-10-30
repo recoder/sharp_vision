@@ -1,6 +1,3 @@
-// Ported from include/tvision/views.h (sfXxx, ofXxx, gfXxx, dmXxx, hcXxx, sbXxx,
-// wfXxx, noXxx, wnXxx and wpXxx constants, and event masks).
-
 using static SharpVision.Events.EventCodes;
 
 namespace SharpVision.Views;
@@ -9,6 +6,8 @@ namespace SharpVision.Views;
 /// View state, option, grow mode and drag mode flags, and the other constants that
 /// <c>views.h</c> declares alongside the command codes.
 /// </summary>
+/// Ported from include/tvision/views.h (sfXxx, ofXxx, gfXxx, dmXxx, hcXxx, sbXxx,
+/// wfXxx, noXxx, wnXxx and wpXxx constants, and event masks).
 public static class ViewFlags
 {
     // TView State masks

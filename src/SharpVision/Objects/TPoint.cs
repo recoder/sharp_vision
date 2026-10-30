@@ -1,30 +1,23 @@
-// Ported from include/tvision/objects.h (class TPoint).
-
 using System;
 
 namespace SharpVision.Objects;
 
 /// <summary>
 /// A point in screen (character cell) coordinates.
+/// Ported from include/tvision/objects.h (class TPoint)
 /// </summary>
 /// <remarks>
 /// Mirrors Turbo Vision's <c>TPoint</c>. It is a mutable value type, like the
 /// original, so <c>+=</c>/<c>-=</c> update it in place.
 /// </remarks>
-public struct TPoint : IEquatable<TPoint>
+/// <remarks>Creates a point at (<paramref name="x"/>, <paramref name="y"/>).</remarks>
+public struct TPoint(int x, int y) : IEquatable<TPoint>
 {
     /// <summary>Column.</summary>
-    public int X;
+    public int X = x;
 
     /// <summary>Row.</summary>
-    public int Y;
-
-    /// <summary>Creates a point at (<paramref name="x"/>, <paramref name="y"/>).</summary>
-    public TPoint(int x, int y)
-    {
-        X = x;
-        Y = y;
-    }
+    public int Y = y;
 
     /// <summary>Component-wise sum.</summary>
     public static TPoint operator +(TPoint one, TPoint two) => new(one.X + two.X, one.Y + two.Y);
@@ -42,11 +35,11 @@ public struct TPoint : IEquatable<TPoint>
     public readonly bool Equals(TPoint other) => X == other.X && Y == other.Y;
 
     /// <inheritdoc />
-    public override readonly bool Equals(object? obj) => obj is TPoint other && Equals(other);
+    public readonly override bool Equals(object? obj) => obj is TPoint other && Equals(other);
 
     /// <inheritdoc />
-    public override readonly int GetHashCode() => HashCode.Combine(X, Y);
+    public readonly override int GetHashCode() => HashCode.Combine(X, Y);
 
     /// <inheritdoc />
-    public override readonly string ToString() => $"({X}, {Y})";
+    public readonly override string ToString() => $"({X}, {Y})";
 }

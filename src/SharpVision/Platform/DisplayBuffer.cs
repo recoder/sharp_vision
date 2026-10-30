@@ -1,5 +1,3 @@
-// Ported from include/tvision/internal/dispbuff.h and source/platform/dispbuff.cpp.
-
 using System;
 using System.Diagnostics;
 
@@ -13,6 +11,7 @@ namespace SharpVision.Platform;
 /// damage tracking, so that flushing only writes the cells that changed since the last
 /// flush. Flushes are limited to a maximum frame rate.
 /// </summary>
+// Ported from include/tvision/internal/dispbuff.h and source/platform/dispbuff.cpp.
 internal sealed class DisplayBuffer
 {
     private const int DefaultFps = 60;

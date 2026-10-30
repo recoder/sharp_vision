@@ -1,5 +1,3 @@
-// Ported from include/tvision/internal/termio.h and source/platform/termio.cpp.
-
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -12,6 +10,8 @@ using static SharpVision.Events.EventCodes;
 using static SharpVision.Events.KeyCodes;
 
 namespace SharpVision.Platform;
+
+// Ported from include/tvision/internal/termio.h and source/platform/termio.cpp.
 
 /// <summary>Input state shared between the parser and the input adapter.</summary>
 internal sealed class InputState

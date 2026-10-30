@@ -1,5 +1,3 @@
-// Ported from include/tvision/system.h (struct MessageEvent).
-
 namespace SharpVision.Events;
 
 /// <summary>The data of a command, broadcast or user-defined message event.</summary>
@@ -10,6 +8,7 @@ namespace SharpVision.Events;
 /// through <c>infoPtr</c> (e.g. <c>cmSelectWindowNum</c>), port it through
 /// <see cref="InfoLong"/> instead.
 /// </remarks>
+/// Ported from include/tvision/system.h (struct MessageEvent).
 public struct MessageEvent
 {
     /// <summary>Command (<c>cmXxx</c>).</summary>

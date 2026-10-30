@@ -1,5 +1,3 @@
-// Ported from include/tvision/app.h (class TBackground) and source/tvision/tbkgrnd.cpp.
-
 using SharpVision.Drawing;
 using SharpVision.Objects;
 using SharpVision.Views;
@@ -10,6 +8,7 @@ namespace SharpVision.App;
 
 /// <summary>The desktop's background: a view filled with a pattern character.</summary>
 /// <remarks>Palette layout: 1 = background.</remarks>
+/// Ported from include/tvision/app.h (class TBackground) and source/tvision/tbkgrnd.cpp.
 public class TBackground : TView
 {
     private static readonly TPalette _palette = new([0x01]);
@@ -18,8 +17,7 @@ public class TBackground : TView
     public char Pattern;
 
     /// <summary>Creates a background filled with <paramref name="pattern"/>.</summary>
-    public TBackground(TRect bounds, char pattern)
-        : base(bounds)
+    public TBackground(TRect bounds, char pattern) : base(bounds)
     {
         Pattern = pattern;
         GrowMode = (byte)(gfGrowHiX | gfGrowHiY);

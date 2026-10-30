@@ -1,5 +1,3 @@
-// Ported from source/tvision/twindow.cpp, include/tvision/views.h (TWindowInit, class TWindow).
-
 using System;
 
 using SharpVision.Events;
@@ -18,6 +16,7 @@ namespace SharpVision.Views;
 /// area, 5 = scroll bar controls, 6 = scroller normal text, 7 = scroller selected text,
 /// 8 = reserved.
 /// </remarks>
+/// Ported from source/tvision/twindow.cpp, include/tvision/views.h (TWindowInit, class TWindow).
 public class TWindow : TGroup
 {
     private static readonly TPoint _minWinSize = new(16, 6);
@@ -48,8 +47,7 @@ public class TWindow : TGroup
     public string? Title;
 
     /// <summary>Creates a window with the default frame.</summary>
-    public TWindow(TRect bounds, string? aTitle, int aNumber)
-        : this(bounds, aTitle, aNumber, InitFrame)
+    public TWindow(TRect bounds, string? aTitle, int aNumber) : this(bounds, aTitle, aNumber, InitFrame)
     {
     }
 
