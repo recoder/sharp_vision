@@ -25,7 +25,8 @@ internal sealed class MouseLabApp : TApplication
     private const ushort MessageCmd = 102;
 
     // Kept between runs so reopening the dialog shows what OK stored.
-    private readonly object?[] _data = ["", "A long line that does not fit, so it scrolls with the mouse", (ushort)0, (ushort)0];
+    private readonly object?[] _data = ["", "A long line that does not fit, so it scrolls with the mouse", (ushort)0, (ushort)0,
+        new TListBoxRec { Items = ["Apple", "Banana", "Cherry", "Date", "Elderberry", "Fig", "Grape", "Honeydew", "Kiwi", "Lemon", "Mango", "Nectarine"] }];
     private int _windowCount;
 
     public MouseLabApp()
@@ -99,7 +100,7 @@ internal sealed class LabDialog : TDialog
     private readonly TParamText _status;
 
     public LabDialog()
-        : base(new TRect(0, 0, 50, 19), "Mouse Lab")
+        : base(new TRect(0, 0, 70, 19), "Mouse Lab")
     {
         Options |= ofCentered;
 
@@ -130,6 +131,12 @@ internal sealed class LabDialog : TDialog
         Insert(new TButton(new TRect(24, 16, 34, 18), "O~K~", cmOK, bfDefault));
         Insert(new TButton(new TRect(36, 16, 48, 18), "Cancel", cmCancel, bfNormal));
 
+        var fruitBar = new TScrollBar(new TRect(66, 2, 67, 15));
+        Insert(fruitBar);
+        var fruits = new TListBox(new TRect(51, 2, 66, 15), 1, fruitBar);
+        Insert(fruits);
+        Insert(new TLabel(new TRect(50, 1, 60, 2), "~F~ruits", fruits));
+
         SelectNext(false);
     }
 
@@ -141,6 +148,8 @@ internal sealed class LabDialog : TDialog
             _status.SetText($"Last click: {(ev.Message.Command == AlphaCmd ? "Alpha" : "Beta")}");
             ClearEvent(ref ev);
         }
+        else if (ev.What == evBroadcast && ev.Message.Command == cmListItemSelected && ev.Message.InfoPtr is TListBox box)
+            _status.SetText($"Picked: {box.GetText(box.Focused, 255)}");
     }
 }
 
