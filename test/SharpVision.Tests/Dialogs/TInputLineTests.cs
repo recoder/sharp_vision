@@ -136,6 +136,25 @@ public sealed class TInputLineTests : CommandStateTest
     }
 
     [Fact]
+    public void Should_SelectByDragging_And_SelectAll_When_DoubleClicked()
+    {
+        var (screen, line) = Setup();
+        line.SetData(new object?[] { "abcdef" });
+
+        // The text starts at column 3 (line at x=2, one column of padding). Press on 'b', drag to 'e'.
+        screen.Events.Enqueue(new TEvent { What = evMouseMove, Mouse = new MouseEventType { Where = new TPoint(7, 2) } });
+        screen.Events.Enqueue(new TEvent { What = evMouseUp, Mouse = new MouseEventType { Where = new TPoint(7, 2) } });
+        var down = Views.Ev.MouseDown(4, 2);
+        line.HandleEvent(ref down);
+        Assert.Equal((1, 4, 4), (line.SelStart, line.SelEnd, line.CurPos));
+
+        down = Views.Ev.MouseDown(4, 2);
+        down.Mouse.EventFlags = meDoubleClick;
+        line.HandleEvent(ref down);
+        Assert.Equal((0, 6), (line.SelStart, line.SelEnd));
+    }
+
+    [Fact]
     public void Should_MapWordStarKeysToArrows()
     {
         Assert.Equal(kbLeft, Util.CtrlToArrow(kbCtrlS));
