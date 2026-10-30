@@ -27,7 +27,7 @@ change that ports a type. Status values: `todo`, `wip`, `done` (ported with test
 | Views | `views.h`, `tframe.cpp`, `framelin.cpp`, `twindow.cpp` | `TFrame`, `TWindow` | done | `TWindowInit` becomes a constructor delegate |
 | Views | `views.h`, `tscrlbar.cpp` | `TScrollBar` | done | |
 | Views | `views.h`, `tlstview.cpp` | `TListViewer` | done | `GetText` returns a string. Item indexes are `int` (upstream: `short`) |
-| Views | `views.h` | `TScroller` | todo | |
+| Views | `views.h` | `TScroller` | done | |
 | Platform | `platform.h`, `platform.cpp`, `events.cpp`, `dispbuff.cpp`, `sigwinch.cpp` | `Platform`, `EventWaiter`, `WakeUpEventSource`, `SigwinchSource`, `DisplayBuffer`, `DisplayAdapter` (internal) | done | Suspend signals (SIGTSTP/SIGCONT) not handled: raw mode disables them |
 | Platform | `ansiwrit.cpp`, `termio.cpp`, `ncursinp.cpp`, `ncurdisp.cpp`, `unixcon.cpp`, `conctl.cpp` | `AnsiDisplay`, `TermIO`, `TerminalInput`, `UnixConsole`, `ConsoleCtl` (internal) | done | No curses: colors guessed from `TERM`/`COLORTERM`; far2l, win32-input-mode, OSC 52 clipboard and the Linux console/GPM backends not ported |
 | Platform | `win32con.cpp`, `conctl.cpp` (Windows), `events.cpp` (Windows), `hardwrvr.cpp` (key tables) | `Win32Console`, `Win32Input`, `Win32Display`, `ConsoleAdapter` (internal) | done | Not ported: `WinWidth` (console-measured character widths), bitmap font switching in the legacy console, clipboard. Untested on a real Windows console |

@@ -11,7 +11,8 @@ Not an upstream example: a manual checklist for mouse handling. Run it with
   - click a window behind another to bring it to the front;
   - scroll bars: click the arrows (hold to repeat), click the page area (the thumb jumps
     there), drag the thumb, and use the wheel over each bar (the horizontal one needs a tilt wheel or sideways touchpad scroll;
-    Shift+wheel works only if the terminal reports it as horizontal). The values line updates.
+    Shift+wheel works only if the terminal reports it as horizontal). The text and the
+    `(column,row)` grid scroll with the bars; resizing the window changes the page size.
 - **Dialog** (`Lab > Dialog`):
   - drag the title bar to move it;
   - click a label (`Name`, `Long text`) to focus its input line;
