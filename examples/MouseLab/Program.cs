@@ -25,10 +25,11 @@ internal sealed class MouseLabApp : TApplication
     private const ushort DialogCmd = 100;
     private const ushort WindowCmd = 101;
     private const ushort MessageCmd = 102;
+    private const ushort FileCmd = 103;
 
     // Kept between runs so reopening the dialog shows what OK stored.
     private readonly object?[] _data = ["", "A long line that does not fit, so it scrolls with the mouse", (ushort)0, (ushort)0,
-        new TListBoxRec { Items = ["Apple", "Banana", "Cherry", "Date", "Elderberry", "Fig", "Grape", "Honeydew", "Kiwi", "Lemon", "Mango", "Nectarine"] }, 0u];
+        new TListBoxRec { Items = new[] { "Apple", "Banana", "Cherry", "Date", "Elderberry", "Fig", "Grape", "Honeydew", "Kiwi", "Lemon", "Mango", "Nectarine" } }, 0u];
     private int _windowCount;
 
     public MouseLabApp()
@@ -53,6 +54,11 @@ internal sealed class MouseLabApp : TApplication
                 var answer = MsgBox.MessageBox("Click one of the buttons below.", MsgBox.mfConfirmation | MsgBox.mfYesNoCancel);
                 MsgBox.MessageBox($"You chose command {answer}.", MsgBox.mfInformation | MsgBox.mfOKButton);
                 break;
+            case FileCmd:
+                object?[] file = ["*.*"];
+                if (ExecuteDialog(new TFileDialog("*.*", "Open a file", "~N~ame", TFileDialog.fdOpenButton, 2), file) != cmCancel)
+                    MsgBox.MessageBox($"You chose {file[0]}.", MsgBox.mfInformation | MsgBox.mfOKButton);
+                break;
             default:
                 return;
         }
@@ -74,6 +80,7 @@ internal sealed class MouseLabApp : TApplication
                 new TMenuItem("~D~ialog...", DialogCmd, kbAltD, hcNoContext, "Alt-D") +
                 new TMenuItem("~W~indow", WindowCmd, kbAltW, hcNoContext, "Alt-W") +
                 new TMenuItem("~M~essage box...", MessageCmd, kbAltM, hcNoContext, "Alt-M") +
+                new TMenuItem("~O~pen file...", FileCmd, kbAltO, hcNoContext, "Alt-O") +
                 TMenuItem.NewLine() +
                 new TMenuItem("E~x~it", cmQuit, kbAltX, hcNoContext, "Alt-X") +
             new TSubMenu("~W~indows", kbNoKey) +
