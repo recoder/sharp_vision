@@ -21,7 +21,7 @@ public sealed class TSortedListBoxTests : CommandStateTest
         var box = new TSortedListBox(new TRect(1, 1, 13, 6), 1, null);
         d.Insert(box);
         desk.Insert(d);
-        box.NewList([.. items]);
+        box.NewList(items);
         return box;
     }
 
