@@ -108,6 +108,7 @@ internal sealed class LabDialog : TDialog
         var name = new TInputLine(new TRect(14, 2, 46, 3), 64);
         Insert(name);
         Insert(new TLabel(new TRect(2, 2, 13, 3), "~N~ame", name));
+        Insert(new THistory(new TRect(46, 2, 49, 3), name, 1));
 
         var narrow = new TInputLine(new TRect(14, 4, 30, 5), 128);
         Insert(narrow);

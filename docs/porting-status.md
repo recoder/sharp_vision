@@ -39,7 +39,7 @@ change that ports a type. Status values: `todo`, `wip`, `done` (ported with test
 | Dialogs | `dialogs.h`, `tdialog.cpp`, `tbutton.cpp`, `tstatict.cpp` | `TDialog`, `TButton`, `TStaticText`, `DialogFlags` | done | `TStaticText.GetText` returns a string |
 | Dialogs | `dialogs.h`, `tlabel.cpp`, `tparamte.cpp` | `TLabel`, `TParamText` | done | `TParamText.SetText` takes a formatted string instead of `printf` arguments |
 | Dialogs | `dialogs.h` | `TInputLine` | done | Limits count UTF-16 code units, not UTF-8 bytes. Cut/copy/paste wait for `TClipboard` |
-| Dialogs | `dialogs.h` | `THistory` | todo | Needs `THistoryViewer`, `THistoryWindow` and the history list (`histlist.cpp`) |
+| Dialogs | `dialogs.h`, `histlist.cpp` | `THistory`, `THistoryViewer`, `THistoryWindow`, `HistList` | done | `THistInit` is a factory parameter on `THistoryWindow`; the history keeps upstream's byte budget |
 | Dialogs | `dialogs.h` | `TSItem`, `TCluster`, `TCheckBoxes`, `TRadioButtons` | done | |
 | Dialogs | `dialogs.h` | `TMultiCheckBoxes` | done | Data slot is a `uint` |
 | Dialogs | `dialogs.h`, `tlistbox.cpp` | `TListBox`, `TListBoxRec` | done | Items are a `List<string>`; the data slot holds a `TListBoxRec` |

@@ -1,6 +1,7 @@
 using System;
 using System.Diagnostics;
 
+using SharpVision.Dialogs;
 using SharpVision.Events;
 using SharpVision.Menus;
 using SharpVision.Objects;
@@ -35,7 +36,7 @@ public class TApplication : TProgram
         Func<TRect, TDeskTop?>? createDeskTop)
         : base(InitSubsystems(createStatusLine), createMenuBar, createDeskTop)
     {
-        // TBD: initHistory() once THistory is ported.
+        HistList.InitHistory();
     }
 
     // Upstream's TAppInit: the subsystems must be ready before TProgram's constructor runs,
@@ -56,6 +57,7 @@ public class TApplication : TProgram
     public override void ShutDown()
     {
         base.ShutDown();
+        HistList.DoneHistory();
         if (_subsystemsReady)
         {
             TEventQueue.Done();
