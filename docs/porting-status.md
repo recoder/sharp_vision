@@ -44,6 +44,7 @@ change that ports a type. Status values: `todo`, `wip`, `done` (ported with test
 | Dialogs | `dialogs.h` | `TMultiCheckBoxes` | done | Data slot is a `uint` |
 | Dialogs | `dialogs.h`, `tlistbox.cpp` | `TListBox`, `TListBoxRec` | done | Items are a `List<string>`; the data slot holds a `TListBoxRec` |
 | StdDlg | `stddlg.h` | `TSortedListBox` | done | Items are a sorted `List<string>`; `Compare` stands in for the collection's `compare` |
+| StdDlg | `util.h`, `dir.h`, `dir.cpp`, `findfrst.cpp`, `tdircoll.cpp`, `tfillist.cpp` | `Dir` (`FnSplit`, `FnMerge`, `FExpand`, `Squeeze`, `GetCurDir`, `PathValid`, `ValidFileName`, `FindFirst`, ...), `TSearchRec` | done | Unix matching rules on every platform; `FindFirst` is an enumeration; directory sizes are 0; no `faSystem` on Unix |
 | Dialogs | `msgbox.h` | `MessageBox`, `InputBox` (`MsgBox`, `MsgBoxText`) | done | No `printf`-style overloads: format the message first |
 | Validators | `validate.h` | `TValidator` | done | |
 | Validators | `validate.h` | `TFilterValidator`, `TRangeValidator` | done | With `voTransfer`, the range validator's data slot is an `int` (upstream `long`) |
