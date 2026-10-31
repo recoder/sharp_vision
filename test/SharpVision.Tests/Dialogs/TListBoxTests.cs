@@ -28,7 +28,7 @@ public sealed class TListBoxTests : CommandStateTest
         var (screen, box, bar) = Setup();
         Assert.Equal(" <empty>", screen.Row(1)[1..9]);
 
-        box.NewList(["apple", "banana", "cherry", "date"]);
+        box.NewList(new List<string> { "apple", "banana", "cherry", "date" });
 
         // One column is Size.X + 1 wide, so its divider falls just outside the view.
         Assert.Equal(" apple      ", screen.Row(1)[1..13]);
@@ -58,7 +58,7 @@ public sealed class TListBoxTests : CommandStateTest
     public void Should_TruncateText()
     {
         var (_, box, _) = Setup();
-        box.NewList(["abcdef"]);
+        box.NewList(new List<string> { "abcdef" });
 
         Assert.Equal("abc", box.GetText(0, 3));
     }

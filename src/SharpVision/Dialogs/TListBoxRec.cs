@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+using System.Collections;
 
 namespace SharpVision.Dialogs;
 
@@ -7,7 +7,7 @@ namespace SharpVision.Dialogs;
 public struct TListBoxRec
 {
     /// <summary>The items, or null for an empty list.</summary>
-    public List<string>? Items;
+    public IList? Items;
 
     /// <summary>The focused item.</summary>
     public ushort Selection;
