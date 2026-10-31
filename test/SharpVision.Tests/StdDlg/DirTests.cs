@@ -23,8 +23,16 @@ public sealed class DirTests : IDisposable
 
     public void Dispose() => Directory.Delete(_dir, true);
 
-    // An absolute Unix path as FExpand returns it on this platform (drive C is assumed on Windows).
-    private static string Native(string unix) => OperatingSystem.IsWindows() ? "C:" + unix.Replace('/', '\\') : unix;
+    // An absolute Unix path as FExpand returns it on this platform. On Windows it takes the drive of
+    // the path, else of relativeTo, else the current drive (D: on the CI runners).
+    private static string Native(string unix, string path, string relativeTo)
+    {
+        if (!OperatingSystem.IsWindows())
+            return unix;
+        static bool HasDrive(string s) => s.Length > 1 && s[1] == ':';
+        var drive = HasDrive(path) ? path[..2] : HasDrive(relativeTo) ? relativeTo[..2] : Environment.CurrentDirectory[..2];
+        return drive.ToUpperInvariant() + unix.Replace('/', '\\');
+    }
 
     [Theory]
     [InlineData(@"C:\dir\file.txt", 30, "C:", @"\dir\", "file", ".txt")]
@@ -57,7 +65,7 @@ public sealed class DirTests : IDisposable
     [InlineData("a/./b/../c.d", "/r", "/r/a/c.d")]
     [InlineData(@"C:\x\..\y", "/base", "/y")]
     public void Should_ExpandPath(string path, string relativeTo, string expected) =>
-        Assert.Equal(Native(expected), FExpand(path, relativeTo));
+        Assert.Equal(Native(expected, path, relativeTo), FExpand(path, relativeTo));
 
     [Fact]
     public void Should_ExpandHome()
