@@ -40,3 +40,7 @@ Not an upstream example: a manual checklist for mouse handling. Run it with
     the dialog closes and a box shows the full path;
   - drag the list's scroll bar; click the `↓` next to `Name` for the history of earlier picks;
   - drag the bottom-right corner: the dialog resizes (at least 49x19) and the list grows with it.
+- **Change dir** (`Lab > Change dir...`):
+  - double-click a directory in the tree: the tree re-roots there and `Directory name` follows;
+  - with the tree focused, `Chdir` is the default button; `Revert` goes back to the current directory;
+  - click `OK`, then reopen `Open file...`: it lists the new directory.
