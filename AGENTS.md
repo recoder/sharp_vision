@@ -130,9 +130,12 @@ Decision: **no curses dependency.** Port upstream's curses-free path to managed 
    text, UTF-8, `TColorAttr`, platform backends) are the reference *implementation*. Add any
    magiblot-only public extension, such as true color or clipboard, as a separate addition and
    mark it in its XML docs.
-4. Every ported file starts with a provenance comment naming its sources:
+4. Every ported type names its sources in a `/// Ported from` line of its XML doc, after
+   `</summary>`:
    ```csharp
-   // Ported from source/tvision/tview.cpp, include/tvision/views.h (class TView).
+   /// <summary>The base of all visible elements.</summary>
+   /// Ported from source/tvision/tview.cpp, include/tvision/views.h (class TView).
+   public class TView
    ```
 5. Do not "improve" behavior while porting. If upstream has a bug or quirk, port it as is
    and leave a `// UPSTREAM:` comment. Propose a fix in a separate change.
@@ -218,7 +221,7 @@ Decision: **no curses dependency.** Port upstream's curses-free path to managed 
 1. Read the upstream source for the type (`./scripts/fetch-upstream.sh`, then
    `.upstream/tvision/`)
 2. Read the existing ported code it depends on and follow its patterns
-3. Port the code, with the provenance comment, and add tests
+3. Port the code, with the provenance line, and add tests
 4. Run `dotnet build -warnaserror`, `dotnet test` and `dotnet format --verify-no-changes`
 5. Update `docs/porting-status.md`
 
