@@ -34,3 +34,13 @@ Not an upstream example: a manual checklist for mouse handling. Run it with
   - type something, click `OK`, reopen the dialog: the text and choices are kept. `Cancel` discards changes.
 - **Message box** (`Lab > Message box...`): click `Yes`, `No` or `Cancel`; the next box reports
   the command (12 = Yes, 13 = No, 11 = Cancel). Clicking `[■]` also cancels.
+- **Open file** (`Lab > Open file...`):
+  - click entries in `Files`: the `Name` line and the info pane at the bottom follow the focus;
+  - double-click a directory (`name\`) or `..\`: the list changes directory; double-click a file:
+    the dialog closes and a box shows the full path;
+  - drag the list's scroll bar; click the `↓` next to `Name` for the history of earlier picks;
+  - drag the bottom-right corner: the dialog resizes (at least 49x19) and the list grows with it.
+- **Change dir** (`Lab > Change dir...`):
+  - double-click a directory in the tree: the tree re-roots there and `Directory name` follows;
+  - with the tree focused, `Chdir` is the default button; `Revert` goes back to the current directory;
+  - click `OK`, then reopen `Open file...`: it lists the new directory.
