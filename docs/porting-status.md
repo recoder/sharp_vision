@@ -52,7 +52,7 @@ change that ports a type. Status values: `todo`, `wip`, `done` (ported with test
 | Validators | `validate.h` | `TLookupValidator`, `TStringLookupValidator` | done | Strings are a `List<string>`; a null list accepts nothing |
 | Validators | `validate.h` | `TPXPictureValidator`, `TPicResult` | done | |
 | StdDlg | `stddlg.h`, `tfildlg.cpp`, `stddlg.cpp` | `TFileDialog`, `TFileInputLine`, `TFileInfoPane` | done | The data slot is the file name string; `GetFileName` returns the path |
-| StdDlg | `stddlg.h` | `TChDirDialog`, `TDirListBox` | todo | |
+| StdDlg | `stddlg.h`, `tchdrdlg.cpp`, `tdirlist.cpp` | `TChDirDialog`, `TDirListBox`, `TDirEntry` | done | `TDirCollection` is a `List<TDirEntry>`; no `Drives` line on Unix; subdirectories unsorted, as upstream |
 | Editors | `editors.h` | `TEditor`, `TMemo`, `TFileEditor`, `TEditWindow`, `TIndicator` | todo | |
 | Editors | `textview.h` | `TTextDevice`, `TTerminal` | todo | |
 | Optional | `outline.h` | `TOutline` | todo | |
