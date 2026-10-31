@@ -19,6 +19,8 @@ Not an upstream example: a manual checklist for mouse handling. Run it with
   - drag the title bar to move it;
   - click a label (`Name`, `Long text`) to focus its input line;
   - in an input line, click to place the cursor, drag to select, double-click to select all;
+  - type a name, tab away, then click the `↓` arrow next to `Name`: a list of earlier names drops
+    down; double-click one to put it in the line, or click outside the list to close it;
   - in `Long text`, hold the button on the `◄`/`►` arrows (or drag past the edges) to scroll;
   - click a check box to toggle it; click a radio button to choose it; press on one item and
     release on another: nothing changes; click `Options` / `Mode` to focus the group;
