@@ -26,6 +26,7 @@ internal sealed class MouseLabApp : TApplication
     private const ushort WindowCmd = 101;
     private const ushort MessageCmd = 102;
     private const ushort FileCmd = 103;
+    private const ushort ChDirCmd = 104;
 
     // Kept between runs so reopening the dialog shows what OK stored.
     private readonly object?[] _data = ["", "A long line that does not fit, so it scrolls with the mouse", (ushort)0, (ushort)0,
@@ -59,6 +60,9 @@ internal sealed class MouseLabApp : TApplication
                 if (ExecuteDialog(new TFileDialog("*.*", "Open a file", "~N~ame", TFileDialog.fdOpenButton, 2), file) != cmCancel)
                     MsgBox.MessageBox($"You chose {file[0]}.", MsgBox.mfInformation | MsgBox.mfOKButton);
                 break;
+            case ChDirCmd:
+                ExecuteDialog(new TChDirDialog(TChDirDialog.cdNormal, 4));
+                break;
             default:
                 return;
         }
@@ -81,6 +85,7 @@ internal sealed class MouseLabApp : TApplication
                 new TMenuItem("~W~indow", WindowCmd, kbAltW, hcNoContext, "Alt-W") +
                 new TMenuItem("~M~essage box...", MessageCmd, kbAltM, hcNoContext, "Alt-M") +
                 new TMenuItem("~O~pen file...", FileCmd, kbAltO, hcNoContext, "Alt-O") +
+                new TMenuItem("~C~hange dir...", ChDirCmd, kbNoKey) +
                 TMenuItem.NewLine() +
                 new TMenuItem("E~x~it", cmQuit, kbAltX, hcNoContext, "Alt-X") +
             new TSubMenu("~W~indows", kbNoKey) +
