@@ -110,7 +110,9 @@ public sealed class TFileDialogTests : CommandStateTest, IDisposable
 
         d.FileList.FocusItem(0);
         Assert.Equal("a.txt", d.FileName.Data);
-        Assert.Contains(_dir + _sep + "*.*", Screen(), StringComparison.Ordinal);
+        // The pane clips the path; macOS temp paths are longer than the pane.
+        var path = _dir + _sep + "*.*";
+        Assert.Contains(path[..Math.Min(path.Length, 40)], Screen(), StringComparison.Ordinal);
         Assert.Matches(@"a\.txt +5 +Mar 07,2024  01:05p", Screen());
 
         // UPSTREAM: drawing stores the 12-hour value, so the redrawn time reads as AM.
