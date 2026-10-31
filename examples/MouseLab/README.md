@@ -28,6 +28,8 @@ Not an upstream example: a manual checklist for mouse handling. Run it with
   - in `Fruits`, click an item to focus it, drag up/down (hold below or above the list to keep
     scrolling), use the scroll bar (or the wheel over the bar); double-click an item (or press Space):
     the status line shows `Picked: ...`;
+  - with `Fruits` focused, type capital letters then lowercase (`B`, `l`): the focus jumps to the first
+    match and the cursor follows the typed text; Backspace steps back (keyboard, but handy to check here);
   - click `Alpha` / `Beta`: the `Last click` line updates; press and release outside a button: nothing happens;
   - type something, click `OK`, reopen the dialog: the text and choices are kept. `Cancel` discards changes.
 - **Message box** (`Lab > Message box...`): click `Yes`, `No` or `Cancel`; the next box reports

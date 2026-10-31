@@ -7,6 +7,7 @@ using SharpVision.Drawing;
 using SharpVision.Events;
 using SharpVision.Menus;
 using SharpVision.Objects;
+using SharpVision.StdDlg;
 using SharpVision.Views;
 
 using static SharpVision.Dialogs.DialogFlags;
@@ -135,7 +136,7 @@ internal sealed class LabDialog : TDialog
 
         var fruitBar = new TScrollBar(new TRect(66, 2, 67, 15));
         Insert(fruitBar);
-        var fruits = new TListBox(new TRect(51, 2, 66, 15), 1, fruitBar);
+        var fruits = new TSortedListBox(new TRect(51, 2, 66, 15), 1, fruitBar);
         Insert(fruits);
         Insert(new TLabel(new TRect(50, 1, 60, 2), "~F~ruits", fruits));
 
