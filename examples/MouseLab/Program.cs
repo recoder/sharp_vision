@@ -28,7 +28,7 @@ internal sealed class MouseLabApp : TApplication
 
     // Kept between runs so reopening the dialog shows what OK stored.
     private readonly object?[] _data = ["", "A long line that does not fit, so it scrolls with the mouse", (ushort)0, (ushort)0,
-        new TListBoxRec { Items = ["Apple", "Banana", "Cherry", "Date", "Elderberry", "Fig", "Grape", "Honeydew", "Kiwi", "Lemon", "Mango", "Nectarine"] }, 0u];
+        new TListBoxRec { Items = new[] { "Apple", "Banana", "Cherry", "Date", "Elderberry", "Fig", "Grape", "Honeydew", "Kiwi", "Lemon", "Mango", "Nectarine" } }, 0u];
     private int _windowCount;
 
     public MouseLabApp()

@@ -1,5 +1,5 @@
 using System;
-using System.Collections.Generic;
+using System.Collections;
 
 using SharpVision.Dialogs;
 using SharpVision.Events;
@@ -98,20 +98,20 @@ public class TSortedListBox : TListBox
     }
 
     /// <summary>The search key for the typed text. The text itself by default.</summary>
-    protected virtual string GetKey(string s) => s;
+    protected virtual object GetKey(string s) => s;
 
-    /// <summary>Orders an item against a search key, like the collection's <c>compare</c>. Ordinal by default (<c>TStringCollection</c>).</summary>
-    protected virtual int Compare(string item, string key) => string.CompareOrdinal(item, key);
+    /// <summary>Orders an item against a search key, like the collection's <c>compare</c>. Ordinal on strings by default (<c>TStringCollection</c>).</summary>
+    protected virtual int Compare(object item, object key) => string.CompareOrdinal((string)item, (string)key);
 
     /// <summary>Replaces the items, which must be sorted by <see cref="Compare"/>, and resets the search.</summary>
-    public override void NewList(List<string>? aList)
+    public override void NewList(IList? aList)
     {
         base.NewList(aList);
         _searchPos = -1;
     }
 
     // The index of the first item not less than the key (TNSSortedCollection::search).
-    private int Search(string key)
+    private int Search(object key)
     {
         if (Items is null)
             return 0;
@@ -119,7 +119,7 @@ public class TSortedListBox : TListBox
         while (l <= h)
         {
             var i = (l + h) >> 1;
-            var c = Compare(Items[i], key);
+            var c = Compare(Items[i]!, key);
             if (c < 0)
                 l = i + 1;
             else

@@ -42,8 +42,10 @@ change that ports a type. Status values: `todo`, `wip`, `done` (ported with test
 | Dialogs | `dialogs.h`, `histlist.cpp` | `THistory`, `THistoryViewer`, `THistoryWindow`, `HistList` | done | `THistInit` is a factory parameter on `THistoryWindow`; the history keeps upstream's byte budget |
 | Dialogs | `dialogs.h` | `TSItem`, `TCluster`, `TCheckBoxes`, `TRadioButtons` | done | |
 | Dialogs | `dialogs.h` | `TMultiCheckBoxes` | done | Data slot is a `uint` |
-| Dialogs | `dialogs.h`, `tlistbox.cpp` | `TListBox`, `TListBoxRec` | done | Items are a `List<string>`; the data slot holds a `TListBoxRec` |
-| StdDlg | `stddlg.h` | `TSortedListBox` | done | Items are a sorted `List<string>`; `Compare` stands in for the collection's `compare` |
+| Dialogs | `dialogs.h`, `tlistbox.cpp` | `TListBox`, `TListBoxRec` | done | Items are an untyped `IList` (strings unless `GetText` is overridden); the data slot holds a `TListBoxRec` |
+| StdDlg | `stddlg.h` | `TSortedListBox` | done | Items are a sorted `IList`; `Compare` stands in for the collection's `compare` |
+| StdDlg | `stddlg.h`, `tfillist.cpp`, `tfilecol.cpp` | `TFileList`, `TFileCollection`, `StdDlgCommands` | done | `TFileCollection` is a `List<TSearchRec>` with a sorted `Insert`; no "Too many files" warning |
+| StdDlg | `util.h`, `dir.h`, `dir.cpp`, `findfrst.cpp`, `tdircoll.cpp`, `tfillist.cpp` | `Dir` (`FnSplit`, `FnMerge`, `FExpand`, `Squeeze`, `GetCurDir`, `PathValid`, `ValidFileName`, `FindFirst`, ...), `TSearchRec` | done | Unix matching rules on every platform; `FindFirst` is an enumeration; directory sizes are 0; no `faSystem` on Unix |
 | Dialogs | `msgbox.h` | `MessageBox`, `InputBox` (`MsgBox`, `MsgBoxText`) | done | No `printf`-style overloads: format the message first |
 | Validators | `validate.h` | `TValidator` | done | |
 | Validators | `validate.h` | `TFilterValidator`, `TRangeValidator` | done | With `voTransfer`, the range validator's data slot is an `int` (upstream `long`) |
