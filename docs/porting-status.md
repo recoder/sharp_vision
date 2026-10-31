@@ -51,7 +51,8 @@ change that ports a type. Status values: `todo`, `wip`, `done` (ported with test
 | Validators | `validate.h` | `TFilterValidator`, `TRangeValidator` | done | With `voTransfer`, the range validator's data slot is an `int` (upstream `long`) |
 | Validators | `validate.h` | `TLookupValidator`, `TStringLookupValidator` | done | Strings are a `List<string>`; a null list accepts nothing |
 | Validators | `validate.h` | `TPXPictureValidator`, `TPicResult` | done | |
-| StdDlg | `stddlg.h` | `TFileDialog`, `TChDirDialog`, `TDirListBox` | todo | |
+| StdDlg | `stddlg.h`, `tfildlg.cpp`, `stddlg.cpp` | `TFileDialog`, `TFileInputLine`, `TFileInfoPane` | done | The data slot is the file name string; `GetFileName` returns the path |
+| StdDlg | `stddlg.h` | `TChDirDialog`, `TDirListBox` | todo | |
 | Editors | `editors.h` | `TEditor`, `TMemo`, `TFileEditor`, `TEditWindow`, `TIndicator` | todo | |
 | Editors | `textview.h` | `TTextDevice`, `TTerminal` | todo | |
 | Optional | `outline.h` | `TOutline` | todo | |
