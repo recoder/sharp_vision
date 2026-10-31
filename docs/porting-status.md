@@ -43,7 +43,7 @@ change that ports a type. Status values: `todo`, `wip`, `done` (ported with test
 | Dialogs | `dialogs.h` | `TSItem`, `TCluster`, `TCheckBoxes`, `TRadioButtons` | done | |
 | Dialogs | `dialogs.h` | `TMultiCheckBoxes` | done | Data slot is a `uint` |
 | Dialogs | `dialogs.h`, `tlistbox.cpp` | `TListBox`, `TListBoxRec` | done | Items are a `List<string>`; the data slot holds a `TListBoxRec` |
-| Dialogs | `stddlg.h` | `TSortedListBox` | todo | Needs a sorted collection and incremental search |
+| StdDlg | `stddlg.h` | `TSortedListBox` | done | Items are a sorted `List<string>`; `Compare` stands in for the collection's `compare` |
 | Dialogs | `msgbox.h` | `MessageBox`, `InputBox` (`MsgBox`, `MsgBoxText`) | done | No `printf`-style overloads: format the message first |
 | Validators | `validate.h` | `TValidator` | done | |
 | Validators | `validate.h` | `TFilterValidator`, `TRangeValidator` | done | With `voTransfer`, the range validator's data slot is an `int` (upstream `long`) |
