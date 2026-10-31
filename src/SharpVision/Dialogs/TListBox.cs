@@ -1,5 +1,5 @@
 using System;
-using System.Collections.Generic;
+using System.Collections;
 
 using SharpVision.Objects;
 using SharpVision.Views;
@@ -7,12 +7,16 @@ using SharpVision.Views;
 namespace SharpVision.Dialogs;
 
 /// <summary>A list viewer over a list of strings, transferring a <see cref="TListBoxRec"/>.</summary>
-/// <remarks>Palette layout: 1 = active, 2 = inactive, 3 = focused, 4 = selected, 5 = divider.</remarks>
+/// <remarks>
+/// The items are an untyped <see cref="IList"/>, as upstream's <c>TCollection</c> is: <see cref="GetText"/>
+/// expects strings, and subclasses that override it may hold other items.
+/// Palette layout: 1 = active, 2 = inactive, 3 = focused, 4 = selected, 5 = divider.
+/// </remarks>
 /// Ported from source/tvision/tlistbox.cpp, include/tvision/dialogs.h (class TListBox).
 public class TListBox : TListViewer
 {
     /// <summary>The items, or null.</summary>
-    protected List<string>? Items;
+    protected IList? Items;
 
     /// <summary>Creates an empty list box with <paramref name="aNumCols"/> columns and an optional vertical scroll bar.</summary>
     public TListBox(TRect bounds, ushort aNumCols, TScrollBar? aScrollBar) : base(bounds, aNumCols, null, aScrollBar)
@@ -32,14 +36,14 @@ public class TListBox : TListViewer
     {
         if (Items is not null)
         {
-            var s = Items[item];
+            var s = (string)Items[item]!;
             return s.Length > maxLen ? s[..maxLen] : s;
         }
         return "";
     }
 
     /// <summary>Replaces the items and focuses the first one.</summary>
-    public virtual void NewList(List<string>? aList)
+    public virtual void NewList(IList? aList)
     {
         Items = aList;
         if (aList is not null)
@@ -61,5 +65,5 @@ public class TListBox : TListViewer
     }
 
     /// <summary>The items, or null.</summary>
-    public List<string>? List() => Items;
+    public IList? List() => Items;
 }
