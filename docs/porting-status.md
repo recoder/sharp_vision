@@ -56,7 +56,7 @@ change that ports a type. Status values: `todo`, `wip`, `done` (ported with test
 | Editors | `teditor1.cpp`, `teditor2.cpp`, `edits.cpp`, `editstat.cpp` | `TEditor`, `EditorCommands`, `TEditorDialog`, `TFindDialogRec`, `TReplaceDialogRec` | done | UTF-16 buffer: positions count code units and single-byte mode (`cmEncoding`) steps by code unit, drawing a lone surrogate as U+FFFD. Without a clipboard editor, cut/copy/paste do nothing (waits for `TClipboard`) |
 | Editors | `tindictr.cpp` | `TIndicator` | done | |
 | Editors | `tmemo.cpp` | `TMemo` | done | The data slot is the text as a string instead of `TMemoData` |
-| Editors | `editors.h` | `TFileEditor`, `TEditWindow` | todo | |
+| Editors | `tfiledtr.cpp`, `teditwnd.cpp` | `TFileEditor`, `TEditWindow` | done | Files are read as UTF-8 (or per their BOM) and written as UTF-8 without a BOM; invalid UTF-8 is read as U+FFFD. The `edSaveAs` argument is a one-slot data record holding the name |
 | Editors | `textview.h` | `TTextDevice`, `TTerminal` | todo | |
 | Optional | `outline.h` | `TOutline` | todo | |
 | Optional | `colorsel.h` | `TColorDialog` | todo | |
