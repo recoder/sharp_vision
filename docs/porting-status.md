@@ -53,7 +53,9 @@ change that ports a type. Status values: `todo`, `wip`, `done` (ported with test
 | Validators | `validate.h` | `TPXPictureValidator`, `TPicResult` | done | |
 | StdDlg | `stddlg.h`, `tfildlg.cpp`, `stddlg.cpp` | `TFileDialog`, `TFileInputLine`, `TFileInfoPane` | done | The data slot is the file name string; `GetFileName` returns the path |
 | StdDlg | `stddlg.h`, `tchdrdlg.cpp`, `tdirlist.cpp` | `TChDirDialog`, `TDirListBox`, `TDirEntry` | done | `TDirCollection` is a `List<TDirEntry>`; no `Drives` line on Unix; subdirectories unsorted, as upstream |
-| Editors | `editors.h` | `TEditor`, `TMemo`, `TFileEditor`, `TEditWindow`, `TIndicator` | todo | |
+| Editors | `teditor1.cpp`, `teditor2.cpp`, `edits.cpp`, `editstat.cpp` | `TEditor`, `EditorCommands`, `TEditorDialog`, `TFindDialogRec`, `TReplaceDialogRec` | done | UTF-16 buffer: positions count code units and single-byte mode (`cmEncoding`) steps by code unit, drawing a lone surrogate as U+FFFD. Without a clipboard editor, cut/copy/paste do nothing (waits for `TClipboard`) |
+| Editors | `tindictr.cpp` | `TIndicator` | done | |
+| Editors | `editors.h` | `TMemo`, `TFileEditor`, `TEditWindow` | todo | |
 | Editors | `textview.h` | `TTextDevice`, `TTerminal` | todo | |
 | Optional | `outline.h` | `TOutline` | todo | |
 | Optional | `colorsel.h` | `TColorDialog` | todo | |

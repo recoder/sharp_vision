@@ -4,6 +4,7 @@
 using SharpVision.App;
 using SharpVision.Dialogs;
 using SharpVision.Drawing;
+using SharpVision.Editors;
 using SharpVision.Events;
 using SharpVision.Menus;
 using SharpVision.Objects;
@@ -27,6 +28,7 @@ internal sealed class MouseLabApp : TApplication
     private const ushort MessageCmd = 102;
     private const ushort FileCmd = 103;
     private const ushort ChDirCmd = 104;
+    private const ushort EditorCmd = 105;
 
     // Kept between runs so reopening the dialog shows what OK stored.
     private readonly object?[] _data = ["", "A long line that does not fit, so it scrolls with the mouse", (ushort)0, (ushort)0,
@@ -63,6 +65,9 @@ internal sealed class MouseLabApp : TApplication
             case ChDirCmd:
                 ExecuteDialog(new TChDirDialog(TChDirDialog.cdNormal, 4));
                 break;
+            case EditorCmd:
+                NewEditor();
+                break;
             default:
                 return;
         }
@@ -76,6 +81,28 @@ internal sealed class MouseLabApp : TApplication
         InsertWindow(new LabWindow(r, n));
     }
 
+    // Laid out like upstream's TEditWindow, with a plain TEditor until TFileEditor is ported.
+    private void NewEditor()
+    {
+        var w = new TWindow(new TRect(6, 2, 66, 18), "Editor", wnNoNumber);
+        var h = new TScrollBar(new TRect(18, w.Size.Y - 1, w.Size.X - 2, w.Size.Y));
+        var v = new TScrollBar(new TRect(w.Size.X - 1, 1, w.Size.X, w.Size.Y - 1));
+        var ind = new TIndicator(new TRect(2, w.Size.Y - 1, 16, w.Size.Y));
+        foreach (var view in new TView[] { h, v, ind })
+        {
+            view.Hide();
+            w.Insert(view);
+        }
+        var r = w.GetExtent();
+        r.Grow(-1, -1);
+        var e = new TEditor(r, h, v, ind, 0x8000);
+        w.Insert(e);
+        for (var i = 1; i <= 40; i++)
+            e.InsertText($"Line {i}: the quick brown fox(); jumps over\tthe lazy dog. {new string('-', i * 2)}|\n", false);
+        e.SetCurPtr(0, 0);
+        InsertWindow(w);
+    }
+
     public static new TMenuBar? InitMenuBar(TRect r)
     {
         r.B.Y = r.A.Y + 1;
@@ -86,6 +113,7 @@ internal sealed class MouseLabApp : TApplication
                 new TMenuItem("~M~essage box...", MessageCmd, kbAltM, hcNoContext, "Alt-M") +
                 new TMenuItem("~O~pen file...", FileCmd, kbAltO, hcNoContext, "Alt-O") +
                 new TMenuItem("~C~hange dir...", ChDirCmd, kbNoKey) +
+                new TMenuItem("~E~ditor", EditorCmd, kbAltE, hcNoContext, "Alt-E") +
                 TMenuItem.NewLine() +
                 new TMenuItem("E~x~it", cmQuit, kbAltX, hcNoContext, "Alt-X") +
             new TSubMenu("~W~indows", kbNoKey) +
