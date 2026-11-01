@@ -29,15 +29,25 @@ internal sealed class MouseLabApp : TApplication
     private const ushort FileCmd = 103;
     private const ushort ChDirCmd = 104;
     private const ushort EditorCmd = 105;
+    private const ushort ShowClipCmd = 106;
 
     // Kept between runs so reopening the dialog shows what OK stored.
     private readonly object?[] _data = ["", "A long line that does not fit, so it scrolls with the mouse", (ushort)0, (ushort)0,
         new TListBoxRec { Items = new[] { "Apple", "Banana", "Cherry", "Date", "Elderberry", "Fig", "Grape", "Honeydew", "Kiwi", "Lemon", "Mango", "Nectarine" } }, 0u];
     private int _windowCount;
+    private readonly TEditWindow _clipWindow;
 
     public MouseLabApp()
         : base(InitStatusLine, InitMenuBar, InitDeskTop)
     {
+        // No dialogs yet: discard changes on close, cancel the rest.
+        TEditor.EditorDialog = (d, _) => d is edSaveModify or edSaveUntitled ? cmNo : cmCancel;
+        // Like tvedit: a hidden editor window is the clipboard.
+        _clipWindow = new TEditWindow(DeskTop!.GetExtent(), "", wnNoNumber);
+        _clipWindow.Hide();
+        DeskTop.Insert(_clipWindow);
+        TEditor.Clipboard = _clipWindow.Editor;
+        TEditor.Clipboard.CanUndo = false;
     }
 
     public override void HandleEvent(ref TEvent ev)
@@ -68,6 +78,10 @@ internal sealed class MouseLabApp : TApplication
             case EditorCmd:
                 NewEditor();
                 break;
+            case ShowClipCmd:
+                _clipWindow.Select();
+                _clipWindow.Show();
+                break;
             default:
                 return;
         }
@@ -83,8 +97,6 @@ internal sealed class MouseLabApp : TApplication
 
     private void NewEditor()
     {
-        // No dialogs yet: discard changes on close, cancel the rest.
-        TEditor.EditorDialog = (d, _) => d is edSaveModify or edSaveUntitled ? cmNo : cmCancel;
         var w = new TEditWindow(new TRect(6, 2, 66, 18), "", wnNoNumber);
         var e = w.Editor;
         for (var i = 1; i <= 40; i++)
@@ -106,6 +118,13 @@ internal sealed class MouseLabApp : TApplication
                 new TMenuItem("~E~ditor", EditorCmd, kbAltE, hcNoContext, "Alt-E") +
                 TMenuItem.NewLine() +
                 new TMenuItem("E~x~it", cmQuit, kbAltX, hcNoContext, "Alt-X") +
+            new TSubMenu("~C~lipboard", kbNoKey) +
+                new TMenuItem("Cu~t~", cmCut, kbShiftDel, hcNoContext, "Shift-Del") +
+                new TMenuItem("~C~opy", cmCopy, kbCtrlIns, hcNoContext, "Ctrl-Ins") +
+                new TMenuItem("~P~aste", cmPaste, kbShiftIns, hcNoContext, "Shift-Ins") +
+                new TMenuItem("~U~ndo", cmUndo, kbNoKey) +
+                TMenuItem.NewLine() +
+                new TMenuItem("~S~how clipboard", ShowClipCmd, kbNoKey) +
             new TSubMenu("~W~indows", kbNoKey) +
                 new TMenuItem("~N~ext", cmNext, kbF6, hcNoContext, "F6") +
                 new TMenuItem("~Z~oom", cmZoom, kbF5, hcNoContext, "F5") +
