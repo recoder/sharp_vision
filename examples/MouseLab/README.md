@@ -50,7 +50,11 @@ Not an upstream example: a manual checklist for mouse handling. Run it with
   - Shift+click extends the selection; middle-drag scrolls the text;
   - the wheel scrolls; drag the scroll bars; the indicator at the bottom left shows `line:column`
     and `☼` once the text is modified;
-  - right-click: a menu with `Cut`, `Copy`, `Paste` and `Undo` opens at the pointer. `Undo` works;
-    cut, copy and paste do nothing yet (no clipboard);
+  - right-click: a menu with `Cut`, `Copy`, `Paste` and `Undo` opens at the pointer;
+  - select text, then cut or copy (right-click menu, `Clipboard` menu, Shift-Del or Ctrl-Ins); click
+    elsewhere and paste (Shift-Ins): the text appears at the cursor. Paste also works into a second
+    editor window. With no selection, `Cut` and `Copy` are greyed out in the menus;
+  - `Clipboard > Show clipboard` shows the clipboard window, titled `Clipboard`, holding the last
+    cut or copied text selected; closing it only hides it;
   - the window is titled `Untitled`; drag its bottom-right corner: it stops at 24x6 and the editor
     follows; closing it discards the text.
