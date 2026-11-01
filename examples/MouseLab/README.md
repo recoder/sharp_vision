@@ -51,4 +51,6 @@ Not an upstream example: a manual checklist for mouse handling. Run it with
   - the wheel scrolls; drag the scroll bars; the indicator at the bottom left shows `line:column`
     and `☼` once the text is modified;
   - right-click: a menu with `Cut`, `Copy`, `Paste` and `Undo` opens at the pointer. `Undo` works;
-    cut, copy and paste do nothing yet (no clipboard).
+    cut, copy and paste do nothing yet (no clipboard);
+  - the window is titled `Untitled`; drag its bottom-right corner: it stops at 24x6 and the editor
+    follows; closing it discards the text.

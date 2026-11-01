@@ -10,8 +10,8 @@ using SharpVision.Menus;
 using SharpVision.Objects;
 using SharpVision.StdDlg;
 using SharpVision.Views;
-
 using static SharpVision.Dialogs.DialogFlags;
+using static SharpVision.Editors.EditorCommands;
 using static SharpVision.Events.EventCodes;
 using static SharpVision.Events.KeyCodes;
 using static SharpVision.Views.Commands;
@@ -81,22 +81,12 @@ internal sealed class MouseLabApp : TApplication
         InsertWindow(new LabWindow(r, n));
     }
 
-    // Laid out like upstream's TEditWindow, with a plain TEditor until TFileEditor is ported.
     private void NewEditor()
     {
-        var w = new TWindow(new TRect(6, 2, 66, 18), "Editor", wnNoNumber);
-        var h = new TScrollBar(new TRect(18, w.Size.Y - 1, w.Size.X - 2, w.Size.Y));
-        var v = new TScrollBar(new TRect(w.Size.X - 1, 1, w.Size.X, w.Size.Y - 1));
-        var ind = new TIndicator(new TRect(2, w.Size.Y - 1, 16, w.Size.Y));
-        foreach (var view in new TView[] { h, v, ind })
-        {
-            view.Hide();
-            w.Insert(view);
-        }
-        var r = w.GetExtent();
-        r.Grow(-1, -1);
-        var e = new TEditor(r, h, v, ind, 0x8000);
-        w.Insert(e);
+        // No dialogs yet: discard changes on close, cancel the rest.
+        TEditor.EditorDialog = (d, _) => d is edSaveModify or edSaveUntitled ? cmNo : cmCancel;
+        var w = new TEditWindow(new TRect(6, 2, 66, 18), "", wnNoNumber);
+        var e = w.Editor;
         for (var i = 1; i <= 40; i++)
             e.InsertText($"Line {i}: the quick brown fox(); jumps over\tthe lazy dog. {new string('-', i * 2)}|\n", false);
         e.SetCurPtr(0, 0);
