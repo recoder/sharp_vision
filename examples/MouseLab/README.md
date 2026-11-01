@@ -44,3 +44,11 @@ Not an upstream example: a manual checklist for mouse handling. Run it with
   - double-click a directory in the tree: the tree re-roots there and `Directory name` follows;
   - with the tree focused, `Chdir` is the default button; `Revert` goes back to the current directory;
   - click `OK`, then reopen `Open file...`: it lists the new directory.
+- **Editor** (`Lab > Editor`):
+  - click to place the cursor; drag to select (hold above or below the text, or past the sides, to keep scrolling);
+  - double-click selects a word, a run of blanks or a run of punctuation; triple-click selects a line;
+  - Shift+click extends the selection; middle-drag scrolls the text;
+  - the wheel scrolls; drag the scroll bars; the indicator at the bottom left shows `line:column`
+    and `☼` once the text is modified;
+  - right-click: a menu with `Cut`, `Copy`, `Paste` and `Undo` opens at the pointer. `Undo` works;
+    cut, copy and paste do nothing yet (no clipboard).
