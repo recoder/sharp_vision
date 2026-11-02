@@ -57,7 +57,7 @@ change that ports a type. Status values: `todo`, `wip`, `done` (ported with test
 | Editors | `tindictr.cpp` | `TIndicator` | done | |
 | Editors | `tmemo.cpp` | `TMemo` | done | The data slot is the text as a string instead of `TMemoData` |
 | Editors | `editors.h` | `TFileEditor`, `TEditWindow` | todo | |
-| Editors | `textview.h` | `TTextDevice`, `TTerminal` | todo | |
+| Editors | `textview.cpp`, `ttprvlns.cpp` | `TTextDevice`, `TTerminal` | done | No `streambuf`/`otstream`: write with `DoSputn`/`Overflow`. The buffer holds UTF-16 code units |
 | Optional | `outline.h` | `TOutline` | todo | |
 | Optional | `colorsel.h` | `TColorDialog` | todo | |
 | Optional | `help.h`, `helpbase.h` | `THelpWindow`, `THelpFile` | todo | |
