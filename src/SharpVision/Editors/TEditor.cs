@@ -325,10 +325,13 @@ public class TEditor : TView
         var res = false;
         if (Clipboard != this)
         {
-            // shortcut: without a clipboard editor nothing is copied (upstream uses the system clipboard,
-            // TClipboard); port TClipboard to support it.
             if (Clipboard is not null)
                 res = Clipboard.InsertFrom(this);
+            else
+            {
+                TClipboard.SetText(Buffer.AsSpan(BufPtr(SelStart), SelEnd - SelStart));
+                res = true;
+            }
             Selecting = false;
             Update(ufUpdate);
         }
@@ -345,9 +348,13 @@ public class TEditor : TView
     /// <summary>Inserts the clipboard's selection.</summary>
     public void ClipPaste()
     {
-        // shortcut: without a clipboard editor nothing is pasted (upstream requests the system clipboard).
-        if (Clipboard != this && Clipboard is not null)
-            InsertFrom(Clipboard);
+        if (Clipboard != this)
+        {
+            if (Clipboard is not null)
+                InsertFrom(Clipboard);
+            else
+                TClipboard.RequestText();
+        }
     }
 
     /// <summary>Turns a key press into an editor command through the key maps, handling the Ctrl-Q and Ctrl-K prefixes.</summary>

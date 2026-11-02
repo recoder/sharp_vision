@@ -139,7 +139,11 @@ internal sealed class MouseLabApp : TApplication
                 new TStatusItem("~Alt-X~ Exit", kbAltX, cmQuit) +
                 new TStatusItem("~Alt-D~ Dialog", kbAltD, DialogCmd) +
                 new TStatusItem("~Alt-W~ Window", kbAltW, WindowCmd) +
-                new TStatusItem(null, kbF10, cmMenu));
+                new TStatusItem(null, kbF10, cmMenu) +
+                // Hidden: the status line sees keys even in modal dialogs, so input lines get them too.
+                new TStatusItem(null, kbShiftDel, cmCut) +
+                new TStatusItem(null, kbCtrlIns, cmCopy) +
+                new TStatusItem(null, kbShiftIns, cmPaste));
     }
 }
 

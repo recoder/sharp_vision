@@ -14,13 +14,14 @@ change that ports a type. Status values: `todo`, `wip`, `done` (ported with test
 | Drawing | `ttext.h`, `source/platform/ttext.cpp`, `codepage.cpp` | `TText`, `TTextMetrics`, `CpTranslator` | done | UTF-16 instead of UTF-8; UTF-32 overloads not ported |
 | Platform | `source/platform/platfchr.cpp` | `CharOps` (internal) | done | Managed `wcwidth` approximation; Windows and Linux console width variants todo |
 | Platform | `system.h`, `tscreen.cpp` | `TScreen`, `TDisplay` | done | Static classes; `Initialize`/`Done` replace constructor/destructor |
-| Platform | `hardware.h`, `hardware.cpp` | `THardwareInfo`, `IDisplayOutput` (internal) | done | Clipboard functions not ported |
+| Platform | `hardware.h`, `hardware.cpp` | `THardwareInfo`, `IDisplayOutput` (internal) | done | The clipboard functions are wired up, but no console backend implements them yet |
 | Views | `views.h`, `palette.cpp` | `TPalette` | done | Built from bytes or `TColorAttr`s |
 | Views | `views.h` | `Commands`, `ViewFlags` | done | |
 | Objects | `tvobjs.h`, `tobject.cpp` | `TObject` | done | `Destroy` only calls `ShutDown` |
 | Events | `system.h`, `tkeys.h`, `tkey.cpp` | `TEvent`, `MouseEventType`, `KeyDownEvent`, `CharScanType`, `MessageEvent`, `TKey`, `EventCodes`, `KeyCodes` | done | `TEvent` parts don't overlap; `MessageEvent.InfoPtr` is separate from the integers |
 | Events | `system.h`, `tevent.cpp`, `tmouse.cpp` | `TEventQueue`, `TMouse`, `TEvent.GetMouseEvent`/`GetKeyEvent` | done | Static classes; `Initialize`/`Done` replace constructor/destructor |
 | Events | `system.h`, `ttimerqu.cpp` | `TTimerQueue` | done | |
+| Events | `system.h`, `tclipbrd.cpp` | `TClipboard` | done | Static class. Uses the local clipboard until a console backend supports the system clipboard |
 | Events | `views.h`, `tcmdset.cpp` | `TCommandSet` | done | |
 | Views | `views.h`, `tview.cpp`, `tvwrite.cpp`, `tvexposd.cpp`, `tvcursor.cpp`, `mapcolor.cpp`, `misc.cpp` | `TView` | done | DOS `ushort` cell overloads of `WriteBuf`/`WriteLine` not ported |
 | Views | `views.h`, `tgroup.cpp`, `grp.cpp`, `tgrmv.cpp` | `TGroup` | done | |
@@ -38,7 +39,7 @@ change that ports a type. Status values: `todo`, `wip`, `done` (ported with test
 | Objects | `util.h`, `drivers2.cpp`, `tvtext2.cpp` | `Util` (`Cstrlen`, `HotKeyStr`, `GetAltChar`, `GetAltCode`, ...) | done | |
 | Dialogs | `dialogs.h`, `tdialog.cpp`, `tbutton.cpp`, `tstatict.cpp` | `TDialog`, `TButton`, `TStaticText`, `DialogFlags` | done | `TStaticText.GetText` returns a string |
 | Dialogs | `dialogs.h`, `tlabel.cpp`, `tparamte.cpp` | `TLabel`, `TParamText` | done | `TParamText.SetText` takes a formatted string instead of `printf` arguments |
-| Dialogs | `dialogs.h` | `TInputLine` | done | Limits count UTF-16 code units, not UTF-8 bytes. Cut/copy/paste wait for `TClipboard` |
+| Dialogs | `dialogs.h` | `TInputLine` | done | Limits count UTF-16 code units, not UTF-8 bytes. |
 | Dialogs | `dialogs.h`, `histlist.cpp` | `THistory`, `THistoryViewer`, `THistoryWindow`, `HistList` | done | `THistInit` is a factory parameter on `THistoryWindow`; the history keeps upstream's byte budget |
 | Dialogs | `dialogs.h` | `TSItem`, `TCluster`, `TCheckBoxes`, `TRadioButtons` | done | |
 | Dialogs | `dialogs.h` | `TMultiCheckBoxes` | done | Data slot is a `uint` |
@@ -53,7 +54,7 @@ change that ports a type. Status values: `todo`, `wip`, `done` (ported with test
 | Validators | `validate.h` | `TPXPictureValidator`, `TPicResult` | done | |
 | StdDlg | `stddlg.h`, `tfildlg.cpp`, `stddlg.cpp` | `TFileDialog`, `TFileInputLine`, `TFileInfoPane` | done | The data slot is the file name string; `GetFileName` returns the path |
 | StdDlg | `stddlg.h`, `tchdrdlg.cpp`, `tdirlist.cpp` | `TChDirDialog`, `TDirListBox`, `TDirEntry` | done | `TDirCollection` is a `List<TDirEntry>`; no `Drives` line on Unix; subdirectories unsorted, as upstream |
-| Editors | `teditor1.cpp`, `teditor2.cpp`, `edits.cpp`, `editstat.cpp` | `TEditor`, `EditorCommands`, `TEditorDialog`, `TFindDialogRec`, `TReplaceDialogRec` | done | UTF-16 buffer: positions count code units and single-byte mode (`cmEncoding`) steps by code unit, drawing a lone surrogate as U+FFFD. Without a clipboard editor, cut/copy/paste do nothing (waits for `TClipboard`) |
+| Editors | `teditor1.cpp`, `teditor2.cpp`, `edits.cpp`, `editstat.cpp` | `TEditor`, `EditorCommands`, `TEditorDialog`, `TFindDialogRec`, `TReplaceDialogRec` | done | UTF-16 buffer: positions count code units and single-byte mode (`cmEncoding`) steps by code unit, drawing a lone surrogate as U+FFFD. |
 | Editors | `tindictr.cpp` | `TIndicator` | done | |
 | Editors | `tmemo.cpp` | `TMemo` | done | The data slot is the text as a string instead of `TMemoData` |
 | Editors | `tfiledtr.cpp`, `teditwnd.cpp` | `TFileEditor`, `TEditWindow` | done | Files are read as UTF-8 (or per their BOM) and written as UTF-8 without a BOM; invalid UTF-8 is read as U+FFFD. The `edSaveAs` argument is a one-slot data record holding the name |
