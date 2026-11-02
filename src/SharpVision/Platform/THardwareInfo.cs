@@ -184,6 +184,15 @@ public static class THardwareInfo
     /// <summary>Makes a pending <see cref="WaitForEvents"/> return. Safe to call from any thread.</summary>
     public static void InterruptEventWait() => Platf.InterruptEventWait();
 
+    /// <summary>Puts <paramref name="text"/> on the system clipboard; false if the console does not support it.</summary>
+    public static bool SetClipboardText(ReadOnlySpan<char> text) => Platf.SetClipboardText(text);
+
+    /// <summary>
+    /// Asks for the system clipboard's text, which is passed to <paramref name="accept"/>; false if the console
+    /// does not support it.
+    /// </summary>
+    public static bool RequestClipboardText(Action<string> accept) => Platf.RequestClipboardText(accept);
+
     /// <summary>Milliseconds from an arbitrary starting point.</summary>
     public static ulong GetTickCountMs() => (ulong)(Stopwatch.GetTimestamp() * 1000 / Stopwatch.Frequency);
 

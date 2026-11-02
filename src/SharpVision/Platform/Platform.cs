@@ -94,6 +94,18 @@ internal sealed class Platform : IDisplayOutput
 
     public int GetScreenCols() => _displayBuf.Size.X;
 
+    public bool SetClipboardText(ReadOnlySpan<char> text)
+    {
+        lock (_lock)
+            return _console?.SetClipboardText(text) ?? false;
+    }
+
+    public bool RequestClipboardText(Action<string> accept)
+    {
+        lock (_lock)
+            return _console?.RequestClipboardText(accept) ?? false;
+    }
+
     public void SetCaretPosition(int x, int y) => _displayBuf.SetCaretPosition(x, y);
 
     public void SetCaretSize(int size) => _displayBuf.SetCaretSize(size);

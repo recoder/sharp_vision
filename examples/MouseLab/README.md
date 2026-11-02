@@ -19,6 +19,8 @@ Not an upstream example: a manual checklist for mouse handling. Run it with
   - drag the title bar to move it;
   - click a label (`Name`, `Long text`) to focus its input line;
   - in an input line, click to place the cursor, drag to select, double-click to select all;
+  - select text in an input line, press Shift-Del (cut) or Ctrl-Ins (copy), click the other line and
+    press Shift-Ins: the text is pasted. With no system clipboard support yet, this stays inside the app;
   - type a name, tab away, then click the `↓` arrow next to `Name`: a list of earlier names drops
     down; double-click one to put it in the line, or click outside the list to close it;
   - in `Long text`, hold the button on the `◄`/`►` arrows (or drag past the edges) to scroll;

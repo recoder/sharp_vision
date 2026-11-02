@@ -420,8 +420,26 @@ public class TInputLine : TView
                     DrawView();
                     ClearEvent(ref ev);
                     break;
-                    // shortcut: cmCut/cmCopy/cmPaste are not handled because TClipboard and paste
-                    // events are not ported yet; port the evCommand branch together with them.
+                case evCommand:
+                    if (ev.Message.Command == cmPaste)
+                    {
+                        TClipboard.RequestText();
+                        ClearEvent(ref ev);
+                    }
+                    else if (ev.Message.Command == cmCut || ev.Message.Command == cmCopy)
+                    {
+                        TClipboard.SetText(Data.AsSpan(SelStart, SelEnd - SelStart));
+                        if (ev.Message.Command == cmCut)
+                        {
+                            SaveState();
+                            DeleteSelect();
+                            CheckValid(true);
+                            SelStart = SelEnd = 0;
+                            DrawView();
+                        }
+                        ClearEvent(ref ev);
+                    }
+                    break;
             }
             if (CanUpdateCommands())
                 UpdateCommands();
