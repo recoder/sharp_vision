@@ -21,7 +21,7 @@ change that ports a type. Status values: `todo`, `wip`, `done` (ported with test
 | Events | `system.h`, `tkeys.h`, `tkey.cpp` | `TEvent`, `MouseEventType`, `KeyDownEvent`, `CharScanType`, `MessageEvent`, `TKey`, `EventCodes`, `KeyCodes` | done | `TEvent` parts don't overlap; `MessageEvent.InfoPtr` is separate from the integers |
 | Events | `system.h`, `tevent.cpp`, `tmouse.cpp` | `TEventQueue`, `TMouse`, `TEvent.GetMouseEvent`/`GetKeyEvent` | done | Static classes; `Initialize`/`Done` replace constructor/destructor |
 | Events | `system.h`, `ttimerqu.cpp` | `TTimerQueue` | done | |
-| Events | `system.h`, `tclipbrd.cpp` | `TClipboard` | done | Static class. Uses the local clipboard until a console backend supports the system clipboard |
+| Events | `system.h`, `tclipbrd.cpp` | `TClipboard` | wip | Static class. Partially broken on Windows and Linux: no console backend implements the system clipboard yet (Win32 clipboard API, xclip/xsel/wl-clipboard, OSC 52, far2l), so text only moves within the app through the local clipboard. To be revisited |
 | Events | `views.h`, `tcmdset.cpp` | `TCommandSet` | done | |
 | Views | `views.h`, `tview.cpp`, `tvwrite.cpp`, `tvexposd.cpp`, `tvcursor.cpp`, `mapcolor.cpp`, `misc.cpp` | `TView` | done | DOS `ushort` cell overloads of `WriteBuf`/`WriteLine` not ported |
 | Views | `views.h`, `tgroup.cpp`, `grp.cpp`, `tgrmv.cpp` | `TGroup` | done | |
