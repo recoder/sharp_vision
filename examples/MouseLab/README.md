@@ -46,6 +46,14 @@ Not an upstream example: a manual checklist for mouse handling. Run it with
   - double-click a directory in the tree: the tree re-roots there and `Directory name` follows;
   - with the tree focused, `Chdir` is the default button; `Revert` goes back to the current directory;
   - click `OK`, then reopen `Open file...`: it lists the new directory.
+- **Outline** (`Lab > Outline`):
+  - click a node to focus it; drag up/down (hold above or below the window to keep scrolling);
+  - click the `├─+` / `├──` graph left of a branch to collapse or expand it (even branches start collapsed);
+    clicking the text only focuses;
+  - press Enter: a box shows `Selected ...`. Double-clicking does nothing more than a click: upstream
+    checks for the double click on the button release, which never carries it (ported as is);
+  - drag the scroll bars and use the wheel; the horizontal bar reveals the long branch titles;
+  - keys, handy to check here: `+`, `-` and `*` expand, collapse and expand all.
 - **Editor** (`Lab > Editor`):
   - click to place the cursor; drag to select (hold above or below the text, or past the sides, to keep scrolling);
   - double-click selects a word, a run of blanks or a run of punctuation; triple-click selects a line;

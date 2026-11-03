@@ -59,7 +59,7 @@ change that ports a type. Status values: `todo`, `wip`, `done` (ported with test
 | Editors | `tmemo.cpp` | `TMemo` | done | The data slot is the text as a string instead of `TMemoData` |
 | Editors | `tfiledtr.cpp`, `teditwnd.cpp` | `TFileEditor`, `TEditWindow` | done | Files are read as UTF-8 (or per their BOM) and written as UTF-8 without a BOM; invalid UTF-8 is read as U+FFFD. The `edSaveAs` argument is a one-slot data record holding the name |
 | Editors | `textview.cpp`, `ttprvlns.cpp` | `TTextDevice`, `TTerminal` | done | No `streambuf`/`otstream`: write with `DoSputn`/`Overflow`. The buffer holds UTF-16 code units |
-| Optional | `outline.h` | `TOutline` | todo | |
+| Optional | `toutline.cpp`, `outline.h` | `TOutlineViewer`, `TOutline`, `TNode`, `TOutlineVisitor`, `OutlineFlags` | done | Visitors are closures instead of a `void*` argument; `GetGraph` returns a string. UPSTREAM: double click never selects (the flag is checked on the mouse-up event) |
 | Optional | `colorsel.h` | `TColorDialog` | todo | |
 | Optional | `help.h`, `helpbase.h` | `THelpWindow`, `THelpFile` | todo | |
 | Streams | `tobjstrm.h`, `resource.h` | `TStreamable`, `TResourceFile` | skip | Deferred until something needs it |

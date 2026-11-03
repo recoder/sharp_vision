@@ -8,6 +8,7 @@ using SharpVision.Editors;
 using SharpVision.Events;
 using SharpVision.Menus;
 using SharpVision.Objects;
+using SharpVision.Outline;
 using SharpVision.StdDlg;
 using SharpVision.Views;
 using static SharpVision.Dialogs.DialogFlags;
@@ -30,6 +31,7 @@ internal sealed class MouseLabApp : TApplication
     private const ushort ChDirCmd = 104;
     private const ushort EditorCmd = 105;
     private const ushort ShowClipCmd = 106;
+    private const ushort OutlineCmd = 107;
 
     // Kept between runs so reopening the dialog shows what OK stored.
     private readonly object?[] _data = ["", "A long line that does not fit, so it scrolls with the mouse", (ushort)0, (ushort)0,
@@ -78,6 +80,9 @@ internal sealed class MouseLabApp : TApplication
             case EditorCmd:
                 NewEditor();
                 break;
+            case OutlineCmd:
+                NewOutline();
+                break;
             case ShowClipCmd:
                 _clipWindow.Select();
                 _clipWindow.Show();
@@ -105,6 +110,25 @@ internal sealed class MouseLabApp : TApplication
         InsertWindow(w);
     }
 
+    private void NewOutline()
+    {
+        var w = new TWindow(new TRect(10, 3, 50, 16), "Outline", wnNoNumber);
+        var h = w.StandardScrollBar(sbHorizontal | sbHandleKeyboard);
+        var v = w.StandardScrollBar(sbVertical | sbHandleKeyboard);
+        var r = w.GetExtent();
+        r.Grow(-1, -1);
+        TNode? root = null;
+        for (var i = 8; i >= 1; i--)
+        {
+            TNode? leaves = null;
+            for (var j = 3; j >= 1; j--)
+                leaves = new TNode($"Leaf {i}.{j}", null, leaves);
+            root = new TNode($"Branch {i}: a long title to scroll horizontally", new TNode($"Group {i}", leaves, null), root, i % 2 == 1);
+        }
+        w.Insert(new LabOutline(r, h, v, root));
+        InsertWindow(w);
+    }
+
     public static new TMenuBar? InitMenuBar(TRect r)
     {
         r.B.Y = r.A.Y + 1;
@@ -116,6 +140,7 @@ internal sealed class MouseLabApp : TApplication
                 new TMenuItem("~O~pen file...", FileCmd, kbAltO, hcNoContext, "Alt-O") +
                 new TMenuItem("~C~hange dir...", ChDirCmd, kbNoKey) +
                 new TMenuItem("~E~ditor", EditorCmd, kbAltE, hcNoContext, "Alt-E") +
+                new TMenuItem("O~u~tline", OutlineCmd, kbNoKey) +
                 TMenuItem.NewLine() +
                 new TMenuItem("E~x~it", cmQuit, kbAltX, hcNoContext, "Alt-X") +
             new TSubMenu("~C~lipboard", kbNoKey) +
@@ -275,4 +300,11 @@ internal sealed class LabGrid(TRect bounds, TScrollBar h, TScrollBar v) : TScrol
             WriteLine(0, y, Size.X, 1, b);
         }
     }
+}
+
+// Reports selected nodes (Enter) in a message box.
+internal sealed class LabOutline(TRect bounds, TScrollBar h, TScrollBar v, TNode? root) : TOutline(bounds, h, v, root)
+{
+    public override void Selected(int i) =>
+        MsgBox.MessageBox($"Selected {GetText(GetNode(i)!)}.", MsgBox.mfInformation | MsgBox.mfOKButton);
 }
