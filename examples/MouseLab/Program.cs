@@ -2,6 +2,7 @@
 // windows and dialog controls. See README.md for the checklist.
 
 using SharpVision.App;
+using SharpVision.ColorSel;
 using SharpVision.Dialogs;
 using SharpVision.Drawing;
 using SharpVision.Editors;
@@ -9,6 +10,7 @@ using SharpVision.Events;
 using SharpVision.Menus;
 using SharpVision.Objects;
 using SharpVision.Outline;
+using SharpVision.Platform;
 using SharpVision.StdDlg;
 using SharpVision.Views;
 using static SharpVision.Dialogs.DialogFlags;
@@ -32,6 +34,7 @@ internal sealed class MouseLabApp : TApplication
     private const ushort EditorCmd = 105;
     private const ushort ShowClipCmd = 106;
     private const ushort OutlineCmd = 107;
+    private const ushort ColorsCmd = 108;
 
     // Kept between runs so reopening the dialog shows what OK stored.
     private readonly object?[] _data = ["", "A long line that does not fit, so it scrolls with the mouse", (ushort)0, (ushort)0,
@@ -83,6 +86,12 @@ internal sealed class MouseLabApp : TApplication
             case OutlineCmd:
                 NewOutline();
                 break;
+            case ColorsCmd:
+                // Edits the application palette in place; OK copies the result into it.
+                object?[] pal = [GetPalette()];
+                if (ExecuteDialog(new TColorDialog(null, ColorGroups()), pal) != cmCancel)
+                    SetScreenMode(TScreen.ScreenMode);
+                break;
             case ShowClipCmd:
                 _clipWindow.Select();
                 _clipWindow.Show();
@@ -129,6 +138,35 @@ internal sealed class MouseLabApp : TApplication
         InsertWindow(w);
     }
 
+    // A few groups from upstream's tvdemo (TVDemo::colors).
+    private static TColorGroup ColorGroups() =>
+        new TColorGroup("Desktop") +
+            new TColorItem("Color", 1) +
+        new TColorGroup("Menus") +
+            new TColorItem("Normal", 2) +
+            new TColorItem("Disabled", 3) +
+            new TColorItem("Shortcut", 4) +
+            new TColorItem("Selected", 5) +
+            new TColorItem("Selected disabled", 6) +
+            new TColorItem("Shortcut selected", 7) +
+        new TColorGroup("Windows") +
+            new TColorItem("Frame passive", 8) +
+            new TColorItem("Frame active", 9) +
+            new TColorItem("Frame icons", 10) +
+            new TColorItem("Scroll bar page", 11) +
+            new TColorItem("Scroll bar icons", 12) +
+            new TColorItem("Text", 13) +
+        new TColorGroup("Dialogs") +
+            new TColorItem("Frame/background", 33) +
+            new TColorItem("Frame icons", 34) +
+            new TColorItem("Static text", 37) +
+            new TColorItem("Label normal", 38) +
+            new TColorItem("Label selected", 39) +
+            new TColorItem("Label shortcut", 40) +
+            new TColorItem("Button normal", 41) +
+            new TColorItem("Button default", 42) +
+            new TColorItem("Button selected", 43);
+
     public static new TMenuBar? InitMenuBar(TRect r)
     {
         r.B.Y = r.A.Y + 1;
@@ -141,6 +179,7 @@ internal sealed class MouseLabApp : TApplication
                 new TMenuItem("~C~hange dir...", ChDirCmd, kbNoKey) +
                 new TMenuItem("~E~ditor", EditorCmd, kbAltE, hcNoContext, "Alt-E") +
                 new TMenuItem("O~u~tline", OutlineCmd, kbNoKey) +
+                new TMenuItem("Co~l~ors...", ColorsCmd, kbNoKey) +
                 TMenuItem.NewLine() +
                 new TMenuItem("E~x~it", cmQuit, kbAltX, hcNoContext, "Alt-X") +
             new TSubMenu("~C~lipboard", kbNoKey) +
