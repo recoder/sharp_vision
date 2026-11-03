@@ -139,6 +139,21 @@ public partial class TView : TObject
         return ev.What == evNothing ? ev.Message.InfoPtr : null;
     }
 
+    /// <summary>
+    /// Like <see cref="Message(TView?, ushort, ushort, object?)"/>, for upstream calls that pass
+    /// an integer through <c>infoPtr</c>: it goes in <c>InfoLong</c> (see <see cref="MessageEvent"/>).
+    /// </summary>
+    public static object? Message(TView? receiver, ushort what, ushort command, int infoLong)
+    {
+        if (receiver is null)
+            return null;
+        var ev = new TEvent { What = what };
+        ev.Message.Command = command;
+        ev.Message.InfoLong = infoLong;
+        receiver.HandleEvent(ref ev);
+        return ev.What == evNothing ? ev.Message.InfoPtr : null;
+    }
+
     /// <summary>Called after the view is loaded and inserted. Does nothing by default.</summary>
     public virtual void Awaken()
     {

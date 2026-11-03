@@ -54,6 +54,13 @@ Not an upstream example: a manual checklist for mouse handling. Run it with
     checks for the double click on the button release, which never carries it (ported as is);
   - drag the scroll bars and use the wheel; the horizontal bar reveals the long branch titles;
   - keys, handy to check here: `+`, `-` and `*` expand, collapse and expand all.
+- **Colors** (`Lab > Colors...`):
+  - click a group, then an item: the `Text` sample shows that item's current color and the selectors mark it;
+  - click a color cell, or press and drag across the cells: the sample follows (dragging outside restores the
+    color); the background grid has only 8 colors;
+  - pick another item and come back: its edited color is kept; the item list remembers its focus per group,
+    also across dialogs;
+  - click `OK`: the application redraws in the new colors (e.g. `Desktop > Color`). `Cancel` discards them.
 - **Editor** (`Lab > Editor`):
   - click to place the cursor; drag to select (hold above or below the text, or past the sides, to keep scrolling);
   - double-click selects a word, a run of blanks or a run of punctuation; triple-click selects a line;
