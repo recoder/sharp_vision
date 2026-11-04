@@ -61,7 +61,8 @@ change that ports a type. Status values: `todo`, `wip`, `done` (ported with test
 | Editors | `textview.cpp`, `ttprvlns.cpp` | `TTextDevice`, `TTerminal` | done | No `streambuf`/`otstream`: write with `DoSputn`/`Overflow`. The buffer holds UTF-16 code units |
 | Optional | `toutline.cpp`, `outline.h` | `TOutlineViewer`, `TOutline`, `TNode`, `TOutlineVisitor`, `OutlineFlags` | done | Visitors are closures instead of a `void*` argument; `GetGraph` returns a string. UPSTREAM: double click never selects (the flag is checked on the mouse-up event) |
 | Optional | `colorsel.h` | `TColorItem`, `TColorGroup`, `TColorIndex`, `TColorSelector`, `TMonoSelector`, `TColorDisplay`, `TColorGroupList`, `TColorItemList`, `TColorDialog` | done | Data is one slot holding a `TPalette`. `TColorDisplay` edits `TColorAttr[]` + index instead of a pointer. `TView.Message` has an `int` overload for upstream's integer `infoPtr` |
-| Optional | `help.h`, `helpbase.h` | `THelpWindow`, `THelpFile` | todo | |
+| Optional | `help.h`, `helpbase.h` | `TParagraph`, `TCrossRef`, `THelpTopic`, `THelpIndex`, `THelpFile`, `THelpViewer`, `THelpWindow` | done | Reads and writes upstream `.hlp` files (checked against tvhc output). Text is UTF-8 with other bytes read as CP437; U+00A0 is written as 0xFF like tvhc. Cross-reference offsets are converted to UTF-16 |
+| Streams | `tobjstrm.h` | `PStream` (subset of `pstream`/`ipstream`/`opstream`) | wip | Primitives, strings and object prefixes/suffixes for help files; no `TStreamable` registry or indexed pointers |
 | Streams | `tobjstrm.h`, `resource.h` | `TStreamable`, `TResourceFile` | skip | Deferred until something needs it |
 | Examples | `hello.cpp` | `examples/Hello` | done | |
 | Examples | `examples/tvdemo`, `examples/tvedit` | | todo | |
