@@ -65,4 +65,5 @@ change that ports a type. Status values: `todo`, `wip`, `done` (ported with test
 | Streams | `tobjstrm.h` | `PStream` (subset of `pstream`/`ipstream`/`opstream`) | wip | Primitives, strings and object prefixes/suffixes for help files; no `TStreamable` registry or indexed pointers |
 | Streams | `tobjstrm.h`, `resource.h` | `TStreamable`, `TResourceFile` | skip | Deferred until something needs it |
 | Examples | `hello.cpp` | `examples/Hello` | done | |
-| Examples | `examples/tvdemo`, `examples/tvedit` | | todo | |
+| Examples | `examples/tvedit` | `examples/TVEdit` | done | The find and replace records are copied to and from the dialogs' data slots |
+| Examples | `examples/tvdemo` | | todo | |
