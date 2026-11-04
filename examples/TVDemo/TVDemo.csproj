@@ -1,0 +1,15 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <IsPackable>false</IsPackable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\SharpVision\SharpVision.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <!-- Upstream's precompiled help file (examples/tvdemo/demohelp.h32). -->
+    <None Include="demohelp.h32" CopyToOutputDirectory="PreserveNewest" />
+  </ItemGroup>
+</Project>
