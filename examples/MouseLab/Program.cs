@@ -1,17 +1,21 @@
 // Not ported from upstream: a manual test bed for mouse handling in menus, the status line,
 // windows and dialog controls. See README.md for the checklist.
 
+using System;
+using System.IO;
 using SharpVision.App;
 using SharpVision.ColorSel;
 using SharpVision.Dialogs;
 using SharpVision.Drawing;
 using SharpVision.Editors;
 using SharpVision.Events;
+using SharpVision.Help;
 using SharpVision.Menus;
 using SharpVision.Objects;
 using SharpVision.Outline;
 using SharpVision.Platform;
 using SharpVision.StdDlg;
+using SharpVision.Streams;
 using SharpVision.Views;
 using static SharpVision.Dialogs.DialogFlags;
 using static SharpVision.Editors.EditorCommands;
@@ -35,6 +39,7 @@ internal sealed class MouseLabApp : TApplication
     private const ushort ShowClipCmd = 106;
     private const ushort OutlineCmd = 107;
     private const ushort ColorsCmd = 108;
+    private const ushort HelpCmd = 109;
 
     // Kept between runs so reopening the dialog shows what OK stored.
     private readonly object?[] _data = ["", "A long line that does not fit, so it scrolls with the mouse", (ushort)0, (ushort)0,
@@ -92,6 +97,9 @@ internal sealed class MouseLabApp : TApplication
                 if (ExecuteDialog(new TColorDialog(null, ColorGroups()), pal) != cmCancel)
                     SetScreenMode(TScreen.ScreenMode);
                 break;
+            case HelpCmd:
+                InsertWindow(new THelpWindow(LabHelpFile(), 1));
+                break;
             case ShowClipCmd:
                 _clipWindow.Select();
                 _clipWindow.Show();
@@ -138,6 +146,26 @@ internal sealed class MouseLabApp : TApplication
         InsertWindow(w);
     }
 
+    // A help file built in memory, as the help compiler (tvhc) would write it: topic 1 links to 2 and 3.
+    private static THelpFile LabHelpFile()
+    {
+        var f = new THelpFile(new PStream(new MemoryStream()));
+        void Put(int context, string text, params (string Link, int Target)[] links)
+        {
+            var t = new THelpTopic();
+            t.AddParagraph(new TParagraph { Text = text, Wrap = true });
+            foreach (var (link, target) in links)
+                t.AddCrossRef(new TCrossRef { Offset = text.IndexOf(link, StringComparison.Ordinal) + 1, Length = (byte)link.Length, Ref = target });
+            f.RecordPositionInIndex(context);
+            f.PutTopic(t);
+        }
+        Put(1, "MouseLab help\n\nClick a link, or Tab to it and press Enter: see Windows or Dialogs. " +
+            "This paragraph is long enough to wrap, so resizing the window rewraps it.\n", ("Windows", 2), ("Dialogs", 3));
+        Put(2, "Windows\n\nDrag the title bar to move a window. Back to the Contents.\n", ("Contents", 1));
+        Put(3, "Dialogs\n\nClick a label to focus its control. Back to the Contents.\n", ("Contents", 1));
+        return f;
+    }
+
     // A few groups from upstream's tvdemo (TVDemo::colors).
     private static TColorGroup ColorGroups() =>
         new TColorGroup("Desktop") +
@@ -180,6 +208,7 @@ internal sealed class MouseLabApp : TApplication
                 new TMenuItem("~E~ditor", EditorCmd, kbAltE, hcNoContext, "Alt-E") +
                 new TMenuItem("O~u~tline", OutlineCmd, kbNoKey) +
                 new TMenuItem("Co~l~ors...", ColorsCmd, kbNoKey) +
+                new TMenuItem("~H~elp", HelpCmd, kbNoKey) +
                 TMenuItem.NewLine() +
                 new TMenuItem("E~x~it", cmQuit, kbAltX, hcNoContext, "Alt-X") +
             new TSubMenu("~C~lipboard", kbNoKey) +

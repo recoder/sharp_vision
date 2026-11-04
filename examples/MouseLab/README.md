@@ -61,6 +61,12 @@ Not an upstream example: a manual checklist for mouse handling. Run it with
   - pick another item and come back: its edited color is kept; the item list remembers its focus per group,
     also across dialogs;
   - click `OK`: the application redraws in the new colors (e.g. `Desktop > Color`). `Cancel` discards them.
+- **Help** (`Lab > Help`, a small help file built in memory):
+  - the links (`Windows`, `Dialogs`) are highlighted, the first one in the selected color;
+  - click a link: the window shows that topic; `Contents` leads back;
+  - Tab / Shift-Tab move the selected link and Enter follows it; Esc closes the window;
+  - drag the bottom-right corner: the first paragraph rewraps to the new width;
+  - the scroll bars and the wheel scroll the text.
 - **Editor** (`Lab > Editor`):
   - click to place the cursor; drag to select (hold above or below the text, or past the sides, to keep scrolling);
   - double-click selects a word, a run of blanks or a run of punctuation; triple-click selects a line;
