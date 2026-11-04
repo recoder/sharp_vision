@@ -37,6 +37,7 @@ change that ports a type. Status values: `todo`, `wip`, `done` (ported with test
 | Menus | `menus.h`, `tmenupop.cpp`, `popupmnu.cpp` | `TMenuPopup`, `popupMenu` | done | `popupMenu` is `TMenuPopup.PopupMenu` |
 | Menus | `menus.h`, `tstatusl.cpp` | `TStatusLine`, `TStatusDef`, `TStatusItem` | done | |
 | Objects | `util.h`, `drivers2.cpp`, `tvtext2.cpp` | `Util` (`Cstrlen`, `HotKeyStr`, `GetAltChar`, `GetAltCode`, ...) | done | |
+| Objects | `util.h`, `prntcnst.cpp` | `PrintConstants` (`PrintKeyCode`, `PrintEventCode`, `PrintControlKeyState`, ...) | done | Writes to a `TextWriter` |
 | Dialogs | `dialogs.h`, `tdialog.cpp`, `tbutton.cpp`, `tstatict.cpp` | `TDialog`, `TButton`, `TStaticText`, `DialogFlags` | done | `TStaticText.GetText` returns a string |
 | Dialogs | `dialogs.h`, `tlabel.cpp`, `tparamte.cpp` | `TLabel`, `TParamText` | done | `TParamText.SetText` takes a formatted string instead of `printf` arguments |
 | Dialogs | `dialogs.h` | `TInputLine` | done | Limits count UTF-16 code units, not UTF-8 bytes. |
@@ -66,4 +67,4 @@ change that ports a type. Status values: `todo`, `wip`, `done` (ported with test
 | Streams | `tobjstrm.h`, `resource.h` | `TStreamable`, `TResourceFile` | skip | Deferred until something needs it |
 | Examples | `hello.cpp` | `examples/Hello` | done | |
 | Examples | `examples/tvedit` | `examples/TVEdit` | done | The find and replace records are copied to and from the dialogs' data slots |
-| Examples | `examples/tvdemo` | | todo | |
+| Examples | `examples/tvdemo` | `examples/TVDemo` | done | Uses upstream's precompiled `demohelp.h32` (no tvhc port yet). Save/Retrieve desktop are disabled: they need `TStreamable` for every view. The heap view shows the managed heap |
